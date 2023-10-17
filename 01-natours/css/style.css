@@ -1,0 +1,281 @@
+/*
+COLORS:
+
+Light green: #7ed56f
+Medium green: #55c57a
+Dark green: #28b485
+
+*/
+
+* {
+  margin: 0;
+  padding: 0;
+  /* Changes the box model behavior so that the borders and paddings are no longer added to the total width or total height that we specify for a box */
+  box-sizing: border-box;
+}
+
+/* Inheritance */
+body {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.7; /* 1.7 times bigger that the predefined */
+  color: #777;
+  padding: 30px; /* Not inherited, just applies to the hole body */
+}
+
+.header {
+  height: 95vh;
+  /* Remember that we have to images, the gradient and the image itself */
+  background-image: linear-gradient(
+      to right bottom,
+      rgba(126, 213, 111, 0.8),
+      rgba(40, 180, 133, 0.8)
+    ),
+    url("/img/hero.jpg");
+  background-size: cover; /* To fit in the box */
+  background-position: top; /* Ensures that the image stays on the top of the container when we change the size of the window. */
+
+  /* New property, clip-path to specify the polygon where the image is still visible */
+  /* Defining the polygon is clockwise */
+  clip-path: polygon(0 0, 100% 0, 100% 75%, 0 100%);
+
+  /* To the logo-box */
+  position: relative;
+}
+
+.logo-box {
+  position: absolute;
+  top: 25px;
+  left: 25px;
+}
+
+.logo {
+  height: 35px;
+}
+
+.text-box {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  /* For the button to be aligned to the center */
+  text-align: center;
+}
+
+.heading-primary {
+  color: #fff;
+  text-transform: uppercase;
+
+  /* Fix for the up shake with the animation */
+  backface-visibility: hidden;
+
+  /* To space it from the next element */
+  margin-bottom: 60px;
+}
+.heading-primary-main {
+  /* To display the child elements in different lines the best way is to set the display to block (span are inline) */
+  display: block;
+  font-size: 60px;
+  font-weight: 400;
+  letter-spacing: 35px;
+
+  /* ANIMATION */
+  animation-name: moveInLeft;
+  animation-duration: 1s;
+  animation-timing-function: ease-out;
+  /* animation-iteration-count: 3; */
+  /* animation-delay: 3s; */
+}
+.heading-primary-sub {
+  display: block;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 17.4px;
+
+  /* ANIMATION */
+  animation: moveInRight 1s ease-out;
+}
+
+/* ANIMATIONS */
+
+/* Generally, there are two types of animations in css. The first one (easier) is to use the transition property and change the properties that we want to animate on an event (hover) */
+
+/* The other is to use the keyframes @ rule */
+
+/* We are going to start with the outdoors (heading-primary-main) that moves from the left */
+
+/* IMPORTANT - For browser performance is better to only ever animate two different properties: the opacity and the transform */
+
+/* For an animation to work, there are only two properties that we have to REALLY specify: ANIMATION NAME and ANIMATION DURATION (on the element that we want to animate) */
+/* The others are animation delay (before it starts), animation-iteration-count (happens n times) and animation-timing-function */
+
+/* In the course, after the animation there is a slight shake of the entire box upwards, it doesn't happen in my case but the fix is with the backface-visibility: hidden on the h1 */
+/* This property is used to set if the back part on an element is visible to the user when we transform it  */
+
+@keyframes moveInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+
+  80% {
+    /* goes a bit to the right before the final state */
+    transform: translateX(10px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+
+/* For the heading-primary-sub */
+@keyframes moveInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+
+  80% {
+    /* goes a bit to the left before the final state */
+    transform: translateX(-10px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+
+/* For the button */
+
+@keyframes moveInBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+
+/* BUTTONS */
+/* Pseudo classes are special states of a selector, we use pseudo classes to style elements under a special condition (state) */
+
+/* The link is a special state of a selector when it is a anchor element */
+
+/* The visited is the state when the user already clicked once in the button and then sees it again (purple default). That's why it is common for the link and the visited state to be styled in the same way. */
+
+/* The hover state is when we hover */
+/* The active state is when we click */
+
+.btn:link,
+.btn:visited {
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 15px 40px;
+  display: inline-block; /* We always need to change the display of inline elements if we want to give them some padding, height, width, or simply their own space because inline elements are treated as text, that's why next we can do: */
+  /* text-align: center;  on it's container - text box */
+
+  border-radius: 100px;
+
+  /* For the animation REMEMBER THAT THE TRANSITION IS PLACED ON THE INITIAL STATE */
+  transition: all 0.2s;
+
+  /* For the pseudo element positioning */
+  position: relative;
+}
+
+.btn:hover {
+  /* up when we hover */
+  transform: translateY(-3px);
+
+  /* Adding the shadow also when we hover (x(up) y(down) blur rgba ) */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+.btn:active {
+  /* Remember that the transform is not related with the hover state but with the initial state (link) */
+  transform: translateY(-1px);
+
+  /* To give the impression that the shadow is smaller (btn closer to the page) */
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn-white {
+  background-color: #fff;
+  color: #777;
+}
+
+/* NOW for pseudo elements. These allow us to style certain parts of elements, for example, the after pseudo element adds a kind of virtual element (that we can style) right after the element that we are selecting */
+
+.btn::after {
+  /* The trick is to add an element that looks exactly like the button that we already have, but we put it BEHIND button. When we hover out of the button, then this hidden pseudo element goes back behind the button */
+
+  /* In order for a pseudo element to appear on the page we need to specify the content property (even if it is empty) and the display property */
+  content: "";
+  display: inline-block; /* Because the one that we have is also inline block - we want it to be exactly equal. */
+  height: 100%;
+  /* Both the hight and the width work because the after pseudo element is treated like a child of the button, so it is 100% of the button */
+  width: 100%;
+  border-radius: 100px;
+
+  /* To place it behind the button - The reference must be the button so: */
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1; /* Remember that the z index defines the position of the elements if they are one on top of another */
+
+  /* For the animation of the pseudo element, because, in this case, this is it's initial state */
+  transition: all 0.4s;
+  /* We also want it to be white, but to do this we can't apply it in this class, so we create another pseudo element for the btn-white */
+}
+.btn-white::after {
+  background-color: #fff;
+  color: #777;
+}
+
+/* NOW comes the trickiest part, so when do we want to see this pseudo button? When we hover our button. We need to write it like this: when we hover the button, we want some styles for the after pseudo element - in other words (backwards) the styles on the pseudo element will only be applied if/when we have the button in the hover state */
+.btn:hover::after {
+  transform: scaleX(1.5) scaleY(1.6); /* Scales two times the size that it had before */
+
+  opacity: 0; /* After it scales it fades out */
+}
+
+/* For the animation we created with @keyframes. There are going to be multiple buttons, but we only want this one to have this animation, so we create a class for this. */
+.btn-animated {
+  animation: moveInBottom 0.5s ease-out 0.75s;
+  /* With a delay (THIS LAST VALUE) so it doesn't start at the same time as the others */
+
+  /* REMEMBER that until this point the only problem was that the button appeared when the page was rendered and only after the animation took place */
+  /* To solve this we need to use another property related to animations which is animation-fill-mode and set it to backwards. This applies the styles of the 0% before the animation starts */
+  animation-fill-mode: backwards;
+}
+
+/* 
+
+Things to take:
+
+1. Inline elements are treated as text
+2. The transform is one of them most important properties
+3. The y axis moves from the top to the bottom, so up gets negative values.
+4. Transition: all seconds - to animate the states
+
+
+
+
+SLIDES - UNITS CONVERTED FROM RELATIVE TO ABSOLUTE (PX).
+
+1. Distinction between using percentages for fonts or for length (distance measurements)
+    1.1 - If we define a declaration that sets the font size to 150% (in the header for ex), that means that the element will have a font size  150% larger than its parent element (remember 16 px root), so 24px.
+
+    1.2 - For length set in percentages it works a bit different. Height, padding, margin or something else that is a distance, the reference is ALWAYS the parents element width. So if the parent element has a width of 1000px and we set the padding of the child element to 10%, that means it gets 100px of padding.
+
+2. Font-based relative units - em, rem. Again, it is different to use em or rem for fonts or for length. BOTH em and rem are font-based, the difference is that em use the parent or the current element as a reference WHILE rems use the root (html) font-size as the reference.
+
+  em are similar to percentages and 
+
+*/
