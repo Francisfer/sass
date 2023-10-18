@@ -7,21 +7,32 @@ Dark green: #28b485
 
 */
 
-* {
+/* If we use pseudo elements we might also include them in the global reset (if we give them a height or a width or a boarder they need to be applied in the same conditions so that we don't face weird behavior)*/
+*,
+*::after,
+*::before {
   margin: 0;
   padding: 0;
   /* Changes the box model behavior so that the borders and paddings are no longer added to the total width or total height that we specify for a box */
-  box-sizing: border-box;
+  box-sizing: inherit;
+  /* I is a better practice to set the box-sizing to boarder box in the body and then inherit it here.
+  This because it makes it easier to change the box sizing in plugins or other components where we might want to use a different property for box sizing */
+}
+
+html {
+  /* font-size: 10px; */
+  font-size: 62.5%;
 }
 
 /* Inheritance */
 body {
+  box-sizing: border-box;
   font-family: "Lato", sans-serif;
   font-weight: 400;
-  font-size: 16px;
+  /* font-size: 16px; */
   line-height: 1.7; /* 1.7 times bigger that the predefined */
   color: #777;
-  padding: 30px; /* Not inherited, just applies to the hole body */
+  padding: 3rem; /* Not inherited, just applies to the hole body */
 }
 
 .header {
@@ -46,12 +57,12 @@ body {
 
 .logo-box {
   position: absolute;
-  top: 25px;
-  left: 25px;
+  top: 4rem;
+  left: 4rem;
 }
 
 .logo {
-  height: 35px;
+  height: 3.5rem;
 }
 
 .text-box {
@@ -72,14 +83,14 @@ body {
   backface-visibility: hidden;
 
   /* To space it from the next element */
-  margin-bottom: 60px;
+  margin-bottom: 6rem;
 }
 .heading-primary-main {
   /* To display the child elements in different lines the best way is to set the display to block (span are inline) */
   display: block;
-  font-size: 60px;
+  font-size: 6rem;
   font-weight: 400;
-  letter-spacing: 35px;
+  letter-spacing: 3.5rem;
 
   /* ANIMATION */
   animation-name: moveInLeft;
@@ -90,9 +101,9 @@ body {
 }
 .heading-primary-sub {
   display: block;
-  font-size: 20px;
+  font-size: 2rem;
   font-weight: 700;
-  letter-spacing: 17.4px;
+  letter-spacing: 1.75rem;
 
   /* ANIMATION */
   animation: moveInRight 1s ease-out;
@@ -117,12 +128,12 @@ body {
 @keyframes moveInLeft {
   0% {
     opacity: 0;
-    transform: translateX(-100px);
+    transform: translateX(-10rem);
   }
 
   80% {
     /* goes a bit to the right before the final state */
-    transform: translateX(10px);
+    transform: translateX(1rem);
   }
 
   100% {
@@ -135,12 +146,12 @@ body {
 @keyframes moveInRight {
   0% {
     opacity: 0;
-    transform: translateX(100px);
+    transform: translateX(10rem);
   }
 
   80% {
     /* goes a bit to the left before the final state */
-    transform: translateX(-10px);
+    transform: translateX(-1rem);
   }
 
   100% {
@@ -154,7 +165,7 @@ body {
 @keyframes moveInBottom {
   0% {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(3rem);
   }
 
   100% {
@@ -175,13 +186,14 @@ body {
 
 .btn:link,
 .btn:visited {
+  font-size: 1.6rem;
   text-transform: uppercase;
   text-decoration: none;
-  padding: 15px 40px;
+  padding: 1.5rem 4rem;
   display: inline-block; /* We always need to change the display of inline elements if we want to give them some padding, height, width, or simply their own space because inline elements are treated as text, that's why next we can do: */
   /* text-align: center;  on it's container - text box */
 
-  border-radius: 100px;
+  border-radius: 10rem;
 
   /* For the animation REMEMBER THAT THE TRANSITION IS PLACED ON THE INITIAL STATE */
   transition: all 0.2s;
@@ -192,17 +204,17 @@ body {
 
 .btn:hover {
   /* up when we hover */
-  transform: translateY(-3px);
+  transform: translateY(-0.3rem);
 
   /* Adding the shadow also when we hover (x(up) y(down) blur rgba ) */
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
 }
 .btn:active {
   /* Remember that the transform is not related with the hover state but with the initial state (link) */
-  transform: translateY(-1px);
+  transform: translateY(-0.1rem);
 
   /* To give the impression that the shadow is smaller (btn closer to the page) */
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
 }
 
 .btn-white {
@@ -221,7 +233,7 @@ body {
   height: 100%;
   /* Both the hight and the width work because the after pseudo element is treated like a child of the button, so it is 100% of the button */
   width: 100%;
-  border-radius: 100px;
+  border-radius: 10rem;
 
   /* To place it behind the button - The reference must be the button so: */
   position: absolute;
@@ -266,16 +278,82 @@ Things to take:
 
 
 
-
+**********************************************
 SLIDES - UNITS CONVERTED FROM RELATIVE TO ABSOLUTE (PX).
+**********************************************
 
 1. Distinction between using percentages for fonts or for length (distance measurements)
     1.1 - If we define a declaration that sets the font size to 150% (in the header for ex), that means that the element will have a font size  150% larger than its parent element (remember 16 px root), so 24px.
 
     1.2 - For length set in percentages it works a bit different. Height, padding, margin or something else that is a distance, the reference is ALWAYS the parents element width. So if the parent element has a width of 1000px and we set the padding of the child element to 10%, that means it gets 100px of padding.
 
-2. Font-based relative units - em, rem. Again, it is different to use em or rem for fonts or for length. BOTH em and rem are font-based, the difference is that em use the parent or the current element as a reference WHILE rems use the root (html) font-size as the reference.
+2. Font-based relative units - em, rem. Again, it is different to use em or rem for fonts or for lengths. BOTH em and rem are font-based, the difference is that em use the parent or the current element font size as a reference WHILE rems use the root (html) font-size as the reference.
 
-  em are similar to percentages and 
+  If using em for font sizes, the reference is the parent's computed font size. Using em for length, padding 2em for example, the current element's font size is used as a reference.
 
-*/
+  EM FOR FONTS - reference is the parent element
+  EM FOR LENGTH - reference is the current element
+
+  REMS - Always use the root font-size as a reference.
+
+  VH - % of the Viewport height 
+  VW - % of the Viewport width 
+
+**********************************************
+ROOT FONT SIZE
+**********************************************
+
+Setting the root font size for responsive units.
+We want the font size to be 10px in order to make the math easier, because when we use rem after setting the default to 10px, 1rem === 10px.
+
+The other reason and more important is the fact that now we only need to change one value (root font size) for everything to change.
+
+This makes the math easier, but, setting the default (root) to px removes the option of adjusting the font-size of the user.
+This is why we need to set the font size on the root to a percentage, which will translate to a percentage of the font size given by the browser.
+
+We want that percentage not to be 16px, remember, we want 10px, so 10/16 = 0.625
+or 62.5%.
+
+
+**********************************************
+CLASSES
+**********************************************
+
+Remember that this is the explanation why he writes classes in this way, at least the first doubt.
+
+The tactic is called BEM - block element modifier.
+It is a system for marking up the layouts.
+
+It is related with the component driven design (remember the atomic design, the smallest units on a page are the atoms, which together form molecules, which form organisms).
+These organisms can be seen as the components (a card for ex or btn)
+
+.block{
+  BLOCK is a standalone component that is meaningful on its own. These are the components, they can be reused in the project or across projects. btn 
+}
+
+.block__element{
+  The element is a part of a block that has no standalone meaning, if we take them out of the block they wouldn't be useful. 
+}
+.block__element--modifier{
+  The modifier is a flag that we can put on an element or a block in order to make a different version from the regular blocks or elements. 
+}
+
+**********************************************
+ARCHITECTURE
+**********************************************
+
+The 7-1 folder pattern.
+
+base - basic product? definitions
+
+components - where we have one file for each component
+
+layout - where we have the overall layout of the project
+
+pages - styles for specific pages of the project
+
+themes - if we want to implement different visual themes
+
+abstracts - where we put code that don't output any css (variables or mixins)
+
+vendors - third party css goes.
