@@ -1,0 +1,37 @@
+// The header could be treated as a component, but we are going to treat it as a layout element.
+
+// We know that, probably on each page that we will have in this website (imagine that it is going to expand), we will have this header in each of the pages. So this is a layout.
+
+// But it is worth mentioning that this could be a component, it is a matter of preference and organization strategy.
+
+.header {
+  height: 95vh;
+  background-image: linear-gradient(
+      to right bottom,
+      rgba($color-primary-light, 0.8),
+      rgba($color-primary-dark, 0.8)
+    ),
+    url("/img/hero.jpg");
+
+  background-size: cover;
+  background-position: top;
+  clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+  position: relative;
+
+  &__logo-box {
+    position: absolute;
+    top: 4rem;
+    left: 4rem;
+  }
+  &__logo {
+    height: 3.5rem;
+  }
+
+  &__text-box {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+}

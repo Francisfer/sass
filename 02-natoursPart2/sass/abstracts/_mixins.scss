@@ -1,0 +1,7 @@
+@mixin clearfix {
+  &::after {
+    content: ""; // For it to appear in the page
+    display: table; // Standard
+    clear: both; // The property that actually clears the floats
+  }
+}

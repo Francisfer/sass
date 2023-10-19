@@ -1,0 +1,19 @@
+//  BASIC DEFINITIONS OF THE ENTIRE PROJECT.
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  /* font-size: 10px; */
+  // Although this is also typography, it defines what a rem should be, so its more like a global definition.
+  font-size: 62.5%;
+}
+
+// The rest is in the typography
+body {
+  box-sizing: border-box;
+}
