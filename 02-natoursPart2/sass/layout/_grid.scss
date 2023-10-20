@@ -2,7 +2,6 @@
 
 .row {
   max-width: $grid-width;
-  background-color: #eee;
   margin: 0 auto;
   // margin-bottom: $gutter-vertical; We need to remove it from the general rule for:
   // USING THE NOT PSEUDO SELECTOR
@@ -20,7 +19,6 @@
 
   // SELECTING BY ATTRIBUTE - IMPORTANT!!!!!!! - the * instead of the ^ would select the classes which contain the col- part. The $ selects classes that end with the part col- >>>>MDN!!!!!!
   [class^="col-"] {
-    background-color: orangered;
     float: left;
     &:not(:last-child) {
       margin-right: $gutter-horizontal;

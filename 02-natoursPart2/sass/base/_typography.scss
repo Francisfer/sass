@@ -34,3 +34,48 @@ body {
     animation: moveInRight 1s ease-out;
   }
 }
+
+.heading-secondary {
+  font-size: 3.5rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.2rem; // Using px in very small units is acceptable
+  // For the gradient in the text (first we do it on the entire element)
+  background-image: linear-gradient(
+    to right,
+    $color-primary-light,
+    $color-primary_dark
+  );
+  // Then we change the display so that it only occupies the space that it needs (for the effect to only exist where there is text)
+  display: inline-block;
+
+  // For the gradient only to appear behind the text:
+  background-clip: text;
+  -webkit-background-clip: text; // Clips the background, in our case is the linear gradient, exactly where the text is.
+  // But we do not want to see the text, remember that it is already clipped, so we need to set the color to transparent in order to see the effect.
+  color: transparent; // If we have color, that will sit on top of the gradient
+
+  // Transition so that the effects can be animated.
+  transition: all 0.2s;
+  // EFFECT that happens when we hover
+
+  &:hover {
+    // This effects are basically transform. On transform, we can actually put multiple things at the same time (that we want to transform). We already saw translate, translateX, translateY, scale, rotate and now let's use skew.
+    transform: skewY(2deg) skewX(15deg) scale(1.1);
+    text-shadow: 0.5rem 1rem 2rem rgba($color-black, 0.2);
+  }
+}
+
+.heading-tertiary {
+  font-size: $default-font-size;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.paragraph {
+  font-size: $default-font-size;
+  // We use a bunch of paragraphs together in the code, so we want them to have a margin at the bottom, EXCEPT for the last one.
+  &:not(:last-child) {
+    margin-bottom: 3rem;
+  }
+}

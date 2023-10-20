@@ -1,0 +1,43 @@
+// Remember that all the sections are display block (occupy the entire width of the viewport)
+
+.section-about {
+  background-color: $color-grey-light-1;
+  padding: 25rem 0; // We give a padding of 25 so after we can pull the element up with the difference between 95 - 75 (header polygon) with negative margin top:
+  margin-top: -20rem;
+}
+
+.section-features {
+  padding: 20rem 0; // Is trendy to have lots of vertical space on pages.
+
+  background-image: linear-gradient(
+      to right bottom,
+      rgba($color-primary-light, 0.8),
+      rgba($color-primary-dark, 0.8)
+    ),
+    url("/img/nat-4.jpg");
+  background-size: cover;
+
+  // To skew the entire section with another technique other than clip-path with the polygon.
+  // Not only the technique is different but also the output, if you notice in the original, the image is skewed to the left (so in the y axis).
+
+  transform: skewY(-7deg);
+  // But, like this, we also skew the cards. Also we need to get rid of the space that appears on the left (we need to pull the section up)
+
+  // To put the cards together we just skew them in the opposite direction, but we do it here for future corrections purposes.
+  // There is no class named section-features__row, also. we cannot create a selector outside of this one for the row, otherwise all the rows that we might have in the project are going to be skewed.
+
+  // The solution is use the DIRECT CHILD SELECTOR. So ampersand, direct child (>) and the direct child that we want to select are all (*). In this case is just one, the row
+  & > * {
+    transform: skewY(7deg);
+  }
+
+  // Now to pull the section
+
+  margin-top: -12.6rem; // Trial and error on the console, in he's case -10 px were enough, but in my screen it was not.
+}
+
+.section-tours {
+  background-color: $color-grey-light-1;
+  padding: 25rem 0 50rem 0; // margin bottom so we can code the cards better.
+  margin-top: -13rem; // To move it up
+}

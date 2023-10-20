@@ -1,0 +1,49 @@
+.composition {
+  position: relative; // The reference
+
+  &__photo {
+    z-index: 10; // He sets a value here so we can put a bigger one on hover.
+    width: 55%; // Responsive
+    box-shadow: 0 1.5rem 4rem rgba($color-black, 0.4);
+    border-radius: 2px;
+
+    // Now to put them on top of each other and position them with the modifier classes
+    position: absolute;
+
+    transition: all 0.2s;
+
+    outline-offset: 2rem;
+
+    // And this is the purpose of the modifier classes - The numbers are placed with the help of the inspector of course.
+    &--p1 {
+      left: 0;
+      top: -2rem;
+    }
+    &--p2 {
+      right: 0;
+      top: 2rem;
+    }
+    &--p3 {
+      left: 20%;
+      top: 10rem;
+    }
+
+    // Implementing the hover effects
+    &:hover {
+      transform: scale(1.05) translateY(-0.5rem); // Make it bigger and closer
+      box-shadow: 0 2.5rem 4rem rgba($color-black, 0.5); // The box shadow also changes in order for a bigger shadow since the element scales
+
+      z-index: 20;
+
+      //New property - for an outline border
+      outline: 1.5rem solid $color-primary; // Like this it would be like setting a boarder, but what we cannot do with a boarder is to set the outline offset (what we do in the initial state)
+      // border-radius: 0; Notice that we inherit the border radius from the original state, we cannot get the same square outline
+    }
+  }
+  // For zooming out the other photos that are not hovered we need to do hover on the composition (so as soon as we hover the composition element), then select the photo that is inside of it that is not being hovered
+
+  // composition:hover composition__photo:not(:hover)
+  &:hover &__photo:not(:hover) {
+    transform: scale(0.95);
+  }
+}
