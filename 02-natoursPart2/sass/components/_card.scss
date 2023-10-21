@@ -1,4 +1,218 @@
+// This is a very complex component, so we need to point some strategies.
+// 1. The first one is that we create a new div for the card so that we can maintain the predefined columns.
+// 2. From the start, we need to keep in mind that we want the card to rotate from the front side to the back (180deg) and, of course, the content in each side is different.
+// 3. The rotation is made in the y direction.
+// 4. We start with what we already know, setting a background color, some height, the transition property on the card and the transform rotate on the hover state.
+// 5. Like this it kind of works, we see the rotation and the text as if it was on the other side. However the effect of the original is much nicer because it seems that the card is actually moving towards the user.
+
+// 6. This effect is called perspective and we can define it in css. However, the way we have to do it is kind of tricky. We need to define the perspective on the parent element of where the rotation occurs (.card), this means that the rest of the properties must be in a child element (except the hover) - on 8.
+
+// 7 - With this we conclude that we need to set the perspective on .card, we need to use a really huge number of rems. Also, to work in mozilla (at the time of the course) we need to use the moz-perspective. This means that if we want to use this property we must check how to do it for different browsers.
+
+// 8. Now we need to put the rest of the properties inside of a child element of .card, for that we need a new div that represents one side of the card, so .card__side and what we put there are the properties for that side, not the hover state. We will need to create another card later of course.
+
+// 9. The hover state must change as well, we need to say that when we hover the card, the side needs to transform.
+
+// 10. To build the other side we create a new div on the html and, to distinguish then, we add a modifier class card__side--front and card__side--back. This selectors are then nested inside of __side.
+
+// 11. At this point we have to cards, the front card above the back that rotate on hover. What we need to think now is what does it mean to be the front and the back? It means that the back is already rotated at the beginning and, on hover the rotation moves to zero and the front to 180 deg. Like this, we need to change the hover state to specify that the front and back should be rotated.
+
+// 12. Now to put them on top of another we need to take them out of the flow with position absolute, we do this in __side because that's the common class. The overlapping occurs because front has one more letter than back (setting display absolute and they start fitting to their width).
+
+// 13. Now you notice that only need to fix the backface so that we can only see the front part of the element. (remember that before setting it we could only see the back part)
+
+// 14. Notice how the perspective is now gone, that is because the card lost its height, remember that we've taken both faces out of the flow, so, although the cards appear with a height, their parent element lost its height. That's the floats curse. So we need to fix it, however, with floats we would use the clearfix hack, but this is position absolute, there is no hack, we really need to manually set the height on card.
+
+// IMPORTANT - When setting the transition timing functions, take a look at the console to see the different types. If we don't specify nothing the default is linear, but we want it ease.
+
+// 15. In relation to the colors of the cards, we can see that the example front is white in all of them, what changes is the back part of each one. Having three gradients means that we need a new modifier. We have a class for the general backside and a modifier to each one.
+
 .card {
-  background-color: aqua;
-  height: 50rem;
+  // FUNCTIONALITY
+
+  perspective: 150rem;
+  -moz-perspective: 150rem;
+  position: relative;
+  height: 52rem; // Because there is nothing like clearfix to fix the floats
+
+  &__side {
+    // background-color: aqua;
+    // color: #fff;
+    height: 52rem;
+    font-size: 2rem;
+    transition: all 0.8s ease;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    backface-visibility: hidden;
+    box-shadow: 0 1.5rem 4rem rgba($color-black, 0.15);
+    border-radius: 3px;
+    overflow: hidden; // So that the images below don't overlap
+
+    &--front {
+      background-color: $color-white;
+    }
+    &--back {
+      transform: rotateY(180deg); // Already flipped before hover
+
+      &-1 {
+        // He used to right bottom, but 135deg seems the same
+        background-image: linear-gradient(
+          to right bottom,
+          $color-secondary-light,
+          $color-secondary-dark
+        );
+      }
+      &-2 {
+        // He used to right bottom, but 135deg seems the same
+        background-image: linear-gradient(
+          to right bottom,
+          $color-primary-light,
+          $color-primary-dark
+        );
+      }
+      &-3 {
+        // He used to right bottom, but 135deg seems the same
+        background-image: linear-gradient(
+          to right bottom,
+          $color-tertiary-light,
+          $color-tertiary-dark
+        );
+      }
+    }
+  }
+
+  &:hover &__side--front {
+    transform: rotateY(-180deg);
+  }
+  &:hover &__side--back {
+    transform: rotateY(0);
+  }
+
+  // FRONT-SIDE STYLING
+
+  // The background blend mode - when we built the header, we set a background gradient with opacity and then the background image, the gradient allowed us to see the images through the gradient itself.
+  // With this new property, the blending is not done manually through the alpha channel
+
+  &__picture {
+    // For all of the images
+    background-size: cover;
+    height: 23rem; // size by trial and error
+    background-blend-mode: screen; // Basically this is where we set the opacity of the color(linear gradient), very recent, check compatibility
+
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+
+    &--1 {
+      background-image: linear-gradient(
+          to right bottom,
+          $color-secondary-light,
+          $color-secondary-dark
+        ),
+        url("/img/nat-5.jpg"); // The element is quite small because there is actually no content in it. That's why we need to define the height above.
+    }
+    &--2 {
+      background-image: linear-gradient(
+          to right bottom,
+          $color-primary-light,
+          $color-primary-dark
+        ),
+        url("/img/nat-6.jpg");
+    }
+    &--3 {
+      background-image: linear-gradient(
+          to right bottom,
+          $color-tertiary-light,
+          $color-tertiary-dark
+        ),
+        url("/img/nat-7.jpg");
+    }
+  }
+
+  // heading
+  &__heading {
+    font-size: 2.8rem;
+    font-weight: 300;
+    text-transform: uppercase;
+    text-align: right;
+    color: $color-white;
+
+    // We want it on top of the image, so we need position absolute again, values trial and error.
+    position: absolute;
+    top: 12rem;
+    right: 2rem;
+    width: 75%; // It is a block element so it has 100% but it is too much
+  }
+  // We write it here because it is not really a child of the heading, it is a hole new element called heading span
+  &__heading-span {
+    padding: 1rem 1.5rem;
+    -webkit-box-decoration-break: clone; // To treat the two lines of text as if they were two different elements, this so that the padding can be added equally (remember that the padding was different for the words that were on top) - its like a shortcut to use two spans for the parts that we want in the html
+    box-decoration-break: clone;
+    &--1 {
+      background-image: linear-gradient(
+        to right bottom,
+        rgba($color-secondary-light, 0.85),
+        rgba($color-secondary-dark, 0.85)
+      );
+    }
+    &--2 {
+      background-image: linear-gradient(
+        to right bottom,
+        rgba($color-primary-light, 0.85),
+        rgba($color-primary-dark, 0.85)
+      );
+    }
+    &--3 {
+      background-image: linear-gradient(
+        to right bottom,
+        rgba($color-tertiary-light, 0.85),
+        rgba($color-tertiary-dark, 0.85)
+      );
+    }
+  }
+
+  &__details {
+    padding: 3rem;
+    ul {
+      list-style: none;
+      width: 80%;
+      margin: 0 auto; // to center
+
+      li {
+        text-align: center;
+        font-size: 1.5rem;
+        padding: 1rem;
+
+        &:not(:last-child) {
+          border-bottom: 1px solid $color-grey-light-2;
+        }
+      }
+    }
+  }
+  // BACK-SIDE STYLING
+  &__cta {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    text-align: center;
+  }
+
+  &__price-box {
+    text-align: center;
+    margin-bottom: 8rem;
+    color: $color-white;
+  }
+
+  &__price-only {
+    font-size: 1.4rem;
+    text-transform: uppercase;
+  }
+
+  &__price-value {
+    font-size: 6rem;
+    font-weight: 100;
+  }
 }

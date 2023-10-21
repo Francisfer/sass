@@ -166,14 +166,117 @@
           <!-- Second level heading -->
           <h2 class="heading-secondary">Most popular tours</h2>
         </div>
-
+        <!-- Card goes to the components -->
         <div class="row">
           <div class="col-1-of-3">
             <!-- We are not going to touch the grid (column) in any way, we create a div just for the card -->
-            <div class="card">card text</div>
+            <div class="card">
+              <div class="card__side card__side--front">
+                <!-- The next elements should not be dependent on the card__side, they are to be treated as independent elements, we keep the block (card) but then it is a hole new element -->
+                <div class="card__picture card__picture--1">
+                  <!-- As for the image, we are going to use a background image in css and not an img element in html. Like this we can see some background blend modes (effects that we can apply on background images but not on normal (img). But we still need to put something in here - entity -->
+                  &nbsp;
+                </div>
+                <!-- For semantics, we need to use an h4 here instead of a div -->
+                <h4 class="card__heading">
+                  <!-- For this text to be in two lines and for different gradients to be applied on each of them we use a span, so we later can use box decoration break. Also, we need a modifier because we want three different gradients (one for each card) -->
+                  <span class="card__heading-span card__heading-span--1">
+                    The Sea Explorer
+                  </span>
+                </h4>
+                <div class="card__details">
+                  <ul>
+                    <li>3 day tour</li>
+                    <li>Up to 30 people</li>
+                    <li>2 tour guides</li>
+                    <li>Sleep in cozy hotels</li>
+                    <li>Difficulty: easy</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="card__side card__side--back card__side--back-1">
+                <div class="card__cta">
+                  <div class="card__price-box">
+                    <p class="card__price-only">Only</p>
+                    <p class="card__price-value">$297</p>
+                  </div>
+                  <a href="#" class="btn btn--white">Book now!</a>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="col-1-of-3">Col 1 of 3</div>
-          <div class="col-1-of-3">Col 1 of 3</div>
+          <div class="col-1-of-3">
+            <div class="card">
+              <div class="card__side card__side--front">
+                <!-- The next elements should not be dependent on the card__side, they are to be treated as independent elements, we keep the block (card) but then it is a hole new element -->
+                <div class="card__picture card__picture--2">
+                  <!-- As for the image, we are going to use a background image in css and not an img element in html. Like this we can see some background blend modes (effects that we can apply on background images but not on normal (img). But we still need to put something in here - entity -->
+                  &nbsp;
+                </div>
+                <!-- For semantics, we need to use an h4 here instead of a div -->
+                <h4 class="card__heading">
+                  <!-- For this text to be in two lines and for different gradients to be applied on each of them we use a span, so we later can use box decoration break. Also, we need a modifier because we want three different gradients (one for each card) -->
+                  <span class="card__heading-span card__heading-span--2">
+                    The Forest Hiker
+                  </span>
+                </h4>
+                <div class="card__details">
+                  <ul>
+                    <li>7 day tour</li>
+                    <li>Up to 40 people</li>
+                    <li>6 tour guides</li>
+                    <li>Sleep in provided tents</li>
+                    <li>Difficulty: medium</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="card__side card__side--back card__side--back-2">
+                <div class="card__cta">
+                  <div class="card__price-box">
+                    <p class="card__price-only">Only</p>
+                    <p class="card__price-value">$297</p>
+                  </div>
+                  <a href="#" class="btn btn--white">Book now!</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-1-of-3">
+            <div class="card">
+              <div class="card__side card__side--front">
+                <!-- The next elements should not be dependent on the card__side, they are to be treated as independent elements, we keep the block (card) but then it is a hole new element -->
+                <div class="card__picture card__picture--3">
+                  <!-- As for the image, we are going to use a background image in css and not an img element in html. Like this we can see some background blend modes (effects that we can apply on background images but not on normal (img). But we still need to put something in here - entity -->
+                  &nbsp;
+                </div>
+                <!-- For semantics, we need to use an h4 here instead of a div -->
+                <h4 class="card__heading">
+                  <!-- For this text to be in two lines and for different gradients to be applied on each of them we use a span, so we later can use box decoration break. Also, we need a modifier because we want three different gradients (one for each card) -->
+                  <span class="card__heading-span card__heading-span--3">
+                    The Snow Adventurer
+                  </span>
+                </h4>
+                <div class="card__details">
+                  <ul>
+                    <li>5 day tour</li>
+                    <li>Up to 15 people</li>
+                    <li>3 tour guides</li>
+                    <li>Sleep in provided tents</li>
+                    <li>Difficulty: hard</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="card__side card__side--back card__side--back-3">
+                <div class="card__cta">
+                  <div class="card__price-box">
+                    <p class="card__price-only">Only</p>
+                    <p class="card__price-value">$297</p>
+                  </div>
+                  <a href="#" class="btn btn--white">Book now!</a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </main>
