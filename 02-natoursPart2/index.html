@@ -208,14 +208,9 @@
           <div class="col-1-of-3">
             <div class="card">
               <div class="card__side card__side--front">
-                <!-- The next elements should not be dependent on the card__side, they are to be treated as independent elements, we keep the block (card) but then it is a hole new element -->
-                <div class="card__picture card__picture--2">
-                  <!-- As for the image, we are going to use a background image in css and not an img element in html. Like this we can see some background blend modes (effects that we can apply on background images but not on normal (img). But we still need to put something in here - entity -->
-                  &nbsp;
-                </div>
-                <!-- For semantics, we need to use an h4 here instead of a div -->
+                <div class="card__picture card__picture--2">&nbsp;</div>
+
                 <h4 class="card__heading">
-                  <!-- For this text to be in two lines and for different gradients to be applied on each of them we use a span, so we later can use box decoration break. Also, we need a modifier because we want three different gradients (one for each card) -->
                   <span class="card__heading-span card__heading-span--2">
                     The Forest Hiker
                   </span>
@@ -234,7 +229,7 @@
                 <div class="card__cta">
                   <div class="card__price-box">
                     <p class="card__price-only">Only</p>
-                    <p class="card__price-value">$297</p>
+                    <p class="card__price-value">$497</p>
                   </div>
                   <a href="#" class="btn btn--white">Book now!</a>
                 </div>
@@ -244,14 +239,9 @@
           <div class="col-1-of-3">
             <div class="card">
               <div class="card__side card__side--front">
-                <!-- The next elements should not be dependent on the card__side, they are to be treated as independent elements, we keep the block (card) but then it is a hole new element -->
-                <div class="card__picture card__picture--3">
-                  <!-- As for the image, we are going to use a background image in css and not an img element in html. Like this we can see some background blend modes (effects that we can apply on background images but not on normal (img). But we still need to put something in here - entity -->
-                  &nbsp;
-                </div>
-                <!-- For semantics, we need to use an h4 here instead of a div -->
+                <div class="card__picture card__picture--3">&nbsp;</div>
+
                 <h4 class="card__heading">
-                  <!-- For this text to be in two lines and for different gradients to be applied on each of them we use a span, so we later can use box decoration break. Also, we need a modifier because we want three different gradients (one for each card) -->
                   <span class="card__heading-span card__heading-span--3">
                     The Snow Adventurer
                   </span>
@@ -270,13 +260,110 @@
                 <div class="card__cta">
                   <div class="card__price-box">
                     <p class="card__price-only">Only</p>
-                    <p class="card__price-value">$297</p>
+                    <p class="card__price-value">$897</p>
                   </div>
                   <a href="#" class="btn btn--white">Book now!</a>
                 </div>
               </div>
             </div>
           </div>
+        </div>
+        <!-- As for the button, we use the helper classes that we've used to center the h2. Also created another helper on utilities for the margin top -->
+        <!-- At this point we need a green button, that we do not yet have (created in components button) -->
+        <div class="u-center-text u-margin-top-huge">
+          <a href="#" class="btn btn--green">Discover all tours</a>
+        </div>
+      </section>
+
+      <!-- Section tours - Also goes to pages _home-->
+      <section class="section-stories">
+        <!-- For the video, we create a container with the exact same size of the section and put the video in it. Also, we are goint to make it a component, in case we want to use it on some other place of the website -->
+        <div class="bg-video">
+          <!-- there is a new element for videos, but they work a bit different, we do not use the src attribute, what we do is to specify the source inside of the video tag -->
+
+          <!-- Also note the commands/attributes that we can add to the video tag -->
+          <video class="bg-video__content" autoplay muted loop>
+            <!-- We put both sources in case the browser has some incompatibility -->
+            <source src="img/video.mp4" type="video/mp4" />
+            <source src="img/video.webm" type="video/webm" />
+            <!-- In case it is not supported -->
+            Your browser in not supported!
+          </video>
+        </div>
+        <div class="u-center-text u-margin-bottom-big">
+          <!-- Second level heading again -->
+          <h2 class="heading-secondary">We make people genuinely happy</h2>
+        </div>
+
+        <!-- Now we start a new row -->
+        <div class="row">
+          <!-- We are not putting any rows, we are just using this nicely centered container (With a margin bottom) that we've set, so we can put our story component there -->
+          <!-- On components -->
+
+          <div class="story">
+            <!-- Starting with the round shape, we set it as a figure because we have an image together with a caption-->
+
+            <figure class="story__shape">
+              <img
+                class="story__img"
+                src="img/nat-8.jpg"
+                alt="Person on a tour"
+              />
+              <figcaption class="story__caption">Mary</figcaption>
+            </figure>
+
+            <!-- for the text -->
+            <div class="story__text">
+              <h3 class="heading-tertiary u-margin-bottom-small">
+                I had the best week with my family
+              </h3>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam
+                tempora mollitia quod voluptatem obcaecati, id magni incidunt
+                cum quis reprehenderit explicabo aliquam aliquid eveniet.
+                Asperiores repellendus rem suscipit et optio! cum quis
+                reprehenderit explicabo aliquam aliquid eveniet. Asperiores
+                repellendus.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <!-- We are not putting any rows, we are just using this nicely centered container (With a margin bottom) that we've set, so we can put our story component there -->
+          <!-- On components -->
+
+          <div class="story">
+            <!-- Starting with the round shape, we set it as a figure because we have an image together with a caption-->
+
+            <figure class="story__shape">
+              <img
+                class="story__img"
+                src="img/nat-9.jpg"
+                alt="Person on a tour"
+              />
+              <figcaption class="story__caption">Jack Wilson</figcaption>
+            </figure>
+
+            <!-- for the text -->
+            <div class="story__text">
+              <h3 class="heading-tertiary u-margin-bottom-small">
+                Wow! My life is completely diffeent now
+              </h3>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam
+                tempora mollitia quod voluptatem obcaecati, id magni incidunt
+                cum quis reprehenderit explicabo aliquam aliquid eveniet.
+                Asperiores repellendus rem suscipit et optio! cum quis
+                reprehenderit explicabo aliquam aliquid eveniet. Asperiores
+                repellendus.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="u-center-text u-margin-top-huge">
+          <a href="#" class="btn-text">Read all stories &rarr;</a>
         </div>
       </section>
     </main>

@@ -48,7 +48,7 @@
     backface-visibility: hidden;
     box-shadow: 0 1.5rem 4rem rgba($color-black, 0.15);
     border-radius: 3px;
-    overflow: hidden; // So that the images below don't overlap
+    overflow: hidden; // So that the images below don't overlap the corners
 
     &--front {
       background-color: $color-white;
@@ -103,6 +103,8 @@
 
     -webkit-clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
     clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+    // border-top-left-radius: 3px;
+    // border-top-right-radius: 3px; Both because at the time there was a but that removed the overflow hidden upon the use of clip-path
 
     &--1 {
       background-image: linear-gradient(

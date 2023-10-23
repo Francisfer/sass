@@ -1,6 +1,7 @@
 /* Remember that we've started by creating the initial .btn{}, then made the first ampersand replacement for btn, then the second level of indentation for the white button, */
 // We can say that the button is a component, it is a block, reusable across the page, it is independent and it works everywhere.
 
+// Defaults
 .btn {
   &:link,
   &:visited {
@@ -29,6 +30,7 @@
     box-shadow: 0 0.5rem 1rem rgba($color-black, 0.2);
   }
 
+  // Modifier white button
   &--white {
     background-color: $color-white;
     color: $color-grey-dark;
@@ -36,6 +38,15 @@
     // second level
     &::after {
       background-color: $color-white;
+    }
+  }
+
+  // Modifier green button
+  &--green {
+    background-color: $color-primary;
+    color: $color-white;
+    &::after {
+      background-color: $color-primary;
     }
   }
 

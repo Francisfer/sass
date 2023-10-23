@@ -38,6 +38,12 @@
 
 .section-tours {
   background-color: $color-grey-light-1;
-  padding: 25rem 0 50rem 0; // margin bottom so we can code the cards better.
+  padding: 25rem 0 15rem 0; // margin bottom so we can code the cards better, started with 50rem.
   margin-top: -13rem; // To move it up
+}
+
+.section-stories {
+  // background-color: $color-grey-light-1; we don't want because of the video, however if still active, the z index with a negative value would't work because of it.
+  padding: 15rem 0;
+  position: relative; // For the video
 }

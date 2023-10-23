@@ -1,0 +1,94 @@
+.story {
+  width: 75%;
+  margin: 0 auto;
+  box-shadow: 0 3rem 6rem rgba($color-black, 0.1);
+  background-color: rgba($color-white, 0.6);
+  border-radius: 3px;
+  padding: 6rem;
+  padding-left: 9rem; // For the circle, so left and right are equal.
+  font-size: $default-font-size;
+
+  // For the section skew
+  transform: skewX(-12deg);
+  // The last time we used this property we've used the & >(direct child) * (everything - in our case the shape and the text elements)
+
+  // & > * {
+  //   transform: skewX(12deg);
+  // }
+  //////////// IMPORTANT //////////////////
+
+  // But this only works for the text element. the shape is still skewed. This happens because we already have one transform(translate) taking place in the shape that takes precedence over this one.
+  // At this time, is is not possible to have two transforms applying at the same time, the solution is to un skew the text and add the skew to the transform that we've already had.
+
+  // Taking care of the shape
+  &__shape {
+    width: 15rem;
+    height: 15rem; // Just a div element at the start, so we give it dimensions.
+    float: left;
+    // background-color: orangered; initial for better visual
+
+    // To make the h3 and the paragraph assume a round shape we don't need the div to be a circle , we can use the shape-outside property, what this does is to define where the content flows around the element. This complements what we've learn with clip-path (polygon), because we can use other things than polygon. In circle, we can define the size of the circle and the position of the center of the circle.
+    // The first value is the radius of the circle, if we put 50%, it is half of the height and width of the element, so 7.5rem. In order for this to work, the element must be floated and have defined width and height.
+
+    -webkit-shape-outside: circle(50% at 50% 50%); // For safari at the time.
+    shape-outside: circle(
+      50% at 50% 50%
+    ); // Change the values in the inspector to see the differences
+
+    // To make the actual element round he used the clip path property and not the border-radius, but the result seems the same, the difference is that with clip-path we can set values to adjust everything manually.
+    -webkit-clip-path: circle(50% at 50% 50%);
+    clip-path: circle(50% at 50% 50%);
+
+    // Now to add some margin between the circle and the text we use transform, because to move a floated element the best is to not mess with margins
+    transform: translateX(-3rem) skewX(12deg); // IMPORTANT -
+
+    // With this transform, the circle now occupies half of the padding on the left, so we need to add to the left padding what we've had (6) + 3 - in the story container.
+
+    position: relative; // For the fig caption
+  }
+  // As for the image
+  &__img {
+    // width: 100%; cannot be width because it is much wider than it is heigh, so if we give it a width it gets cut at the bottom.
+    height: 100%;
+
+    // So that we can center the image inside the circle
+    transform: translateX(-4rem) scale(1.4); // trial and error, scale for the hover effect
+    backface-visibility: hidden; // Once again, to stop the glitch at the end of the animation, but it doesn't appear in my machine.
+    transition: all 0.5s;
+  }
+
+  &__text {
+    // For the text to un skew
+    transform: skewX(12deg);
+  }
+
+  &__caption {
+    // We need to translate the caption a bit down here (so it can come up on hover) and also to set the opacity to 0. Don't forget that we can only have one translate.
+    position: absolute;
+    top: 50%; // TOP - REMEMBER
+    left: 50%;
+    transform: translate(-50%, 20%); // so it starts down
+    text-align: center;
+    color: $color-white;
+    text-transform: uppercase;
+    font-size: 1.7rem;
+    opacity: 0;
+    transition: all 0.5s; // REMEMBER THAT IS ALWAYS IN HERE
+    backface-visibility: hidden; // Once again, to stop the glitch at the end of the animation, but it doesn't appear in my machine.
+  }
+
+  // for the text
+  &:hover &__caption {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+  // for the blurred background
+
+  &:hover &__img {
+    // The image needs to be scaled a bit in the initial state so that we can apply the zoom in here and the blur.
+    transform: translateX(-4rem) scale(1);
+
+    // To blur the image and also darken it new PROPERTY
+    filter: blur(3px) brightness(80%); // Value above 100% brighter, value below darker
+  }
+}

@@ -1,0 +1,23 @@
+// Note that the bg-video is the block container, with the properties that we specify below, this container is already of the same size as the parent, but the content (the video) is not
+
+.bg-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  // Same as the parent
+  height: 100%;
+  width: 100%;
+  // Like this, the button and the h3 are behind the video
+  z-index: -1;
+  opacity: 0.15;
+
+  overflow: hidden; // But it was good without this
+
+  // The content
+  &__content {
+    height: 100%;
+    width: 100%;
+    // Like this it is not enough because the aspect ration is still maintained, so we use:
+    object-fit: cover; // Covers while maintaining the aspect ratio - IMPORTANT - similar to background size
+  }
+}
