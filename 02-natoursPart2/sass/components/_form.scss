@@ -1,0 +1,122 @@
+.form {
+  &__group:not(:last-child) {
+    margin-bottom: 2rem;
+  }
+  &__input {
+    font-size: 1.5rem;
+    padding: 1.5rem 2rem;
+    border-radius: 2px;
+    background-color: rgba($color-white, 0.5);
+    border: none;
+    // As you might notice the font family is not lato, it is something that forms do by default, the form elements do not inherit the font family.
+    font-family: inherit;
+    color: inherit; // Also not inherit
+
+    // Next we need some space between the two inputs, but we don't want the last one to have it, so we use the trick in __group
+
+    border-bottom: 3px solid transparent; // Adding the border in the initial state
+
+    width: 90%; // So it gets a bit longer
+    display: block; // So it has its own line
+    transition: all 0.3s;
+
+    // To style the focus state
+    &:focus {
+      outline: none; // The blue border that the browser gives by default. We should not simply remove it for accessibility so;
+      box-shadow: 0 1rem 2rem rgba($color-black, 0.1);
+      border-bottom: 3px solid $color-primary;
+      // Like this, when we focus the cursor on the first input we notice that the second comes a bit down, that is because of the px that we add with the border. The solution is to add this border in the initial state but set the color to transparent.
+    }
+
+    // Using the validation of chrome to apply different styles, we want this to happen on focus state.
+    &:focus:invalid {
+      border-bottom: 3px solid $color-secondary-dark;
+    }
+
+    // NEW PSEUDO-ELEMENT
+    &::-webkit-input-placeholder {
+      color: $color-grey-dark-2;
+    }
+  }
+
+  &__label {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-left: 2rem; // Same as the padding of the input, to be aligned
+    margin-top: 0.7rem;
+    display: block; // So that the above gets applied
+
+    transition: all 0.3s; // The effect
+  }
+
+  // After styling the label, we want to remove the label and only show it when the placeholder disappears (we start writing)
+  // This is done by using the placeholder shown pseudo class and we need to do this on the input. So when the placeholder is shown on the input element we can style it.
+  // But, what we want to style its not the input, it is the label (we want the label to be hidden). To select the label here we cannot just do &__input:placeholder-shown &__label because the label it's not a child of the input element.
+
+  // They are siblings so, for this we have to selectors: the adjacent sibling selector + (the sibling that comes immediately after the element that we've selected) and the general sibling selector ~ .
+  // Selecting with the sibling selector only works if the the sibling that we have to select is written in the html after the first element (after the input in this example).
+  // That is why most of the code write the input before the label
+
+  &__input:placeholder-shown + &__label {
+    opacity: 0;
+    visibility: hidden; // Really gone
+    // like this it fades in
+    // if we want it to come from above
+    transform: translateY(-4rem);
+  }
+
+  // RADIO BUTTONS
+  &__radio-group {
+    width: 49%;
+    display: inline-block; // to put them side by side, hence the 49% above
+  }
+
+  &__radio-input {
+    // One of the final steps, to hide the original radio buttons
+    display: none; // Here the display none is important, because with opacity 0 and visibility none, the hover effect wasn't functioning wright - REMEMBER
+  }
+
+  &__radio-label {
+    font-size: $default-font-size;
+    cursor: pointer;
+    position: relative;
+    // The button now overlaps the text because both of them start at the beginning of the element left 0 so we give the label some left padding:
+    padding-left: 4.5rem;
+  }
+  &__radio-button {
+    height: 3rem;
+    width: 3rem;
+    border: 5px solid $color-primary;
+    border-radius: 50%;
+    display: inline-block; // REMEMBER THAT THE PROPERTIES ONLY WORK WITH INLINE-BLOCK OR BLOCK
+
+    // To put it exactly where we want
+    position: absolute;
+    left: 0;
+    top: -0.48rem;
+
+    &::after {
+      // For the inside part of the button, the dot, we create a pseudo element
+      content: ""; // MANDATORY
+      display: block; // MANDATORY
+      height: 1.3rem;
+      width: 1.3rem;
+      border-radius: 50%;
+      background-color: $color-primary;
+
+      // Now to position the element in the center of the outer circle we use position absolute, however that the parent element already have the position property set. It does NOT matter if it is relative or absolute, what matters is that it is specified.
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+  }
+
+  // When the radio buttons are selected they have the pseudo class checked. as soon as we hit the label element, the radio input becomes checked, then we select the sibling of that one (radio label) and then the child (radio button::after) because that's the one that we want to change.
+
+  &__radio-input:checked + &__radio-label &__radio-button::after {
+    opacity: 1;
+  }
+}

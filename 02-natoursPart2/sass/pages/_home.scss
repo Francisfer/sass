@@ -47,3 +47,39 @@
   padding: 15rem 0;
   position: relative; // For the video
 }
+
+.section-book {
+  padding: 15rem 0;
+  background-image: linear-gradient(
+    to right bottom,
+    $color-primary-light,
+    $color-primary-dark
+  );
+}
+
+.book {
+  // In order to make the shape, we could add another element and use clip-path to create the effect. However, this effect is also nothing more than another background color that we have on top of the image (a gradient that starts in one side and suddenly we change to a transparent color). So let's explore the gradient function a bit more.
+
+  // We already know that we can specify the direction of the gradient literally (to right, to left) but also in degrees. That is the first thing that we are doing. Rotating 90 degrees means rotate in the x axis.
+  // Now, the most important part is that we can specify percentages after the colors, that is the same of saying that at each point of the gradient, which colors there should be.
+  // In our case, we want the white to start at 0% (on the left) and, also at 50%, so in the middle, we want transparent. The trick is to set the white color to also be at 50%, the same as the transparent so that it forms a well defined line.
+
+  background-image: linear-gradient(
+      105deg,
+      rgba($color-white, 0.9) 0%,
+      rgba($color-white, 0.9) 50%,
+      transparent 50%
+    ),
+    url("/img/nat-10.jpg");
+  background-size: cover; // Same as 100%
+  height: 50rem; // For testing purposes, otherwise we can't see the image, later we want the content to specify the height
+  border-radius: $border-radius;
+  box-shadow: 0 1.5rem 4rem rgba($color-black, 0.2);
+
+  &__form {
+    width: 50%; // To occupy half of the box
+    padding: 6rem;
+  }
+
+  // These are the styles for our homepage, the form itself is styled in the components
+}

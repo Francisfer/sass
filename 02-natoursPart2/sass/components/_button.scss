@@ -2,7 +2,9 @@
 // We can say that the button is a component, it is a block, reusable across the page, it is independent and it works everywhere.
 
 // Defaults
+// Remember that the styles were only being applied to anchors and we needed this button for a form button, hence the first ampersand.
 .btn {
+  &,
   &:link,
   &:visited {
     font-size: $default-font-size;
@@ -13,6 +15,10 @@
     border-radius: 10rem;
     transition: all 0.2s;
     position: relative;
+
+    // Change for the <button> element
+    border: none;
+    cursor: pointer;
   }
 
   &:hover {

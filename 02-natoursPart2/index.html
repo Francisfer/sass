@@ -366,6 +366,87 @@
           <a href="#" class="btn-text">Read all stories &rarr;</a>
         </div>
       </section>
+
+      <!-- In this section, for reusability purposes, we are going to make the form a component, so we can reuse it in the code. What will be unique to this page, what we don't need to reuse is the rest of the design, like the box with the background image and the edge. -->
+      <!-- So, what we are going to do FIRST is to add all of these styles that are unique to the homepage (section-book, book and book_form) to our HOME file and the form itself to the COMPONENTS -->
+      <section class="section-book">
+        <!-- We have a row because we want to center that box in the middle -->
+        <div class="row">
+          <!-- The book block will be the entire box -->
+          <div class="book">
+            <!-- The book form element will be the container for the form that will sit on the left side of the book - that is why is unique for this page -->
+            <div class="book__form">
+              <form action="#" class="form">
+                <!-- h2 always copied, we don't want it to be centered so we just remove the class and we don't want a margin bottom so big, we just need to change the class -->
+                <div class="u-margin-bottom-medium">
+                  <h2 class="heading-secondary">Start booking now</h2>
+                </div>
+
+                <!-- We're going to have a different group for each field and the label so we can give it some space between the next element -->
+
+                <!-- Don't forget that the id in the input is to connect it with the label (some cool stuff, when we click the label the input will be focused) -->
+                <div class="form__group">
+                  <input
+                    type="text"
+                    class="form__input"
+                    placeholder="Full name"
+                    id="name"
+                    required
+                  />
+                  <label for="name" class="form__label">Full name</label>
+                </div>
+
+                <div class="form__group">
+                  <input
+                    type="email"
+                    class="form__input"
+                    placeholder="Email address"
+                    id="email"
+                    required
+                  />
+                  <label for="email" class="form__label">Email address</label>
+                </div>
+
+                <!-- For the buttons -->
+                <!-- In css we have no way to style radio buttons, so what we have to do is to create a span inside of the label, to, basically create a button of our own. We will basically hide the input element and our button will be the span -->
+                <div class="form__group u-margin-bottom-medium">
+                  <div class="form__radio-group">
+                    <input
+                      type="radio"
+                      id="small"
+                      class="form__radio-input"
+                      name="size"
+                    />
+                    <label for="small" class="form__radio-label"
+                      ><span class="form__radio-button"></span>Small tour
+                      group</label
+                    >
+                  </div>
+                  <!-- In order for only be possible to select one we need to give them the same name attribute -->
+                  <div class="form__radio-group">
+                    <input
+                      type="radio"
+                      id="large"
+                      class="form__radio-input"
+                      name="size"
+                    />
+                    <label for="large" class="form__radio-label"
+                      ><span class="form__radio-button"></span>Large tour
+                      group</label
+                    >
+                  </div>
+                </div>
+
+                <!-- As for the button, we cannot use an anchor in a form, but a button element that will allow us to submit the form, the default behavior-->
+                <div class="form__group">
+                  <!-- Remember that when we used the utilities class to add margin between the button and the radios that didn't work because the margin of the form(last child) has more specificity. To resolve this we set all the utilities to important, which is very common -->
+                  <button class="btn btn--green">Next step &rarr;</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
 
     <!-- <section class="grid-test">
