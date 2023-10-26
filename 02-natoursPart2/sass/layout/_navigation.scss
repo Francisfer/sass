@@ -1,0 +1,128 @@
+// We start with the background. This is just a circle expanding from the button, so we start with that
+
+.navigation {
+  &__checkbox {
+    display: none; // hiding it
+  }
+
+  &__button {
+    background-color: $color-white;
+    height: 7rem;
+    width: 7rem; // It is taller and wider so that we assure that it covers the __background initial round shape.
+    position: fixed;
+    top: 6rem;
+    right: 6rem; // The button is 1rem higher and wider than the background, so that is why the background is half rem further to the top and to the right (the half is half of 1, which is the difference in size). This way they are perfectly on top of each other.
+
+    border-radius: 50%;
+    box-shadow: 0 1rem 3rem rgba($color-black, 0.1);
+    z-index: 2000; // even higher to stay on top of course.
+  }
+
+  &__background {
+    height: 6rem;
+    width: 6rem;
+    border-radius: 50%;
+    position: fixed; // don't change as we scroll the page, but also takes the element out of the flow of course.
+    top: 6.5rem;
+    right: 6.5rem; // We will know why 6.5 when we do the button
+
+    // We will use a radial gradient for this.
+    background-image: radial-gradient(
+      $color-primary-light,
+      $color-primary-dark
+    );
+
+    // Z index because otherwise it gets hidden as we scroll
+    z-index: 1000;
+
+    // transform: scale(75); // While we are developing, so we can see the scale version. HIDING THE BACKGROUND (goes behind the button)
+
+    transition: transform 0.8s cubic-bezier(0.86, 0, 0.07, 1); // Here we just have one
+  }
+
+  &__nav {
+    height: 100vh;
+    // width: 100%; // We don't need to specify because it is a block
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1500; // This one stays in the middle
+
+    // At this point we need to get rid of the list - HIDING THE NAVIGATION
+    opacity: 0; // Like this is not enough because the links are still there.
+    width: 0; // Like this it works
+
+    transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+
+  &__list {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    list-style: none;
+    text-align: center;
+    width: 100%; //NOT SURE WHY, THE LINKS ARE STILL CLICKABLE ON THE LEFT SIDE
+  }
+
+  &__item {
+    margin: 1rem; // Between the elements
+  }
+
+  &__link {
+    &:link,
+    &:visited {
+      display: inline-block;
+      font-size: 3rem;
+      padding: 1rem 2rem;
+      font-weight: 300;
+      color: $color-white;
+      text-decoration: none;
+      text-transform: uppercase;
+
+      // In order to create the effect of the hover state, we need to use the solid color gradient technique that we've used before.
+      // The part of using the background image and the linear gradient with degrees and percentages to the colors was already familiar, but to
+
+      background-image: linear-gradient(
+        120deg,
+        transparent 0%,
+        transparent 50%,
+        $color-white 50%
+      );
+
+      background-size: 225%;
+      // Same as center remember? go to the console and play with this property. At 100% we establish the starting point, so to the hole thing to occupy the entire container. But if we increase this value it gives the illusion of being moved to the right, but in fact is is growing exponentially, relatively to the container.
+      // We know this because if we decrease from 100% to 50%, the background repeats two times. On the other hand, if we go to 200% (in my computer i need to go as far as 225%) the gradient is completely gone and we just see the orangered side (later it is transparent of course).
+
+      // The most important ingredient to take out of this technique is that we have augmented the background, so we have both colors much bigger than the container, which means that on hover we simply have to position the background to 100%
+
+      transition: all 0.4s;
+
+      span {
+        margin-right: 1.5rem;
+        display: inline-block;
+      }
+    }
+
+    &:hover,
+    &:active {
+      background-position: 100%;
+      color: $color-primary;
+      transform: translateX(1rem);
+      border-radius: 0.5rem;
+    }
+  }
+
+  // Now for the checkbox hack, we hit the label, the checkbox becomes checked and then we want the navigation background to become visible.
+  // We just write checkbox the checked pseudo class just like we did with the radio button and then we use the sibling selector. This time it is not a direct sibling, so we need to use the general sibling selector.
+
+  &__checkbox:checked ~ &__background {
+    transform: scale(75);
+  }
+
+  // Once this is done, we do the same thing with the navigation, we just need to change the sibling. In order for the animation to work, we need the transition to be on the nav and on the background elements.
+  &__checkbox:checked ~ &__nav {
+    opacity: 1;
+    width: 100%;
+  }
+}

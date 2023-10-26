@@ -1,0 +1,65 @@
+.footer {
+  background-color: $color-grey-dark-3;
+  padding: 10rem 0;
+  font-size: 1.4rem;
+
+  &__logo-box {
+    // The image is an inline element so it behaves like text:
+    text-align: center;
+    margin-bottom: 8rem;
+  }
+
+  &__logo {
+    width: 15rem;
+    height: auto;
+  }
+
+  &__navigation {
+    // for the line above the anchors
+    border-top: 1px solid $color-grey-dark;
+    padding-top: 2rem;
+    // To make the line end where the links end, so to make it justified, we can use the display again, because inline block just occupy the space that it need and not the available space
+    display: inline-block;
+  }
+
+  &__list {
+    list-style: none;
+  }
+
+  &__item {
+    display: inline-block;
+
+    &:not(:last-child) {
+      margin-right: 1.5rem;
+    }
+  }
+
+  &__link {
+    &:link,
+    &:visited {
+      color: $color-grey-light-1;
+      background-color: $color-grey-dark-3;
+      text-decoration: none;
+      text-transform: uppercase;
+      display: inline-block; // Otherwise we cannot transform the hover state
+      transition: all 0.2s;
+    }
+
+    &:hover,
+    &:active {
+      color: $color-primary;
+      box-shadow: 0 1rem 2rem rgba($color-black, 0.4);
+      transform: rotate(5deg) scale(1.3);
+    }
+  }
+
+  &__copyright {
+    color: $color-grey-light-1; // We could have placed this color in the footer, then it would be inherited here, remember.
+    border-top: 1px solid $color-grey-dark;
+    padding-top: 2rem;
+
+    // To center all of this we need to decrease the width and the float the copyright to the right. It seems weird because we are using floats, remember that.
+    width: 80%;
+    float: right;
+  }
+}
