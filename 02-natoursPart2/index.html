@@ -22,7 +22,12 @@
     <div class="navigation">
       <!-- The checkbox -->
       <input type="checkbox" class="navigation__checkbox" id="navi-toggle" />
-      <label for="navi-toggle" class="navigation__button">MENU</label>
+      <label for="navi-toggle" class="navigation__button">
+        <!-- To build the button. It is composed with three lines, the line in the middle will be a span element, and the others a before and after pseudo elements (instead of creating three elements in the html we just put one and the use pseudo classes to create the others)  -->
+        <!-- When we click, the one in the middle disappears and the others rotate in order to form the x -->
+
+        <span class="navigation__icon">&nbsp;</span>
+      </label>
 
       <!-- The div that will be our background, it will be empty so that we can then put the navigation itself-->
       <div class="navigation__background">&nbsp;</div>
@@ -527,6 +532,51 @@
         </div>
       </div>
     </footer>
+
+    <!-- As for the popup, we can place it wherever we want on the markup because this is not really tied (ligado) to any of the sections -->
+
+    <!-- Box for the background -->
+    <div class="popup">
+      <!-- The box itself -->
+      <div class="popup__content">
+        <!-- As for the popup content we have two boxes with the same height, on the left we have two images, and on the right we have the content vertically aligned -->
+
+        <div class="popup__left">
+          <img class="popup__img" src="img/nat-8.jpg" alt="Tour photo" />
+          <img class="popup__img" src="img/nat-9.jpg" alt="Tour photo" />
+        </div>
+
+        <div class="popup__right">
+          <h2 class="heading-secondary u-margin-bottom-small">
+            Start booking now
+          </h2>
+          <h3 class="heading-tertiary u-margin-bottom-small">
+            Important &ndash; Please read these terms before booking
+          </h3>
+          <p class="popup__text">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. At
+            varius vel pharetra vel turpis nunc eget. Molestie a iaculis at erat
+            pellentesque adipiscing commodo. Massa eget egestas purus viverra
+            accumsan in nisl nisi. Aliquam eleifend mi in nulla posuere
+            sollicitudin aliquam ultrices sagittis. Quis commodo odio aenean sed
+            adipiscing diam donec adipiscing. Purus ut faucibus pulvinar
+            elementum. Id nibh tortor id aliquet lectus proin nibh nisl.
+            Suspendisse interdum consectetur libero id faucibus nisl tincidunt.
+            Pulvinar mattis nunc sed blandit libero. Ac auctor augue mauris
+            augue. Ante in nibh mauris cursus mattis molestie a. Lorem ipsum
+            dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua. At varius vel pharetra
+            vel turpis nunc eget. Molestie a iaculis at erat pellentesque
+            adipiscing commodo. Massa eget egestas purus viverra accumsan in
+            nisl nisi. Aliquam eleifend mi in nulla posuere sollicitudin aliquam
+            ultrices sagittis. Quis commodo odio aenean sed adipiscing diam
+            donec adipiscing.
+          </p>
+          <a href="#" class="btn btn--green">Book now</a>
+        </div>
+      </div>
+    </div>
 
     <!-- <section class="grid-test">
       <div class="row">

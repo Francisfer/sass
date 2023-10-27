@@ -16,6 +16,10 @@
     border-radius: 50%;
     box-shadow: 0 1rem 3rem rgba($color-black, 0.1);
     z-index: 2000; // even higher to stay on top of course.
+
+    // For the spans to be aligned horizontally
+    text-align: center;
+    cursor: pointer;
   }
 
   &__background {
@@ -125,4 +129,75 @@
     opacity: 1;
     width: 100%;
   }
+
+  // Navigation icon
+
+  &__icon {
+    // We are going to create two pseudo elements, but we start with the styles that are common to both. Notice the first &, it means the icons itself, then the before and the after.
+
+    // The parent element is just the icon, for positioning purposes
+    position: relative;
+
+    // To align vertically
+    margin-top: 3.5rem;
+
+    &,
+    &::before,
+    &::after {
+      width: 3rem;
+      height: 2px; // We use px because we don't want this to change, no matter what the font size should be.
+      background-color: $color-grey-dark-3;
+      // At this point, in order for us to see the changes, remember that pseudo elements need to have the content and the display property set. Here we can specify the display because we want all of them to be inline-blocks.
+      display: inline-block;
+      // If you inspect the elements, you will see that the first is the actual span, not sure why the order appears in that way.
+    }
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0; // both aligned to the left
+      transition: all 0.2s;
+    }
+
+    &::before {
+      top: -0.8rem; // to move it up
+      // transform-origin: right;
+    }
+    &::after {
+      top: 0.8rem; // to move it down
+    }
+    // we align horizontally in __button with text-align and, here we move them down with a margin top on __icon (parent)
+  }
+
+  // To apply the effect of hover: we select the button and, from there we select the icon. We can do it this way because the icon is a child of the button.
+
+  &__button:hover &__icon::before {
+    top: -1rem;
+  }
+  &__button:hover &__icon::after {
+    top: 1rem;
+  }
+
+  // Now to change things on click, in other words, to do this with just css, we are back to the checkbox hack. When the checkbox is checked we want to select the button, which is the next (adjacent) sibling, so we can use the +. From there we can select the child element of the button just like we did above.
+
+  &__checkbox:checked + &__button &__icon {
+    // We want the span to disappear, but we do not want to change its size because the pseudo elements depend on it because they are positioned in relation to that size. So we just change the background color to transparent.
+    background-color: transparent;
+  }
+
+  // As for the pseudo elements, we are going to rotate them, but we also need to move them to the middle, otherwise with a rotation of 45deg the result is >.
+
+  &__checkbox:checked + &__button &__icon::before {
+    transform: rotate(135deg); // 180deg - 45 deg
+    // top: 50%; also worked
+    top: 0;
+  }
+  &__checkbox:checked + &__button &__icon::after {
+    transform: rotate(-135deg);
+    // top: 50%; also worked
+    top: 0;
+  }
 }
+
+// Remember the transform origin (right, left...), it defines the rotation to happen on the side of the element that we specify. Imagine a lid of a box, if we set the rotation to -45deg with the transform origin left it gives the illusion of opening. The default is center.

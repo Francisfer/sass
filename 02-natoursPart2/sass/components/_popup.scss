@@ -1,0 +1,66 @@
+.popup {
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba($color-black, 0.8);
+  z-index: 9999;
+
+  &__content {
+    width: 75%;
+    background-color: $color-white;
+    box-shadow: 0 2rem 4rem rgba($color-black, 0.2);
+    border-radius: 3px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: table;
+    overflow: hidden;
+  }
+
+  // Left and right contend
+  &__left {
+    width: 33.333333%; // What matters is that both sides make roughly 100%
+    // float: left;
+    display: table-cell;
+  }
+  &__right {
+    width: 66.666667%;
+    // float: left;
+
+    // When it comes to the part of placing left and right side by side he uses floats to the left on both. That works, however the sides have different heights, because the right one occupies the space that it needs. in order to fix the problem and make the height the same on both sides we use display to table-cell. on the parent the display is table
+    display: table-cell;
+
+    // however the content still needs to be fixed because this right container content goes to the end of the page and stays weirs, we need to use
+    vertical-align: middle;
+
+    // After this is just the regular adjustments
+    padding: 3rem 5rem;
+  }
+  &__img {
+    display: block; // One in each line
+    width: 100%; // Of the parent left
+  }
+  &__text {
+    font-size: 1.4rem;
+    margin-bottom: 4rem; //space between the button and the text, the rest of the spaces between elements is done with the utilities classes.
+
+    // For the text columns
+    -moz-column-count: 2;
+    -moz-column-gap: 4rem;
+    -moz-column-rule: 1px solid $color-grey-light-2;
+
+    column-count: 2;
+    column-gap: 4rem; // Default 1em = 14px because of the font-size of 1.4rem that we have in this container
+    column-rule: 1px solid $color-grey-light-2; // Like a border in the middle of the columns
+
+    //for the hyphens - it is necessary to have in account the language. the only problem with this is that we need to give it a lot of prefixes in order to function correctly in all browsers. The same with the columns.
+
+    -moz-hyphens: auto; // Mozilla
+    -ms-hyphens: auto; // Edge
+    -webkit-hyphens: auto; // Safari and chrome
+    hyphens: auto;
+  }
+}
