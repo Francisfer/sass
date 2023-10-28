@@ -7,6 +7,11 @@
   background-color: rgba($color-black, 0.8);
   z-index: 9999;
 
+  // display: none; // Not a solution, otherwise we can't style it.
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+
   &__content {
     width: 75%;
     background-color: $color-white;
@@ -15,9 +20,13 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) scale(0.25);
     display: table;
     overflow: hidden;
+
+    // For the popup effects - this is the initial state. the scale down is added to the previous transform, otherwise it's overwritten.
+    opacity: 1;
+    transition: all 0.5s 0.2s; // The last value is the delay, so that the background appears slightly first
   }
 
   // Left and right contend
@@ -62,5 +71,37 @@
     -ms-hyphens: auto; // Edge
     -webkit-hyphens: auto; // Safari and chrome
     hyphens: auto;
+  }
+
+  // When the target is on the popup, in other words, when the pseudo element target is available on this element, do this:
+  &:target {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  // To give that zoom effect like its going towards the user. so we want to style the content when the target is the popup:
+  &:target &__content {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  // The button to close the popup
+  &__close {
+    &:link,
+    &:visited {
+      color: $color-grey-dark;
+      position: absolute;
+      top: 2.5rem;
+      right: 2.5rem;
+      font-size: 3rem;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.2s;
+      line-height: 1; // Because this is text, and the element becomes much higher that wider, so we just decrease a bit the line height
+    }
+
+    &:hover {
+      color: $color-primary;
+    }
   }
 }

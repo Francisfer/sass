@@ -243,7 +243,8 @@
                     <p class="card__price-only">Only</p>
                     <p class="card__price-value">$297</p>
                   </div>
-                  <a href="#" class="btn btn--white">Book now!</a>
+                  <!-- Notice the id for hooking the popup. When we click this button, the href gets added to the url of the page, so #popup becomes the target. In this case the target is the entire div that has the id of target, so, once becomes the target, the pseudo class target is available on it.  -->
+                  <a href="#popup" class="btn btn--white">Book now!</a>
                 </div>
               </div>
             </div>
@@ -274,7 +275,7 @@
                     <p class="card__price-only">Only</p>
                     <p class="card__price-value">$497</p>
                   </div>
-                  <a href="#" class="btn btn--white">Book now!</a>
+                  <a href="#popup" class="btn btn--white">Book now!</a>
                 </div>
               </div>
             </div>
@@ -305,7 +306,7 @@
                     <p class="card__price-only">Only</p>
                     <p class="card__price-value">$897</p>
                   </div>
-                  <a href="#" class="btn btn--white">Book now!</a>
+                  <a href="#popup" class="btn btn--white">Book now!</a>
                 </div>
               </div>
             </div>
@@ -536,7 +537,8 @@
     <!-- As for the popup, we can place it wherever we want on the markup because this is not really tied (ligado) to any of the sections -->
 
     <!-- Box for the background -->
-    <div class="popup">
+    <!-- Remember the id for the hook, this will become the target -->
+    <div class="popup" id="popup">
       <!-- The box itself -->
       <div class="popup__content">
         <!-- As for the popup content we have two boxes with the same height, on the left we have two images, and on the right we have the content vertically aligned -->
@@ -547,6 +549,8 @@
         </div>
 
         <div class="popup__right">
+          <!-- The button to close the popup, we just change the target to something else -->
+          <a href="#section-tours" class="popup__close">&times;</a>
           <h2 class="heading-secondary u-margin-bottom-small">
             Start booking now
           </h2>
