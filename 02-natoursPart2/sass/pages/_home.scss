@@ -3,7 +3,11 @@
 .section-about {
   background-color: $color-grey-light-1;
   padding: 25rem 0; // We give a padding of 25 so after we can pull the element up with the difference between 95 - 75 (header polygon) with negative margin top:
-  margin-top: -20rem;
+  margin-top: -20vh;
+
+  @include respond(tab-port) {
+    padding: 20rem 0;
+  }
 }
 
 .section-features {
@@ -34,18 +38,30 @@
   // Now to pull the section
 
   margin-top: -12.6rem; // Trial and error on the console, in he's case -10 px were enough, but in my screen it was not.
+
+  @include respond(tab-port) {
+    padding: 10rem 0;
+  }
 }
 
 .section-tours {
   background-color: $color-grey-light-1;
   padding: 25rem 0 15rem 0; // margin bottom so we can code the cards better, started with 50rem.
   margin-top: -13rem; // To move it up
+
+  @include respond(tab-port) {
+    padding: 20rem 0 10rem 0;
+  }
 }
 
 .section-stories {
   // background-color: $color-grey-light-1; we don't want because of the video, however if still active, the z index with a negative value would't work because of it.
   padding: 15rem 0;
   position: relative; // For the video
+
+  @include respond(tab-port) {
+    padding: 10rem 0;
+  }
 }
 
 .section-book {
@@ -55,6 +71,10 @@
     $color-primary-light,
     $color-primary-dark
   );
+
+  @include respond(tab-port) {
+    padding: 10rem 0;
+  }
 }
 
 .book {

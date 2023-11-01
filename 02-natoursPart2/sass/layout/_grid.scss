@@ -9,9 +9,20 @@
   //   margin-bottom: 0;
   // }
 
+  @include respond(tab-port) {
+    // to diminish the max-width of the rows, we no longer want them to occupy the available space.
+    max-width: 50rem;
+    padding: 0 3rem;
+  }
+
   //The not selects everything (sets the margin bottom) except for the last child
   &:not(:last-child) {
     margin-bottom: $gutter-vertical;
+
+    @include respond(tab-port) {
+      // to add a smaller vertical space
+      margin-bottom: $gutter-vertical-small;
+    }
   }
 
   // So that we can restore the height, remember that the items where removed from the flow, so the container loses the content, hence not having height.
@@ -22,6 +33,19 @@
     float: left;
     &:not(:last-child) {
       margin-right: $gutter-horizontal;
+
+      @include respond(tab-port) {
+        // to remove the horizontal gap because they are going to be in rows at this query
+        margin-right: 0;
+
+        // For the same reason, we now need a margin bottom between the rows
+        margin-bottom: $gutter-vertical-small;
+      }
+    }
+    // For the portrait width
+    @include respond(tab-port) {
+      // setting the width of all columns to 100% is like transform them into rows
+      width: 100% !important;
     }
   }
 

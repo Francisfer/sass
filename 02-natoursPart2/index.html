@@ -616,3 +616,35 @@
     <!-- </section> -->
   </body>
 </html>
+
+<!-- Advanced responsive design -->
+<!-- Two approaches, desktop first and mobile first, we are going with desktop first because it is easier to learn and we do that by writing media queries that test for max width. -->
+
+<!-- When we have conflicting rules in media queries, for example a phone that has 500 px get's the media query for 600px and the media query for 900px because, in both cases 500 < 600 && 500 < 900  -->
+
+<!-- In this case the last rule that it's written in the code gets applied, that's why the order of the code is important in this case. -->
+
+<!-- There are several ways of establishing the breakpoints, the bad (having in account the screen sizes of some brand, apple for ex), the good (in which we choose the screen sizes that are most used, we can get this data from gs.statcounter.com/screen-resolution) and the perfect (we write media queries whenever our code breaks as we diminish the window, of course this in not easy because we can rapidly end up with many queries) -->
+
+<!-- Usualy, we need one breakpoint for phones, one for portrait tablets, one for landscape tablets and one for the desktop -->
+
+<!-- The best strategy for responsive design with scss is to use mixins. -->
+
+<!-- 
+Ranges:
+
+0-600px:      Phone
+
+600-900:      Tablet portrait
+
+900-1200:     Tablet landscape
+
+[1200 - 1800] this is where our normal styles apply
+
+1800 + :      Big desktop, for this we will write a min width media query of course.
+
+ -->
+
+<!-- 
+  See how to pass arguments with mixins and blocks of code using @content.
+  -->

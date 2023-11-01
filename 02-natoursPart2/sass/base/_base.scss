@@ -10,10 +10,64 @@
 html {
   /* font-size: 10px; */
   // Although this is also typography, it defines what a rem should be, so its more like a global definition.
-  font-size: 62.5%;
-}
+  font-size: 62.5%; // 1 rem = 10px (10px / 16px)
 
-// The rest is in the typography
-body {
-  box-sizing: border-box;
+  // @media (max-width: 600px) {
+  //   font-size: 50%;
+  // } SAME AS:
+
+  //   @include respond-phone {
+  //     font-size: 50%;
+  //   }
+  // } SAME AS BELOW
+
+  // Now, to adjust the font-size in each media query we need to really understand the process from the beginning.
+
+  // We set the font-size of the root so that one rem = 10px. This way we would not lose the user's ability to change the size and, at the same time, the math to calculate the rems would be easier.
+
+  // Then, in the mixins, we need to work with em, which by default is 16px coming from the browser, so if we want the design to change at 600px we need to 600/16 = 37.5 rem. And this is where the mixins are done, we just defined the width in which these changes that we are going to do here will apply.
+
+  // In here, at the default viewport width, 1 rem is 10px. Now, imagine that for the portrait tablet we want 1 rem to be 8px (decreasing the size in two px). We need to do the conversion in the same way that we've done before. 8/16 = 0.5 -- 50%. We always must have the 16px default as reference.
+
+  // The next thing to have in mind is the question that each media query does, as we can see in our code, the first (phone) asks the question is the max-width lower than 600px, the second asks if the max-width is lower than 900px. Both the conditions are true if we are below 900px, so the last to be written in the code is the one that gets executed as a result of the conflicting rules.
+
+  // At this point, he deleted the phone query over the fact that the overall font-size should remain the same as the portrait. What we need to change are specific things like the letter spacing of the header, etc (but not to decrease the overall layout). We also needed to change the order of the code so that the landscape (bigger) gets executed before the the portrait (smaller).
+
+  // This for the same reason, below 1200px as max width both conditions are true, so we want to leave the smaller screens for last in the order of the code.
+
+  // As for the big-desktop, remember that it uses the min-width, that's why the order does not generate any conflict by being last in the code.
+
+  // @include respond(phone) {
+  //   font-size: 50%;
+  // }
+
+  // ORDER TO WRITE THE MEDIA QUERIES:
+  // 1. base and typography.
+  // 2. more general layout (header, footer, navigation, ...) and the grid.
+  // 3. more specific page layout
+  // 4. components
+
+  // max-width < 1200?
+  @include respond(tab-land) {
+    font-size: 56.25%; // 1rem = 9px - so 9 / 16 = 56.25%
+  }
+
+  // max-width < 900?
+  @include respond(tab-port) {
+    font-size: 50%; // 1rem = 8px - so 8 / 16 = 50%
+  }
+  @include respond(big-desktop) {
+    font-size: 75%; // 1rem = 12px - so 12 / 16 = 75%
+  }
+
+  // The rest is in the typography
+  body {
+    box-sizing: border-box;
+    padding: 3rem;
+
+    // Getting rid of the padding for smaller screens
+    @include respond(tab-port) {
+      padding: 0;
+    }
+  }
 }
