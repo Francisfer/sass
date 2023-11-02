@@ -31,6 +31,7 @@
   // FUNCTIONALITY
 
   perspective: 150rem;
+  -webkit-perspective: 150rem;
   -moz-perspective: 150rem;
   position: relative;
   height: 52rem; // Because there is nothing like clearfix to fix the floats
@@ -45,6 +46,7 @@
     top: 0;
     left: 0;
     width: 100%;
+    -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     box-shadow: 0 1.5rem 4rem rgba($color-black, 0.15);
     border-radius: 3px;
@@ -54,6 +56,7 @@
       background-color: $color-white;
     }
     &--back {
+      // Remember that for this to work in safari we must never rotate an element more than 179 deg
       transform: rotateY(180deg); // Already flipped before hover
 
       &-1 {
@@ -216,5 +219,62 @@
   &__price-value {
     font-size: 6rem;
     font-weight: 100;
+  }
+
+  // For the media query, we are going to do things a bit differently, because we are rewriting most of the parts. So, we write a big query, copy everything in there and only change what we need to change.
+
+  @include respond(tab-port) {
+    height: auto;
+    border-radius: 3px;
+    background-color: $color-white; // To "glue" the hole card
+    box-shadow: 0 1.5rem 4rem rgba($color-black, 0.15);
+
+    &__side {
+      height: auto;
+      font-size: 2rem;
+      position: relative; // We no longer have two sides
+      // border-radius: 3px; moved to the entire card, we also placed the background color and the shadow to all of it.
+      box-shadow: none;
+
+      &--back {
+        transform: rotateY(0); // We no longer want it to rotate
+
+        // Giving a similar clip path to the back side so that the style is similar, but placed on the top of the back part
+
+        -webkit-clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 100%);
+        clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 100%);
+      }
+    }
+
+    &:hover &__side--front {
+      transform: rotateY(0); // The front side should not rotate when hover
+    }
+
+    &__details {
+      // Just removing a bit of padding
+      padding: 1rem 3rem;
+    }
+
+    // FRONT-SIDE STYLING
+
+    // The style should not change
+
+    // BACK-SIDE STYLING - also in the front now
+    &__cta {
+      position: relative;
+      top: 0;
+      left: 0;
+      transform: translate(0);
+      width: 100%;
+      padding: 7rem 4rem 4rem 4rem; // A bit more on the top to push it down.
+    }
+
+    &__price-box {
+      margin-bottom: 3rem;
+    }
+
+    &__price-value {
+      font-size: 4rem;
+    }
   }
 }

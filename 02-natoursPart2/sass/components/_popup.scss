@@ -1,3 +1,9 @@
+// In this component he taught the backdrop filter. At the time it was not implemented in google chrome, even with the webkit, it only worked in safari. He also taught how the feature query works (@support).
+
+// So, we want the backdrop filter to apply whenever it has browser support, and, in this case, we don't want the background to be so darkened. Otherwise, we just want the background color to be applied with alpha channel.
+
+// This is achieved with the feature query comes in. In there we test/ask the browser if it supports a certain property. The or cannot be a comma (,) with feature query, it needs to be the or keyword. CANIUSE.COM
+
 .popup {
   height: 100vh;
   width: 100%;
@@ -6,11 +12,19 @@
   left: 0;
   background-color: rgba($color-black, 0.8);
   z-index: 9999;
-
   // display: none; // Not a solution, otherwise we can't style it.
   opacity: 0;
   visibility: hidden;
   transition: all 0.3s;
+
+  // graceful degradation - check more properties of backdrop filter
+  @supports (-webkit-backdrop-filter: blur(10px)) or
+    (backdrop-filter: blur(10px)) {
+    // If it's not supported this code will not apply
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    background-color: rgba($color-black, 0.3);
+  }
 
   &__content {
     width: 75%;

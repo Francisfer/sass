@@ -114,6 +114,44 @@
           <div class="col-1-of-2">
             <!-- The composition goes to another file in the components folder -->
             <div class="composition">
+              <!-- Density and resolution switching approach - Unlike in art direction (that we've done in the footer), which basically forces the browser to use a certain image according to a media query, in this approach we allow the browser to choose the best image for the current viewport and pixel density. -->
+
+              <!-- In this case we have two options for each image: nat1 and nat1 large. Instead of using the density descriptors (1x, 2x), we use the width descriptor, which informs the browser of the width of the images. -->
+
+              <!-- srcset="img/nat-1.jpg 300w, img/nat-1-large 1000w" informs the browser of the width of the images before it downloads them in order to get access to that information -->
+
+              <!-- Now, this alone is not enough for the browser to figure out which image to download, right now the browser only knows is it's viewport width and it's display density, which is not enough to decide which of these two images to choose.  -->
+
+              <!-- We need to provide more information with the sizes attribute. We use sizes to inform the browser about the approximate width of the image at a different viewport width. We just go to our breakpoints and see the width of the image at, for ex, 900px. If we see the nat one at 900px, it's width is 171px, so 171 / 900 = 0.19 so 20% basically -->
+
+              <!-- This is the same of saying that at 900px of max width, the image has a width of 20% of the viewport's width - 20vh -->
+              <!-- We can set as many sizes as breakpoints, but the last should be the default, the one that we have on our desktop version. Also notice that the src should also be included in case the user has a older browser and none of the new code runs -->
+
+              <!-- This will actually takes care of both resolution and density switching, don't forget to use em to the width values so 900px / 16 is 56.25 and 600px is 37.5-->
+
+              <img
+                srcset="img/nat-1.jpg 300w, img/nat-1-large.jpg 1000w"
+                sizes="(max-width: 56.25em) 20vw, (max-width: 37.5em) 30vw, 300px"
+                alt="Photo 1"
+                class="composition__photo composition__photo--p1"
+                src="img/nat-1-large.jpg"
+              />
+              <img
+                srcset="img/nat-2.jpg 300w, img/nat-2-large.jpg 1000w"
+                sizes="(max-width: 56.25em) 20vw, (max-width: 37.5em) 30vw, 300px"
+                alt="Photo 2"
+                class="composition__photo composition__photo--p2"
+                src="img/nat-2-large.jpg"
+              />
+              <img
+                srcset="img/nat-3.jpg 300w, img/nat-3-large.jpg 1000w"
+                sizes="(max-width: 56.25em) 20vw, (max-width: 37.5em) 30vw, 300px"
+                alt="Photo 3"
+                class="composition__photo composition__photo--p3"
+                src="img/nat-3-large.jpg"
+              />
+
+              <!--  
               <img
                 src="img/nat-1-large.jpg"
                 alt="Photo 1"
@@ -129,6 +167,7 @@
                 alt="Photo 3"
                 class="composition__photo composition__photo--p3"
               />
+-->
             </div>
           </div>
         </div>
@@ -495,7 +534,30 @@
     <!-- At this point we are done with the main part of the page, the footer goes to the layout folder -->
     <footer class="footer">
       <div class="footer__logo-box">
-        <img class="footer__logo" src="img/logo-green-2x.png" alt="Full logo" />
+        <!-- art direction - we remove the class from the img tag and place it here, remember that the footer__logo class defined the width and height of the image -->
+        <picture class="footer__logo">
+          <!-- Inside of the picture, we need to specify a source element and an img as well. These are basically the different options that we are going to give the browser for images to display. Remember that this logo green has four versions (logo-green1x and logo-green2x for low and high resolution screens --- logo-green-small1x and logo-green-small2x for smaller screens but also with low and high resolution) -->
+          <!-- The magic in here is that we can use a css media query on the source with the media attribute, we started by using the phone query. With this we specify the max-with of 600px  -->
+          <!-- Then we just specify the image that we want in case that the width is lower than 600px -->
+
+          <!-- RECAP -  We started by using the picture element, in which we can specify multiple sources for one image. In the source element, we can write a media query that forces the browser to use the image srcset that we've specified in case that the width is less than 600px. Otherwise the fallback image srcset is used. The use of srcset instead of src allows us to do density switching (high or low resolution)-->
+
+          <source
+            srcset="
+              img/logo-green-small-1x.png 1x,
+              img/logo-green-small-2x.png 2x
+            "
+            media="(max-width: 37.5rem)"
+          />
+
+          <!-- THIS IS NOW THE FALLBACK IMAGE IN CASE THE MEDIA QUERY DOES NOT APPLY (in other words, if it is not a phone, this is the image that the browser will use according to the screen resolution of the user's machine). To change the image according to the resolution of the screen we need to change from src to srcset, so we can specify two images and the density descriptor -->
+          <!-- Note that we include the src at the end in case that the user is using an old browser, so if everything fails we still have the src -->
+          <img
+            srcset="img/logo-green-1x.png 1x, img/logo-green-2x.png 2x"
+            alt="Full logo"
+            src="img/logo-green-2x.png"
+          />
+        </picture>
       </div>
       <div class="row">
         <div class="col-1-of-2">
@@ -648,3 +710,22 @@ Ranges:
 <!-- 
   See how to pass arguments with mixins and blocks of code using @content.
   -->
+
+<!-- sizzy.co to test the media queries on different devices after the site in online -->
+
+<!-- RESPONSIVE IMAGES -->
+
+<!-- At this point we have flexible images, images that scale with the viewport width, but responsive images take things to a hole new level -->
+
+<!-- The goal of responsive images is to serve the rigth image to the right screen size and device, in order to avoid downloading unnecessary large images on smaller screens -->
+
+<!-- In css we work with background images and in html we work with images that have a tag img, where we specify a source -->
+
+<!-- In html we are going to do desity switching and art direction. The philosophy behind densitiy switching is to serve a larger version of the same image for high resolution screens and a smaller version for a low resolution screen -->
+<!-- As for the art direction, we want to tell the browser to use one image on one screen width and another on another width. To make images depend on the screen width we use an html element called picture -->
+
+<!-- Density and resolution switching aproach. Unlike in art direction, where we force the browser to use a certain image according to a media query, here we allow the browser to choose the best image for the current viewport and pixel density of the user's screen. -->
+
+<!-- Check the css to see how responsive background images are worked, we just worked on the header-->
+
+<!-- CAN I USE TO SEE THE PROPERTIES THAT ARE ALREADY AVAILABLE IN THE DIFFERENT BROWSERS -->

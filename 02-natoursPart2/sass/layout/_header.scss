@@ -4,6 +4,34 @@
 
 // But it is worth mentioning that this could be a component, it is a matter of preference and organization strategy.
 
+// RESPONSIVE BACKGROUND IMAGES
+
+// As you can see in the files, there is a smaller version of the background image that we use in the header. The bigger has 2000px of width and 643kb of size and the smaller one with 1200px of width and 260 kb of size.
+
+// Responsive images in css are actually pretty straightforward because all we need to do is to write media queries in order to load different images for different situations.
+
+// Up until this point we have only written media queries related to the viewport width, but there are other types of media queries, like to target resolution. This means that we can implement different styles not only depending on the width of the viewport but also depending on other things such as the device resolution.
+
+// In our case we set the min-resolution to 192 dots per inch, which is a high resolution screen (apple retina screen - used as REFERENCE).
+
+// Notice that this is a min media query, so the logic is the same as with the min width media query. So, whenever the resolution is higher than 192dpi, the code will be applied, and the code is the background image with the bigger image.
+
+// This means that, in the normal state, we load the smaller image because, if we just have a normal screen without high resolution, the image with 1200 is perfectly enough.
+
+// This already works pretty well, but we can improve it for smaller screens like phones. We are talking about the 600px media query. If we imagine to have a 600px wide screen, the great majority have a pixel density of two (2x). If the pixel density is two and the width is 600px, than the picture does not have to be larger than 1200px because 600 * 2 = 1200.
+
+// It is the same as saying that an image with 1200px of width is more than enough to display on a high density screen like this. To implement this we extend the query that we've already had, it is very important to remember the use of min and max width. With MAX we are saying that whenever the width is below the max width do this; with MIN we are saying that whenever the width is higher than min, do that.
+
+// Reading the condition of the code it stays like this: whenever the resolution is higher than 192dpi (2x screen) AND the min-width is larger than 600px, load the bigger image.
+
+// This part is done, but when does it also make sense to use the larger image? At this point we use this image if the width of the screen is larger than 600px (doesn't matter if the screen is 2x) and when the screen is above 600px wide and is 2x.
+
+// But if we have a low resolution screen that is really big, say 2000px, it makes sense to display the bigger image. Instead of creating another media query with this condition, we can extend the previous one because the OR in css is represented by the (,).
+
+// After working the conditions, we must ALWAYS convert the rems into em on our media queries @media. 2000 / 16
+
+// Also remember that in the inspector, the queries created with max appear in one color (blue) and the queries created with min appear in another (orange)
+
 .header {
   height: 95vh;
   background-image: linear-gradient(
@@ -11,13 +39,31 @@
       rgba($color-primary-light, 0.8),
       rgba($color-primary-dark, 0.8)
     ),
-    url("/img/hero.jpg");
+    url("/img/hero-small.jpg"); // Notice that in the normal state we load the smaller image.
 
   background-size: cover;
   background-position: top;
   -webkit-clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
   clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
   position: relative;
+
+  @media (min-resolution: 192dpi) and (min-width: 37.5em), (min-width: 125em) {
+    background-image: linear-gradient(
+        to right bottom,
+        rgba($color-primary-light, 0.8),
+        rgba($color-primary-dark, 0.8)
+      ),
+      url("/img/hero.jpg");
+  }
+
+  // @media (min-width: 2000px) { THE OR IS A , - SEE ABOVE
+  //   background-image: linear-gradient(
+  //       to right bottom,
+  //       rgba($color-primary-light, 0.8),
+  //       rgba($color-primary-dark, 0.8)
+  //     ),
+  //     url("/img/hero.jpg");
+  // }
 
   @include respond(phone) {
     // To change the polygon so that the bottom right goes down a bit.

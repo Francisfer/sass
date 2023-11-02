@@ -20,6 +20,16 @@
   // But this only works for the text element. the shape is still skewed. This happens because we already have one transform(translate) taking place in the shape that takes precedence over this one.
   // At this time, is is not possible to have two transforms applying at the same time, the solution is to un skew the text and add the skew to the transform that we've already had.
 
+  // QUERYs
+  @include respond(tab-port) {
+    width: 100%;
+    padding: 4rem;
+    padding-left: 7rem;
+  }
+  @include respond(phone) {
+    transform: skewX(0); // Getting rid of the shape here and in the shape
+  }
+
   // Taking care of the shape
   &__shape {
     width: 15rem;
@@ -45,6 +55,10 @@
     // With this transform, the circle now occupies half of the padding on the left, so we need to add to the left padding what we've had (6) + 3 - in the story container.
 
     position: relative; // For the fig caption
+
+    @include respond(phone) {
+      transform: translateX(-3rem) skewX(0); // Getting rid of the shape, but the translate need to be included
+    }
   }
   // As for the image
   &__img {
@@ -60,6 +74,10 @@
   &__text {
     // For the text to un skew
     transform: skewX(12deg);
+
+    @include respond(phone) {
+      transform: skewX(0); // To restore the text
+    }
   }
 
   &__caption {
