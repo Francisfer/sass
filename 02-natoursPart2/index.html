@@ -729,3 +729,50 @@ Ranges:
 <!-- Check the css to see how responsive background images are worked, we just worked on the header-->
 
 <!-- CAN I USE TO SEE THE PROPERTIES THAT ARE ALREADY AVAILABLE IN THE DIFFERENT BROWSERS -->
+
+<!-- As for the build process, 4 steps to do:
+
+1. Compilation - We start with our main sass file and compile it to a css file just like we've been doing.
+
+2. Concatenation - Then we want to merge the content of that compiled css file with the icon-font css file, so we just end up with one css file.
+
+3. Prefixing - From there, we want to automatically add prefixes to our code.
+
+4. Compressing - Finally we compress the entire code that we have at this stage.
+
+We do all this in the .json file. We need to kill the terminal to do this.
+
+1 - The first thing that we do is to change the script that we already have that compiles the sass into css (compile:sass to watch:sass). This because next we want to create a script that compiles sass without watching it (-w flag) . The scripts are separated by a comma (,).
+
+2 - After creating the script to compile sass, we change the file into which we want to compile. We were compiling to style.css and now we want a new file style.comp.css (comp stands for compiled).
+We do not need to create this new file, when we npm run compile:sass it is created automatically.
+
+3 - The next step is to concatenate our existing css files. To do this there is a npm package called concat that we need to install.
+npm install concat --save-dev (saving it as a dev dependency).
+To see how to use this package we search npm concat. -o stands for output, so we put the name of the output file that we want - css.style.concat.css which, again, creates a new file.
+As for the input files we need the icon font and the style.comp files.
+Now we run concat:css
+Now we have all of the css into one file, which is a lot better because, like this, we only need one http request instead of two.
+
+4 - Now comes the prefix:css where we need another npm package called autoprefixer. In order for this prefixer to work we need another package called postcss-cli.
+We need this last one because autoprefixer is part of the postcss plugin/package, that's why in the command we say postcss --use autoprefixer.
+The -b flag stands for browsers, meaning that we put the last versions of the browsers that we want to target. Next comes the input file, which is the concat file and the output file, which is a new one with the -o flag. now we run prefix:css
+What the prefix does is to add -webkit- and other stuff
+
+5 - Now the last step is to compress. For this one we don't need any package because the node-sass can do this. We just need to write (in the command) node-sass the input css/style.prefix.css and the output, which is going to be out style.css.
+This means that we are going to overwrite it, sometimes a new file is created, but then we would have one file for the build process and another for the production. When this is done, we can remove the link in the head for the icon-font, because it is already in our style.css WE ONLY DO THIS WHEN WE ARE READY TO DEPLOY TO A LIVE WEBSERVER.
+In order for this to work we need to add a flag to the command --output-style compressed. Setting the output style to compress will simply compress the code. Now we just need to run it. The code is now just one line of giberish, without spaces and comments. 
+
+6- In the real world we wouldn't need to run all these four steps one by one. We would build the commands of course but then we would use the npm package called npm-run-all (in order to function in all platforms, windows mac linux, there must be specific ones for each). So we install npm run all, then we write the command build:css. In there we call the package and then put the name of the tasks. If we delete all the files in the css folder, except for the icons, the command will build everything.
+
+This is our build process or build workflow, but there is much that we can do with npm-run-all SEE BELOW
+/////////////////////////////////////
+
+DEVELOPMENT WORKFLOW
+Remember that we've already set up a development workflow before when we compiled:sass (now it is the watch:sass command) with the -w  flag and the live server. 
+
+We needed to run the -w and the live server in different terminals, also it didn't work so well because we needed to constantly be saving the main.scss
+
+To improve this, we first create a new command for the live server (devserver) and then a command called start that uses the npm-run-all with both the watch:scss and the devserver. The only difference is that we now want these tasks to run in paralel (in the build command we wanted them to be done in sequence).
+
+-->

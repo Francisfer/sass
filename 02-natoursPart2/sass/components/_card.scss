@@ -223,7 +223,9 @@
 
   // For the media query, we are going to do things a bit differently, because we are rewriting most of the parts. So, we write a big query, copy everything in there and only change what we need to change.
 
-  @include respond(tab-port) {
+  // @include respond(tab-port) { We need to use the media query directly if we want to make the condition for the devices that can't hover. We want this code to happen (the card no longer rotates and the button is at the end) if the width is below that value OR if we have a touch device.
+
+  @media only screen and (max-width: 56.25em), only screen and (hover: none) {
     height: auto;
     border-radius: 3px;
     background-color: $color-white; // To "glue" the hole card
