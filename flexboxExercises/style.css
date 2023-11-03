@@ -1,0 +1,94 @@
+/* 
+
+SLIDES SASS
+
+Flexbox philosophy and main properties that we can use in order to build flexbox layouts.
+
+Flexbox is a new module in css 3 that makes it easier to align elements to one another, in different directions and orders.
+
+Also, it makes it easier to change these alignments if necessary (responsive design). Also, this works perfectly even if we don't know the dimensions of these elements, because the main idea behind flexbox is to actually give the container the ability to expand and to shrink elements in order to best use all the available space.
+
+There are not many concepts that we need to understand in order to use flexbox, but there are some important ones:
+
+  1. The element on which we use flexbox is called flex-container and, in order to create a flex container, all we have to do is to set it's display property to flex. We can also set it to flex-inline, which creates a flex-container that behaves like a inline element (not much used). Just with this, the flex-items are now side by side along the main axis.
+
+  2. All the direct children of the flex container are called the flex-items. The direction in which these flex items are laid out is called the main axis ----->. The other perpendicular axis is called the cross axis. These two axis are important to understand because we can change the direction of the main axis and also because there are different ways of aligning elements both along the main axis and the cross axis.
+
+  3. The flexbox specification defines a couple of properties that we use on the flex container in order to position and align all the flex items and some other properties that we use on the flex items themselves.
+
+  CONTAINER properties (first is the default):
+
+  - flex-direction: row, row-reverse, column, column-reverse. This property specifies in which direction the main axis goes. When set to column, the flex-items are stacked one on top of another because the current main axis in now the cross axis (top to bottom).
+
+  - flex-wrap: nowrap, wrap, wrap-reverse. This one specifies if the flex-items should wrap into a new line if there is not enough space in the flex container or not.
+
+  - justify-content: flex-start, flex-end, center, space-between, space-around, space-evenly. This property specifies how the flex items will be aligned along the main axis ----->.
+
+  - align-items: stretch, flex-start, flex-end, center, baseline. This is very similar to justify-content but specifies how the flex items will be aligned along the cross axis. Don't forget that in order for this to work we need at least one item to be bigger that the others, otherwise they are already perfectly aligned vertically (cross axis). However, if we choose one of the items and give it a bigger height, all the others get that same height, this is because align-items is set to stretch by default (the smaller ones stretch to match the height of the highest flex-item). If we don't want that, we need to set the value to something else. Baseline means that, if one of the items has a font-size bigger than the others, this will align the text on these flex-items along a line.
+
+  - align-content: stretch, flex-start, flex-end, center, space-between, space-around. This one only applies when there is more than one row of flex items. In that case, align-content controls how the rows are aligned along the cross axis (if there is some empty space).
+
+  //////////////////////////////////
+
+- flex-wrap: nowrap, wrap, wrap-reverse. This property allows the creation of a new line for the items that no longer fit the container. This is much useful for responsive design.
+
+- align-content: flex-start, flex-end, center, space-between, space-around. If we need to have a container with a fixed height, we may need to align the rows along the cross axis, and this is what this property does. It is similar to align-items, but instead of aligning the items it aligns the rows (let's say).
+
+
+  FLEX-ITEMS properties (first is the default):
+
+  - align-self: stretch, flex-start, flex-end, center, baseline. Similar to align-items but for one individual flex-item. Imagine that we define align-items to center but we want one of the items to be aligned to the bottom.
+
+  - order: 0. Defines the order in which one specific item should appear inside the container. This is very useful to reorder items for smaller screens for example. The default is zero, so if we want a certain flex-item to be at the beginning we give it a negative value, if we want it at the end we give it a positive number.
+
+  Next, we have three properties that together help flexbox decide on the width of a flex-item.
+
+  - flex-grow: 0. With this one we define how much an item can grow (in width if the flex direction is row and height if the flex direction is column). If we set it to a positive number (1), the item will grow as much as it can. In our example we set the flex-grow property in the .item class so all of them would grow, this to show that if, after that, we set flex-grow to 2 on one of them, this one will grow double than the others.
+
+  - flex-shrink: 1. With this one we define how much an item can shrink. If we don't want this to happen we set it to 0, but that is not very common.
+
+  - flex-basis: auto. With this one we can define its base width (length). instead of defining the width of a flex item with width it is common to use flex-basis.
+
+  The shorthand for these three properties is just called flex:
+
+  - flex: 0 1 auto;
+
+
+*/
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  background-color: #ccc;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  /* height: 1500px; Remember that if we don't give a height, the container occupies the space that its enough for the content */
+
+  flex-wrap: wrap;
+}
+
+.item {
+  background-color: #f1425d;
+  padding: 40px;
+  margin: 30px;
+  color: #fff;
+  font-size: 30px;
+  flex: 1;
+}
+
+.i2 {
+  height: 200px;
+}
+
+.i4 {
+  /* align-self: flex-end; */
+  /* order: -1; */
+  flex: 2;
+}
