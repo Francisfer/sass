@@ -1,0 +1,35 @@
+.container {
+  // Used max-width so that the container's width can decrease if here is not enough space (the viewport is smaller) to display 120rem.
+  max-width: 120rem;
+  margin: 8rem auto; // Old trick to center the container
+  background-color: var(--color-grey-light-1);
+  // x, y, blur radius, spread radius
+  box-shadow: var(--shadow-dark);
+  min-height: 50rem; // While building - testing
+}
+
+.header {
+  height: 7rem;
+  background-color: var(--color-white);
+  border-bottom: 1px solid var(--color-grey-light-2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.4rem; // We overwritten the font-size here so we could inherit this size in the placeholder of the search bar. This way all the header can inherit this value.
+}
+
+.content {
+  display: flex;
+}
+
+.sidebar {
+  background-color: var(--color-grey-dark-1);
+  // grow, shrink, basis (WIDTH) - if we set the width to a percentage it actually makes sense that we don't want it to shrink, that will happen automatically.
+  flex: 0 0 18%;
+}
+
+.hotel-view {
+  background-color: var(--color-white);
+  // We've established a width to the sidebar, now we want the hotel view to occupy all the remaining space. Instead of doing the same thing with 82% we use flex grow.
+  flex: 1;
+}

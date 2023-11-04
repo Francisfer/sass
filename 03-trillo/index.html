@@ -14,6 +14,169 @@
     <title>trillo &mdash; Your all-in-one booking app</title>
   </head>
   <body>
-    trillo
+    <!-- Overall container -->
+    <div class="container">
+      <!-- Header - Stays on top alone so we don't need a container to work the layout -->
+      <header class="header">
+        <!-- Three main components in the header: the logo, the search bar with an input field and an icon and the user navigation (bookmarks, chat, name) in components-->
+
+        <!-- LOGO -->
+        <img src="img/logo.png" alt="trillo logo" class="logo" />
+
+        <!-- SEARCH BAR - notice the BEM, search is the block and input is the element -->
+        <form action="#" class="search">
+          <input
+            type="text"
+            class="search__input"
+            placeholder="Search hotels"
+          />
+          <button class="search__button">
+            <svg class="search__icon">
+              <use xlink:href="img/sprite.svg#icon-magnifying-glass"></use>
+            </svg>
+          </button>
+        </form>
+
+        <!-- USER NAVIGATION - three boxes (two for the icons and one for the user) -->
+        <nav class="user-nav">
+          <div class="user-nav__icon-box">
+            <svg class="user-nav__icon">
+              <use xlink:href="img/sprite.svg#icon-bookmark"></use>
+            </svg>
+            <!-- For the notification in each icon we use a span -->
+            <span class="user-nav__notification">7</span>
+          </div>
+          <div class="user-nav__icon-box">
+            <svg class="user-nav__icon">
+              <use xlink:href="img/sprite.svg#icon-chat"></use>
+            </svg>
+            <span class="user-nav__notification">13</span>
+          </div>
+          <div class="user-nav__user">
+            <img
+              src="img/user.jpg"
+              alt="User photo"
+              class="user-nav__user-photo"
+            />
+            <span class="user-nav__user-name">Jonas</span>
+          </div>
+        </nav>
+      </header>
+
+      <!-- For the side bar on the left and the hotel view on the right we need a container that includes both, so that later we can use flexbox for the layout -->
+      <div class="content">
+        <!-- For the side bar we use the nav, because it holds our navigation -->
+        <nav class="sidebar">Navigation part</nav>
+        <!-- For the hotel view we use main element, because that is the perfect semantic for the main content of the site or app-->
+        <main class="hotel-view">Hotel view part</main>
+      </div>
+    </div>
   </body>
 </html>
+
+<!-- 
+
+  We are starting this project by defining the basic settings just like we did with natours. We are also going to learn how and why to use custom properties in css instead of sass variables.
+
+  In terms of architecture, we are not going to create as many folders as we did in the last project, we will have three simple files, one for the base settings, one for the overall layout of the app and one for the smaller components. (the partials that we import to the main.scss)
+
+  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+  Don't forget how the imports are made.
+  @import "base";
+  @import "components";
+  @import "layout";
+
+  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+  The global reset.
+
+      * {
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 62.5%; 1rem = 10px / 16px = 62.5%
+      box-sizing: border-box;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: inherit;
+    }
+    body {
+      The values for the overall document.
+      font-family: "Open Sans", sans-serif;
+      font-weight: 400;
+      line-height: 1.6;
+
+       
+      min-height: 100vh; the min is 100 but it can grow
+      max-width: 120rem - the max is 120, but it can shrink if there is not enough space to display 120rem.
+    }
+
+    <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+    Custom css properties/variables
+
+    This means that we can use variables in css and don't have to rely on sass variables. 
+    The first reason why this is better is that, with css variables, we don't even need a css pre-processor, THIS in the case that we are just using sass for the variables.
+
+    The second advantage is that css variables can be manipulated in Javascript and we can also edit them in our dev tools. They are also easier to use in the calc function, they cascade and are inherited.
+
+    We must define the variables inside a scope (code block), we could write these variables inside any selector that we want, however, they would only be available in that element and it's children. 
+    This is not a good strategy because we want these variables to be accessible in the entire document, so we define them in the root pseudo element.
+
+    The root pseudo element is essentially the html selector but with a higher specificity.
+
+          :root {
+            
+              --color-primary: #eb2f64;
+              --color-primary-light: #ff3366;
+              --color-primary-dark: #ba265d;
+      }
+
+  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+  1. Why to use svg icons vs font icons?
+  Remember that we've used font icons in the previous project in order to change their color as they are treated as text.
+  There are several problems with icon fonts: it is just a hack to display icons (which are like images using a font), they fail very often and they don't work with screen readers.
+
+  The better alternative to this is to use svg. Scalable vector graphics are just a way of writing vector graphics with code.
+
+  2. How to find, generate and use svg sprites in html.
+
+  We are not going to write svg but we are going to use a resource like iconmoon.io RESOURCE
+  There are several free packages, but we are going to use entypo+.
+  From there we just select the ones that we need, generate svg and more and unselect png (we just want svg). Also pay attention to the prefix.
+
+  After downloading we just need two files, the svg folder and the sprite file (symbol-defs.svg).
+  The sprite is an svg file that contains all of the svg images that we've downloaded. This is the one that we are going to use because it is just one file from which we can select all the icons (one http request).
+
+  The demo html file is useful so we can see the names of the icons more easily.
+
+  As for the usage, we use the svg tag and give it a class that we want, then in there, the use tag with the xlink:href="path of the sprite# name of the icon". the hash is the id.
+
+  This is the best way of using svg in html, however this only works on a server, so there might be a problem if we use them on static sites with other types of hosting. IMPORTANT
+
+
+  3. How to change the color of an svg icon in css.
+  With this way of including the svg in the html we can change the color in css just by using the fill property.
+
+  4. How to use more advanced flexbox alignment techniques like justify-content, align-items, align-self and flex.
+
+
+
+
+
+  ///////////////////////////////////////////////////////////////////////
+
+  Things to better understand:
+
+  1. How the selection of the siblings is correctly done in every situation (the adjacent sibling (+) selector and the others).
+
+  2. How the negative margin makes another element to be on top of another. (remember the magnifying glass in the search bar)
+
+  3. Making changes on the placeholder just work with ::-webkit-input-placeholder
+ -->

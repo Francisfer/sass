@@ -1,0 +1,96 @@
+/////////////// LOGO ///////////////
+
+.logo {
+  height: 3.25rem;
+  margin-left: 3rem;
+}
+
+/////////////// SEARCH BAR ///////////////
+.search {
+  // background-color: orangered; // Testing
+  flex: 0 0 40%;
+
+  display: flex; // A flex item becoming a flex container in order to align the button and the input
+  align-items: center;
+  justify-content: center;
+
+  &__input {
+    // remember that input elements don't inherit font-family, the font-size, text color etc
+    font-family: inherit;
+    font-size: inherit;
+    background-color: var(--color-grey-light-2);
+    border: none;
+    color: inherit; // From body, the color when we write.
+    padding: 0.7rem 2rem;
+    border-radius: 100px; // high number for the rounded edges.
+    width: 90%; // we don't set it to 100 because there is an animation on focus.
+    transition: all 0.2s;
+    margin-right: -3.25rem; // So that the button move on top of the input.
+
+    &:focus {
+      outline: none;
+      width: 100%;
+      background-color: var(--color-grey-light-3);
+    }
+
+    // To make changes on the placeholder
+    &::-webkit-input-placeholder {
+      font-weight: 100;
+      color: var(--color-grey-light-4);
+    }
+  }
+
+  // Using the adjacent selector to set the background color of the button to be the same as we have for the focused input. Whenever the input is on focus select the adjacent sibling and ...
+
+  &__input:focus + &__button {
+    background-color: var(--color-grey-light-3);
+  }
+
+  &__button {
+    border: none;
+    // Same background color as input because it will be on top of it.
+    background-color: var(--color-grey-light-2);
+    transition: all 0.2s;
+
+    &:focus {
+      outline: none;
+    }
+
+    &:active {
+      transform: translateY(2px);
+    }
+  }
+
+  &__icon {
+    height: 2rem;
+    width: 2rem;
+    // Changing the color of the icon
+    fill: var(--color-grey-dark-3);
+  }
+}
+
+/////////////// USER NAVIGATION ///////////////
+.user-nav {
+  background-color: greenyellow; // Testing
+  display: flex;
+  &__icon-box {
+  }
+
+  &__icon {
+    height: 2.25rem;
+    width: 2.25rem;
+  }
+  &__notification {
+  }
+
+  &__user {
+  }
+
+  &__user-photo {
+    height: 3.75rem;
+    border-radius: 50%;
+  }
+
+  &__user-name {
+  }
+}
