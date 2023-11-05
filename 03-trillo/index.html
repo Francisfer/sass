@@ -65,8 +65,51 @@
 
       <!-- For the side bar on the left and the hotel view on the right we need a container that includes both, so that later we can use flexbox for the layout -->
       <div class="content">
-        <!-- For the side bar we use the nav, because it holds our navigation -->
-        <nav class="sidebar">Navigation part</nav>
+        <!-- For the side bar we use the nav, because it holds our navigation, the navigation itself, as usual is an unordered list. -->
+
+        <nav class="sidebar">
+          <ul class="side-nav">
+            <!-- NOTICE THE ACTIVE MODIFIER components line 177-->
+            <li class="side-nav__item side-nav__item--active">
+              <a href="#" class="side-nav__link">
+                <svg class="side-nav__icon">
+                  <use xlink:href="img/sprite.svg#icon-home"></use>
+                </svg>
+                <span>Hotel</span>
+              </a>
+            </li>
+
+            <li class="side-nav__item">
+              <a href="#" class="side-nav__link">
+                <svg class="side-nav__icon">
+                  <use xlink:href="img/sprite.svg#icon-aircraft-take-off"></use>
+                </svg>
+                <span>Flight</span>
+              </a>
+            </li>
+
+            <li class="side-nav__item">
+              <a href="#" class="side-nav__link">
+                <svg class="side-nav__icon">
+                  <use xlink:href="img/sprite.svg#icon-key"></use>
+                </svg>
+                <span>Car rental</span>
+              </a>
+            </li>
+
+            <li class="side-nav__item">
+              <a href="#" class="side-nav__link">
+                <svg class="side-nav__icon">
+                  <use xlink:href="img/sprite.svg#icon-map"></use>
+                </svg>
+                <span>Tours</span>
+              </a>
+            </li>
+          </ul>
+
+          <!-- The legal text -->
+          <div class="legal">&copy; 2023 by Trillo. All rights reserved.</div>
+        </nav>
         <!-- For the hotel view we use main element, because that is the perfect semantic for the main content of the site or app-->
         <main class="hotel-view">Hotel view part</main>
       </div>
@@ -166,7 +209,23 @@
 
   4. How to use more advanced flexbox alignment techniques like justify-content, align-items, align-self and flex.
 
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
+  1. How to use scale y and multiple transition properties with different settings, to create a creative hover effect.
+
+  Always remember the transform origin (center by default)
+
+  the z index only works if we have a specified position.
+
+  transition: transform 0.2s, width 0.4s cubic-bezier(1, 0, 0, 1) 0.2s,
+      background-color 0.1s
+
+  2. How and why to use the currentColor css variable.
+  fill: var(--color-grey-light-1); we want the same color as the link, but instead of copying it we can use currentColor. currentColor is the color of the current element or the parent element. By not specifying the color here, it means that it will get the same color specified in the parent element.
+
+  Also very useful for the hover effects in case we change the color there.
+
+  3. How to use some more advanced flexbox alignment techniques, including flex-direction justify-content and align-items.
 
 
 
@@ -175,8 +234,20 @@
   Things to better understand:
 
   1. How the selection of the siblings is correctly done in every situation (the adjacent sibling (+) selector and the others).
+  The direct children selector > (if we want all the direct children we use & > *)
 
   2. How the negative margin makes another element to be on top of another. (remember the magnifying glass in the search bar)
 
   3. Making changes on the placeholder just work with ::-webkit-input-placeholder
+
+  4. To align, flex-box works with text also, not only when we have child elements.
+
+  5. Pseudo elements, modifier classes 
+  &__item:hover::before,
+  &__item--active::before {
+    transform: scaleY(1); // Same as 100%
+    width: 100%; // for the expansion
+  
+    What the space between means, what the comma means when separating)
+  }
  -->

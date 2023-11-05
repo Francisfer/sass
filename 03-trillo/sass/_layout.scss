@@ -26,10 +26,15 @@
   background-color: var(--color-grey-dark-1);
   // grow, shrink, basis (WIDTH) - if we set the width to a percentage it actually makes sense that we don't want it to shrink, that will happen automatically.
   flex: 0 0 18%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .hotel-view {
   background-color: var(--color-white);
   // We've established a width to the sidebar, now we want the hotel view to occupy all the remaining space. Instead of doing the same thing with 82% we use flex grow.
   flex: 1;
+
+  height: 80rem; // test while building the side bar.
 }

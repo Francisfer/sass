@@ -2,7 +2,7 @@
 
 .logo {
   height: 3.25rem;
-  margin-left: 3rem;
+  margin-left: 2rem;
 }
 
 /////////////// SEARCH BAR ///////////////
@@ -71,26 +71,148 @@
 
 /////////////// USER NAVIGATION ///////////////
 .user-nav {
-  background-color: greenyellow; // Testing
+  //background-color: greenyellow; // Testing
   display: flex;
+
+  // Remember that we've set the header to align items to the center (vertically), but in the individual case of the user nav, we want it to be self-aligned to stretch (we don't want it to be aligned to the center). We still need the items to be aligned to the center (we do this for all of them with the direct children selector), but we need to overwrite the alignment coming from the header with align-self.
+
+  // align-items: center; // Vertically
+  align-self: stretch;
+
+  // In order to give space between the three boxes we use the direct children selector and select them all.
+  & > * {
+    // first some padding
+    padding: 0 2rem;
+    cursor: pointer;
+    // For the hover effect to work from top to bottom we just need to give them a height
+    height: 100%;
+
+    // Here is where we set the three boxes to flex, so we can align them vertically inside of the parent that is now stretched.
+
+    display: flex;
+    align-items: center;
+  }
+  // Then we take care of the hover effect for all of them
+  & > *:hover {
+    background-color: var(--color-grey-light-2);
+    // At this point things don't work as expected because the height of the entire navigation bar is given by the taller element (photo - we gave it a height below).
+    // But what we want is that the user-nav occupies all the space from the top of the header to the bottom. This is achieved by self-aligning the user-nav to stretch.
+  }
+
   &__icon-box {
+    position: relative;
   }
 
   &__icon {
     height: 2.25rem;
     width: 2.25rem;
+    // Color of the icon with fill
+    fill: var(--color-grey-dark-2);
   }
   &__notification {
+    // to make it smaller
+    font-size: 0.8rem;
+    height: 1.75rem;
+    width: 1.75rem;
+    border-radius: 50%; // Doesn't look like a perfect circle but a very high px number (100px) does the same.
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    // To align, flex-box works with text also, not only when we have child elements.
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 1.5rem;
+    right: 1.11rem;
   }
 
-  &__user {
-  }
+  // &__user {
+  // } we've already styled it with the child selector above
 
   &__user-photo {
     height: 3.75rem;
     border-radius: 50%;
+    margin-right: 1rem;
   }
 
-  &__user-name {
+  // &__user-name {
+  // } no style to be applied
+}
+
+/////////////// SIDE BAR ///////////////
+
+.side-nav {
+  font-size: 1.4rem;
+  list-style: none;
+  margin-top: 3.5rem;
+
+  &__item {
+    position: relative; // for the before pseudo element
+
+    &:not(:last-child) {
+      margin-bottom: 0.5rem;
+    }
   }
+
+  // Before the side nav item we want to add a pseudo element for the hover effect. It is the line that first is shown and then expands through out the item.
+
+  &__item::before {
+    content: ""; // Must be here always
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%; // To be the same of the item
+    width: 3px; // Just have this width when it appears
+    background-color: var(--color-primary);
+
+    // We only want this to appear when the item in hovered, so we set the initial state to 0.
+    transform: scaleY(0);
+    // transform-origin: bottom; // If we wanted the animation to start on the bottom instead of the default center.
+
+    transition: transform 0.2s, width 0.4s cubic-bezier(1, 0, 0, 1) 0.2s,
+      background-color 0.1s;
+    // Notice the ability for setting different settings for different properties. We need the delay on the width in order to first see the transform scale with 3px, and only after the expansion.
+    // The delay should of course be the same as the transform.
+  }
+
+  // When the item is hovered do this to the pseudo element AND if the item contains the class (modifier) --active do the same thing to the before element. So, the active state should be the same as the hover state.
+  &__item:hover::before,
+  &__item--active::before {
+    transform: scaleY(1); // Same as 100%
+    width: 100%; // for the expansion
+  }
+
+  // As for the active state (when the user clicks) we just change the background color.
+
+  &__item:active::before {
+    background-color: var(--color-primary-light);
+  }
+
+  &__link:link,
+  &__link:visited {
+    text-decoration: none;
+    text-transform: uppercase;
+    color: var(--color-grey-light-1);
+    // display: block; // To make the space between them. Overwritten with flex when we center.
+    padding: 1.5rem 3rem;
+    position: relative; // Just so the z-index works
+    z-index: 1; // For the link to be on top of the before pseudo-element.
+
+    display: flex;
+    align-items: center;
+  }
+
+  &__icon {
+    width: 1.75rem;
+    height: 1.75rem;
+    margin-right: 2rem;
+    // fill: var(--color-grey-light-1); we want the same color as the link, but instead of copying it we can use currentColor. currentColor is the color of the current element or the parent element. By not specifying the color here, it means that it will get the same color specified in the parent element.
+    fill: currentColor;
+  }
+}
+.legal {
+  font-size: 1.2rem;
+  text-align: center;
+  color: var(--color-grey-dark-4);
+  padding: 2.5rem;
 }
