@@ -111,7 +111,140 @@
           <div class="legal">&copy; 2023 by Trillo. All rights reserved.</div>
         </nav>
         <!-- For the hotel view we use main element, because that is the perfect semantic for the main content of the site or app-->
-        <main class="hotel-view">Hotel view part</main>
+        <main class="hotel-view">
+          <!-- The hotel view is composed by the images (gallery), the hotel overview (where the hotel name, the stars, location and votes are), the hotel details, the testimonials and the cta  -->
+          <!-- We start with the images container -->
+          <div class="gallery">
+            <!-- wrapping each image in a figure element, so that we can add a fig caption element to add a caption -->
+            <figure class="gallery__item">
+              <img
+                src="img/hotel-1.jpg"
+                alt="Photo of hotel 1"
+                class="gallery__photo"
+              />
+            </figure>
+
+            <figure class="gallery__item">
+              <img
+                src="img/hotel-2.jpg"
+                alt="Photo of hotel 2"
+                class="gallery__photo"
+              />
+            </figure>
+
+            <figure class="gallery__item">
+              <img
+                src="img/hotel-3.jpg"
+                alt="Photo of hotel 3"
+                class="gallery__photo"
+              />
+            </figure>
+          </div>
+
+          <!-- Hotel overview container - 4 elements-->
+          <div class="overview">
+            <!-- Heading, the main title of this document -->
+            <h1 class="overview__heading">Hotel Las Palmas</h1>
+
+            <!-- Stars (inside a container because we need four svg to be aligned with flexbox) -->
+            <div class="overview__stars">
+              <svg class="overview__icon-star">
+                <use xlink:href="img/sprite.svg#icon-star"></use>
+              </svg>
+              <svg class="overview__icon-star">
+                <use xlink:href="img/sprite.svg#icon-star"></use>
+              </svg>
+              <svg class="overview__icon-star">
+                <use xlink:href="img/sprite.svg#icon-star"></use>
+              </svg>
+              <svg class="overview__icon-star">
+                <use xlink:href="img/sprite.svg#icon-star"></use>
+              </svg>
+              <svg class="overview__icon-star">
+                <use xlink:href="img/sprite.svg#icon-star"></use>
+              </svg>
+            </div>
+
+            <!-- Location (icon, a inline button and the rating)-->
+            <div class="overview__location">
+              <svg class="overview__icon-location">
+                <use xlink:href="img/sprite.svg#icon-location-pin"></use>
+              </svg>
+
+              <button class="btn-inline">Melbourne, Australia</button>
+            </div>
+
+            <!-- Rating -->
+            <div class="overview__rating">
+              <div class="overview__rating-average">8.6</div>
+              <div class="overview__rating-count">429 votes</div>
+            </div>
+          </div>
+
+          <!-- Hotel details -  2 elements, details/description and testimonials/reviews. The detail, description and user-reviews are formatted in the layout-->
+          <div class="detail">
+            <!-- Description -->
+            <div class="description">
+              <!-- Two paragraphs and a list, these can be reusable components for another page -->
+              <p class="paragraph">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi
+                nisi dignissimos debitis ratione sapiente saepe. Accusantium
+                cumque, quas, ut corporis incidunt deserunt quae architecto
+                voluptate.
+              </p>
+              <p class="paragraph">
+                Accusantium cumque, quas, ut corporis incidunt deserunt quae
+                architecto voluptate delectus, inventore iure aliquid aliquam.
+              </p>
+
+              <!-- The list -->
+              <ul class="list">
+                <li class="list__item">Close to the beach</li>
+                <li class="list__item">Breakfast included</li>
+                <li class="list__item">Free airport shuttle</li>
+                <li class="list__item">Free wifi in all rooms</li>
+                <li class="list__item">Air conditioning and heating</li>
+                <li class="list__item">Pets allowed</li>
+                <li class="list__item">We speak all languages</li>
+                <li class="list__item">Perfect for families</li>
+              </ul>
+
+              <!-- Recommend -->
+              <div class="recommend">
+                <p class="recommend__count">
+                  Lucy and 3 other friends recommend this hotel.
+                </p>
+
+                <!-- Images -->
+                <div class="recommend__friends">
+                  <img
+                    src="img/user-3.jpg"
+                    alt="Friend 1"
+                    class="recommend__photo"
+                  />
+                  <img
+                    src="img/user-4.jpg"
+                    alt="Friend 2"
+                    class="recommend__photo"
+                  />
+                  <img
+                    src="img/user-5.jpg"
+                    alt="Friend 3"
+                    class="recommend__photo"
+                  />
+                  <img
+                    src="img/user-6.jpg"
+                    alt="Friend 4"
+                    class="recommend__photo"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- User reviews -->
+            <div class="user-reviews">user reviews</div>
+          </div>
+        </main>
       </div>
     </div>
   </body>
@@ -227,6 +360,27 @@
 
   3. How to use some more advanced flexbox alignment techniques, including flex-direction justify-content and align-items.
 
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+  1. How to create an infinite animation.
+ line 325
+  2. How to use margin: auto with flexbox and why it's so powerful.
+  Remember that this was taught in the hotel overview part, where we had four elements to align.
+  We wanted that the layout divided with space between the first and last two elements. 
+  We couldn't use any of the justify content values because none of them would do this, also we couldn't stretch the stars because then if we wanted a hover effect it would select all of the space.
+  One of the solution would be to wrap the first and last two elements and use space between, but there is a much better technique using margin auto.
+  Remember that when we set the display of a container to flex, the flex-items will occupy all the available space of the parent. After that we can use the alignment properties in order to place them, so, if we set the margin right (ex) to auto, that margin will occupy the rest of the space available. This makes it easier that have to build the containers just to make this possible.
+
+  
+
+  3. Flexbox properties for easy positioning and alignment.
+
+  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+  1. Flex wrap to build a multi-column list
+line 380
+  2. How and why to use masks with mask-image and mask-size.
+  398 to give color to an svg used as a background image in a before pseudo element. For older browsers we use background image with background size, for newer browsers we use masks.
 
 
   ///////////////////////////////////////////////////////////////////////
@@ -250,4 +404,35 @@
   
     What the space between means, what the comma means when separating)
   }
+
+  6. Remember that images are inline elements, so they are treated as text, just as any other element with the display set to inline. This is done because when text is added to the page, some room is made by the browser for the descender (the next text). In order to remove it we just need to set the display to block OR the display of their parent element to flex (then they become flex items). 
+  Search for a better solution if we want the display to be inline-block because, in that case, the space is added. One of them is to set the line-height to 0, and, in the case of the svg, also the font-size to 0.
+
+  7. Padding and margin.
+  By default I use margin everywhere, except when I have a border or background and want to increase the space inside that visible box.
+
+  To me, the biggest difference between padding and margin is that vertical margins auto-collapse, and padding doesn't.
+
+  Consider two elements one above the other each with padding of 1em. This padding is considered to be part of the element and is always preserved.
+
+  So you will end up with the content of the first element, followed by the padding of the first element, followed by the padding of the second, followed by the content of the second element.
+
+  Thus the content of the two elements will end up being 2em apart.
+
+  Now replace that padding with 1em margin. Margins are considered to be outside of the element, and margins of adjacent items will overlap.
+
+  So in this example, you will end up with the content of the first element followed by 1em of combined margin followed by the content of the second element. So the content of the two elements is only 1em apart.
+
+  This can be really useful when you know that you want to say 1em of spacing around an element, regardless of what element it is next to.
+
+  The other two big differences are that padding is included in the click region and background color/image, but not the margin.
+
+  8. Using svg directly in css
+  When we were building the list, he shows another technique for using svg directly in css, otherwise we would have to include one eight times. 
+  We have been using the sprite as a reference to just make one http request for all the svg that we use in html, but in css that is not so easy, so we need to use the single icon itself.
+  In this case it does not make such a huge difference because the icon is the same for all list items, but if we needed more the best strategy should be to include them in the html. We can't change the color with fill though, we need to use MASKS.
+  Notice that he copied that icon from the svg folder to the img folder. So that we can delete the svg folder because we don't need it anymore.
+  When we use this technique of not including the images in the html we need to pay attention to the url or the path that we specify.
+
+  See if there is a way to create vector icons of vector images.
  -->

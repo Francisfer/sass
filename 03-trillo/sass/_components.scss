@@ -70,6 +70,7 @@
 }
 
 /////////////// USER NAVIGATION ///////////////
+
 .user-nav {
   //background-color: greenyellow; // Testing
   display: flex;
@@ -210,9 +211,203 @@
     fill: currentColor;
   }
 }
+
 .legal {
   font-size: 1.2rem;
   text-align: center;
   color: var(--color-grey-dark-4);
   padding: 2.5rem;
 }
+
+/////////////// HOTEL VIEW GALLERY ///////////////
+
+.gallery {
+  display: flex;
+  &__item {
+  }
+
+  &__photo {
+    // Flexible images, hence the percentages.
+    width: 100%;
+
+    // Remember that images are inline elements, so they are treated as text, just as any other element with the display set to inline. This is done because when text is added to the page, some room is made by the browser for the descender (the next text). In order to remove it we just need to set the display to block - flex set in the parent (__item) also would work.
+    display: block;
+  }
+}
+
+/////////////// HOTEL VIEW OVERVIEW ///////////////
+
+.overview {
+  display: flex;
+  align-items: center; // Along the cross
+  border-bottom: var(--line);
+  &__heading {
+    font-size: 2.25rem;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 1.5rem 5rem;
+  }
+  &__stars {
+    //flex: 1; when we were trying to give that space in the middle, but with margin auto in much better.
+    // Remember this technique, it is better explained in the html.
+    margin-right: auto;
+
+    // Remember that the stars weren't vertically aligned perfectly inside of their container (there was more space in the bottom). This means that they behave like inline elements, producing the same space like we had in the images.
+    // The solution is to set this container (parent) to flex.
+    display: flex;
+  }
+  &__icon-star,
+  &__icon-location {
+    // Same as before
+    width: 1.75rem;
+    height: 1.75rem;
+    fill: var(--color-primary);
+  }
+
+  &__icon-location {
+    margin-right: 0.5rem; // space between the icon and the button
+  }
+
+  &__location {
+    font-size: 1.2rem; // So that the button (text) can inherit it
+    display: flex;
+    align-items: center; // Remember that the default is stretch
+  }
+
+  &__rating {
+    background-color: var(--color-primary);
+    margin-left: 3rem; // Space between the button
+    color: var(--color-white);
+    padding: 0 2.25rem;
+    align-self: stretch; // All of them are centered in the parent, but we overwrite this one so that we can set it to occupy the hole height of the parent, remember that this is already a flex item.
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  &__rating-average {
+    font-size: 2.25rem;
+    font-weight: 300;
+
+    // It seems like the space between the average and the count in bigger then the margin bottom, so to decrease it we can set a negative margin
+    margin-bottom: -3px;
+  }
+  &__rating-count {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+  }
+}
+
+// This button is/can be treated as a new component because we are going to use it later.
+.btn-inline {
+  border: none;
+  color: var(--color-primary);
+  font-size: inherit; // Set to inherit because this is a component (reusability), so it will inherit the font-size of it's parent element.
+  padding-bottom: 2px; // To separate the text from the border.
+  display: inline-block; // WHY???
+  background-color: transparent; // Reusability, to have the same background of where is placed.
+  border-bottom: 1px solid currentColor; // Notice again the currentColor, this time is the color that we set here, and change after in the hover.
+
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    color: var(--color-grey-dark-1);
+  }
+
+  // New animation on focus
+  &:focus {
+    // outline: none; // Removes the blue border
+
+    // In order to create that pulsating animation we use the keyframes @ rule, just like we've used with the h1 on natours.
+    animation: pulsate 1s infinite;
+  }
+}
+
+// In the beginning nothing happens normally, so the best strategy to build animations is either to start at the middle or the end, so that we know what we need to do to reset at 0%. Of course it depends on how we want the animation to be.
+
+@keyframes pulsate {
+  0% {
+    // No scale and no shadow
+    transform: scale(1);
+    box-shadow: none;
+  }
+
+  50% {
+    // We scale it and give it a shadow at 50%
+    transform: scale(1.05);
+    box-shadow: 0 1rem 4rem rgba(0, 0, 0, 0.25);
+  }
+
+  100% {
+    // No scale and no shadow
+    transform: scale(1);
+    box-shadow: none;
+  }
+}
+
+/////////////// HOTEL VIEW DETAIL ///////////////
+
+// At this point, remember that the content overflowed the container, that's because we've set a fix height for the entire hotel view while testing.
+// By removing it the content defines the size of the container.
+
+// The detail, description and user reviews is in the layout
+
+// PARAGRAPH
+// .paragraph:not(:last-child) Remember that we want to give a margin bottom to all the paragraphs except for the last one.
+// last-child does not work because it represents the last element among a group of sibling elements. So we need to use :last-of-type
+
+.paragraph:not(:last-of-type) {
+  margin-bottom: 2rem;
+}
+
+// LIST
+// The list has a margin and a line on top and bottom, it has four of the items in each side and also an icon.
+
+.list {
+  list-style: none;
+  margin: 3rem 0; // Space outside
+  padding: 3rem 0; // Some inner space too.
+  border-top: var(--line);
+  border-bottom: var(--line);
+
+  // In order to create the columns with 4 items in each side we use flexbox.
+  display: flex;
+  // However, what this is going to do is try to place these elements beside one another (cram), but, since there is not enough space, the words of each item stay on top of the other (in columns).
+  // By allowing them to wrap, they wrap into new lines, spread in "rows".
+  flex-wrap: wrap;
+  // Now we just need to give the same fixed width to each of the items
+
+  &__item {
+    // Like this, we give half of the available space to each of the items, making them stay side by side.
+    flex: 0 0 50%;
+    margin-bottom: 0.7rem;
+
+    // Including an svg directly in css is similar to what we did with images, with background image but we need to do it in a before pseudo-element. It is a better practice than put it here in the item directly.
+  }
+
+  &__item::before {
+    content: "";
+    display: inline-block;
+    height: 1rem;
+    width: 1rem;
+    margin-right: 0.7rem;
+
+    // for older browsers (we can't change the color of the svg when we use them like this with background images)
+    //background-image: url(../img/chevron-thin-right.svg); // Up one level because we are not in the html now.\
+    //background-size: cover;
+
+    // FOR newer browsers we use MASKS - a mask defines an area where we can look through the element and see what is behind it.
+    // First we define the background color.
+    background-color: var(--color-primary);
+    // Now we put the mask on top of this and, only in the positions where the icon is, we will be able to look through. this is similar to clipping
+    -webkit-mask-image: url(../img/chevron-thin-right.svg);
+    -webkit-mask-size: cover;
+    mask-image: url(../img/chevron-thin-right.svg);
+    mask-size: cover;
+  }
+}
+
+// RECOMMEND start at min 13:35
