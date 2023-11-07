@@ -241,8 +241,60 @@
               </div>
             </div>
 
-            <!-- User reviews -->
-            <div class="user-reviews">user reviews</div>
+            <!-- User reviews - already on layout -->
+            <div class="user-reviews">
+              <!-- Here we have two reviews, each review has a white box with a quote symbol and the text on the top, the user image, the name, the date and the rating-->
+
+              <!-- Each of these review boxes is going to be a review component -->
+              <!-- We use the figure tag, which is perfect for reviews, some people think that figure is just for pictures or images, but that's not true.
+              Figures are also used for some text and descriptions of the images. The review is a blockquote and the figcaption is the container that holds the user image, the name, the date and the rating -->
+              <figure class="review">
+                <blockquote class="review__text">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga
+                  doloremque architecto dicta animi, totam, itaque officia ex.
+                </blockquote>
+                <figcaption class="review__user">
+                  <!-- First the image -->
+                  <img
+                    src="img/user-1.jpg"
+                    alt="User 1"
+                    class="review__photo"
+                  />
+                  <!-- Now a box that will hold the name and the date -->
+                  <div class="review__user-box">
+                    <p class="review__user-name">Nick Smith</p>
+                    <p class="review__user-date">Feb 23rd, 2023</p>
+                  </div>
+                  <!-- The rating -->
+                  <div class="review__rating">7.8</div>
+                </figcaption>
+              </figure>
+
+              <!-- Second review -->
+              <figure class="review">
+                <blockquote class="review__text">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga
+                  doloremque architecto dicta animi.
+                </blockquote>
+                <figcaption class="review__user">
+                  <!-- First the image -->
+                  <img
+                    src="img/user-2.jpg"
+                    alt="User 2"
+                    class="review__photo"
+                  />
+                  <!-- Now a box that will hold the name and the date -->
+                  <div class="review__user-box">
+                    <p class="review__user-name">Mary Thomas</p>
+                    <p class="review__user-date">Sept 13th, 2023</p>
+                  </div>
+                  <!-- The rating -->
+                  <div class="review__rating">9.3</div>
+                </figcaption>
+              </figure>
+              <!-- We've already built this button, now we just want the entity to be inside of a span so we can later make the animation where the text moves away from the arrow on hover. -->
+              <button class="btn-inline">Show all <span>&rarr;</span></button>
+            </div>
           </div>
         </main>
       </div>
@@ -435,4 +487,12 @@ line 380
   When we use this technique of not including the images in the html we need to pay attention to the url or the path that we specify.
 
   See if there is a way to create vector icons of vector images.
+
+  9. When we add the border, the image shrinks, that's because we set the box-sizing to border-box (includes the padding and the border into the width and height of the element).
+  To fix this we have two options, either we add the 3px of the border to the height and width or we can set it automatically by changing the box sizing.
+  The default is content-box, so that the border is added on top of the height and width that we establish.
+
+  10. How to use html entities in css. good resource is html entities css tricks glyphs. line 496
+
+  11. In order fot the z-index to work we MUST set the position of the element.
  -->

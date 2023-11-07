@@ -313,8 +313,23 @@
   cursor: pointer;
   transition: all 0.2s;
 
+  // For the button in the user-reviews!!! We want all the styles to be applied in the same way, however, we want that the span moves away from the text on hover.
+  // This is to give it a left margin on normal state:
+  & span {
+    margin-left: 3px;
+    transition: margin-left 0.2s;
+  }
+  // Now we could write things in two ways:
+  // &:hover span {
+  //   margin-left: 8px;
+  // }
+  // Or inside of the hover that we've had already. On hover, if there is a span do this:
   &:hover {
     color: var(--color-grey-dark-1);
+
+    span {
+      margin-left: 8px;
+    }
   }
 
   // New animation on focus
@@ -410,4 +425,110 @@
   }
 }
 
-// RECOMMEND start at min 13:35
+// RECOMMEND
+
+.recommend {
+  font-size: 1.3rem;
+  color: var(--color-grey-dark-3);
+  display: flex;
+  align-items: center;
+  // justify-content: space-between; We could do it like this, but this time he uses the margin right to auto technique. Same result but remember because with justify-content we would save a selector here.
+
+  &__count {
+    margin-right: auto;
+  }
+
+  &__friends {
+    display: flex;
+  }
+
+  &__photo {
+    box-sizing: content-box; // default so that the border is added on top of the height and width that we establish.
+    height: 4rem;
+    width: 4rem;
+    border-radius: 50%;
+    // When we add the border, the image shrinks, that's because we set the box-sizing to border-box (includes the padding and the border into the width and height of the element).
+    // To fix this we have two options, either we add the 3px of the border to the height and width or we can set it automatically by changing the box sizing.
+    border: 3px solid var(--color-white);
+
+    &:not(:last-child) {
+      margin-right: -1.5rem;
+    }
+  }
+}
+
+/////////////// HOTEL VIEW REVIEWS ///////////////
+// Don't forget that the main container is already in the layout (user-reviews)
+
+.review {
+  // Font size set in the parent (layout) so that we inherit here.
+  background-color: var(--color-white);
+  box-shadow: var(--shadow-light);
+  padding: 3rem; // Same as the left container
+  margin-bottom: 3.5rem; // Vertical space between both reviews and the element that comes next.
+
+  // for the pseudo element
+  position: relative;
+  overflow: hidden; // hides the part of the quote mark
+  &__text {
+    margin-bottom: 2rem;
+    z-index: 2; // IMPORTANT - in order fot the z-index to work we MUST set the position of the element.
+    position: relative;
+  }
+
+  &__user {
+    display: flex;
+    // margin-top: 3rem; instead he gave margin bottom to the __text
+    align-items: center;
+  }
+
+  &__photo {
+    height: 4.5rem;
+    width: 4.5rem;
+    border-radius: 50%;
+    margin-right: 1.5rem;
+  }
+
+  &__user-box {
+    margin-right: auto;
+  }
+
+  &__user-name {
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+  }
+
+  &__user-date {
+    font-size: 1rem;
+    // font-weight: 300; he used the color
+    color: var(--color-grey-dark-3);
+  }
+
+  &__rating {
+    font-size: 2.2rem;
+    color: var(--color-primary);
+    font-weight: 300; // Just to compensate having a bigger font size.
+  }
+
+  // As for the " we create a before pseudo element before the review itself.
+
+  &::before {
+    content: "\201C"; // Notice how an html entity is used in css. In html we would just put &ldquo, but here we need to use the iso number
+    position: absolute;
+    // Negative so it gets outside of the container
+    top: -2.8rem;
+    left: -1rem;
+    font-size: 20rem;
+    line-height: 1; // This is text, so it inherits our line height which makes it huge.
+    color: var(--color-grey-light-2);
+    font-family: sans-serif; // We need to do this, otherwise it will inherit our font-family and not look like we want.
+    z-index: 1;
+  }
+
+  // As for the button, it is the same as before, the changes are made there.
+  // In order to center the button, one of the solutions is to set the display of the layout container to flex and the direction to column.
+  // Everything stays the same of course, but the button now gets the same size (width) as the biggest element in the container because align items is set to stretch. When we change the main axis the element stretches to occupy all the available space.
+  // All we need to do is to set align items to center in the layout container.
+}

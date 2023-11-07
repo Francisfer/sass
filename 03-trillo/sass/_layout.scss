@@ -45,6 +45,7 @@
 
 // HOTEL VIEW - description left and reviews right
 .detail {
+  font-size: 1.4rem; // This way all the child elements inherit.
   padding: 4.5rem; // Same as the margin right of the description (space between both elements) in order to be visually correct.
   display: flex;
   // Remember that with margin the background wouldn't work.
@@ -56,13 +57,19 @@
   background-color: var(--color-white);
   box-shadow: var(--shadow-light);
   padding: 3rem;
-  font-size: 1.4rem; // default font-size for the container.
+  // font-size: 1.4rem; default font-size for the container. We want the same font-size for the description and the user-reviews, so we set it on their parent element which is the detail.
+
   // Usually when we use percentages for the basis we set the other two to 0.
   flex: 0 0 60%; // Basis is the width REMEMBER
   margin-right: 4.5rem; // space between them, notice that here the background color still the same. REMEMBER
 }
 
 .user-reviews {
-  background-color: yellowgreen;
   flex: 1; // Grow to occupy the rest of the space.
+  // font-size: 1.4rem; We want the same font-size for the description and the user-reviews, so we set it on their parent element which is the detail.
+
+  // To align the button
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
