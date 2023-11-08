@@ -181,7 +181,7 @@
             </div>
           </div>
 
-          <!-- Hotel details -  2 elements, details/description and testimonials/reviews. The detail, description and user-reviews are formatted in the layout-->
+          <!-- Hotel details -  3 elements, details/description, testimonials/reviews and cta. The detail, description and user-reviews are formatted in the layout. The cta is a component. -->
           <div class="detail">
             <!-- Description -->
             <div class="description">
@@ -295,6 +295,19 @@
               <!-- We've already built this button, now we just want the entity to be inside of a span so we can later make the animation where the text moves away from the arrow on hover. -->
               <button class="btn-inline">Show all <span>&rarr;</span></button>
             </div>
+          </div>
+          <!-- CTA - the paragraph and the button -->
+          <div class="cta">
+            <h2 class="cta__book-now">
+              Good news! We have 4 free rooms for your selected dates!
+            </h2>
+            <!-- Button -->
+            <!-- To make this effect work, we first need to design the button and then put two elements (spans) in there with different text. -->
+            <!-- On hover, both of them slide down and the gradient changes direction -->
+            <button class="btn">
+              <span class="btn__visible">Book now</span>
+              <span class="btn__invisible">Only 4 rooms left</span>
+            </button>
           </div>
         </main>
       </div>
