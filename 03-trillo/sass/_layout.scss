@@ -1,3 +1,5 @@
+// As for the media queries, in the last project we wrote a manager, but here we are going to keep things simple and add them in the old school way.
+
 // OVERALL CONTAINER
 .container {
   // Used max-width so that the container's width can decrease if here is not enough space (the viewport is smaller) to display 120rem.
@@ -6,7 +8,21 @@
   background-color: var(--color-grey-light-1);
   // x, y, blur radius, spread radius
   box-shadow: var(--shadow-dark);
-  min-height: 50rem; // While building - testing
+  // min-height: 50rem; // While building - testing
+
+  //////// MEDIA QUERY ////////
+  // The first that we want is when the width reaches our max width, remember that max-with works when the screen is wider and when it's not the width just becomes 100%.
+  // Keep in mind that we are using a desktop first strategy, so our media queries will be of the type max-width (apply changes when the width is below).
+  // The values should be in em and we've stored the into variables on base.
+  @media only screen and (max-width: $break-point-largest) {
+    margin: 0; // at this point, the container is already occupying the entire viewport, so we don't need the margin and, like this, we also remove the background
+
+    // When we apply the second media query at 1100 px, we reduce the font-size to 50%, however, this also makes changes in the container. Remember that every time we start a project we set the root font-size to be 62.5%, so 1 rem becomes 10px instead of 16px (browser default). So, if we then say that in the second media query the font-size should be 50%, 1rem becomes 8px, this affects the max-width that we've established. We've set it to be 120rem (1200px), however now 120rem are 960px (120rem * 8px).
+    // So we need to fix that here
+    max-width: 100%;
+    width: 100%; // just to make sure
+    // The bottom still have the background, but this is not a problem because no screen (or almost) has more height than width. So in smaller devices that does not appear.
+  }
 }
 
 // HEADER
@@ -18,12 +34,27 @@
   justify-content: space-between;
   align-items: center;
   font-size: 1.4rem; // We overwritten the font-size here so we could inherit this size in the placeholder of the search bar. This way all the header can inherit this value.
+
+  @media only screen and (max-width: $break-point-smallest) {
+    // for the search bar to wrap to another line.
+    flex-wrap: wrap;
+
+    // In order to give some space between the rows we need to give the container a bit more height.
+    height: 11rem;
+
+    // And then use the align content in order to create the gap.
+    align-content: space-around; // to give some space between the container also.
+  }
 }
 
 // SIDE BAR LEFT AND HOTEL VIEW RIGHT
 
 .content {
   display: flex;
+  //////// MEDIA QUERY ////////
+  @media only screen and (max-width: $break-point-medium) {
+    flex-direction: column; // So that the side bar is no longer side by side with the hotel view, the rest is made in the components
+  }
 }
 
 .sidebar {
@@ -51,6 +82,15 @@
   // Remember that with margin the background wouldn't work.
   background-color: var(--color-grey-light-1);
   border-bottom: var(--line);
+
+  // When we have two or more media queries first we code the one for the largest screen and after for the smallest screen.
+  @media only screen and (max-width: $break-point-medium) {
+    padding: 3rem;
+  }
+
+  @media only screen and (max-width: $break-point-small) {
+    flex-direction: column;
+  }
 }
 
 .description {
@@ -62,6 +102,16 @@
   // Usually when we use percentages for the basis we set the other two to 0.
   flex: 0 0 60%; // Basis is the width REMEMBER
   margin-right: 4.5rem; // space between them, notice that here the background color still the same. REMEMBER
+
+  @media only screen and (max-width: $break-point-medium) {
+    padding: 2rem;
+    margin-right: 3rem; // Same as the padding on .detail
+  }
+
+  @media only screen and (max-width: $break-point-small) {
+    margin-right: 0;
+    margin-bottom: 3rem;
+  }
 }
 
 .user-reviews {

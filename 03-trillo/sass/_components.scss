@@ -14,6 +14,27 @@
   align-items: center;
   justify-content: center;
 
+  @media only screen and (max-width: $break-point-smallest) {
+    // Setting the order of the search bar to be the last element in the flex-container.
+    order: 1;
+    // However, at 500px it seems that there actually is enough space, so it just wraps a bit after. To make it wrap exactly at this query we need to give the search bar a bit more width.
+    flex: 0 0 100%;
+
+    // Part is working fine, but when we focus, the right side overflows the container because there is not enough space. He does not fix this but the solution that i've found is to give a width of 98% instead of 100%.
+    // It does not get centered perfectly, so we can set it's background color to be the same as the input field. But now we give it a width of 100%.
+    background-color: var(--color-grey-light-2);
+
+    // And hide the part that overflows
+    overflow: hidden;
+
+    // If you notice, when we focus the search bar the background color changes, so the round edges are possible to see, to fix this we use the focus-within pseudo class.
+  }
+  &:focus-within {
+    @media only screen and (max-width: $break-point-smallest) {
+      background-color: var(--color-grey-light-3);
+    }
+  }
+
   &__input {
     // remember that input elements don't inherit font-family, the font-size, text color etc
     font-family: inherit;
@@ -143,6 +164,11 @@
 /////////////// SIDE BAR ///////////////
 
 .side-nav {
+  @media only screen and (max-width: $break-point-medium) {
+    display: flex;
+    margin-top: 0;
+  }
+
   font-size: 1.4rem;
   list-style: none;
   margin-top: 3.5rem;
@@ -152,6 +178,13 @@
 
     &:not(:last-child) {
       margin-bottom: 0.5rem;
+      @media only screen and (max-width: $break-point-medium) {
+        margin-bottom: 0;
+      }
+    }
+
+    @media only screen and (max-width: $break-point-medium) {
+      flex: 1; // So they grow
     }
   }
 
@@ -201,6 +234,17 @@
 
     display: flex;
     align-items: center;
+
+    @media only screen and (max-width: $break-point-medium) {
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    @media only screen and (max-width: $break-point-small) {
+      flex-direction: column;
+      // align-items: center; Already done above, no need to overwrite.
+      padding: 1.5rem 0.5rem;
+    }
   }
 
   &__icon {
@@ -209,6 +253,13 @@
     margin-right: 2rem;
     // fill: var(--color-grey-light-1); we want the same color as the link, but instead of copying it we can use currentColor. currentColor is the color of the current element or the parent element. By not specifying the color here, it means that it will get the same color specified in the parent element.
     fill: currentColor;
+
+    @media only screen and (max-width: $break-point-small) {
+      margin-right: 0;
+      height: 1.5rem;
+      width: 1.5rem;
+      margin-bottom: 0.7rem;
+    }
   }
 }
 
@@ -217,6 +268,10 @@
   text-align: center;
   color: var(--color-grey-dark-4);
   padding: 2.5rem;
+
+  @media only screen and (max-width: $break-point-medium) {
+    display: none;
+  }
 }
 
 /////////////// HOTEL VIEW GALLERY ///////////////
@@ -246,7 +301,12 @@
     font-weight: 300;
     text-transform: uppercase;
     letter-spacing: 1px;
-    padding: 1.5rem 5rem;
+    padding: 1.5rem 5rem; // This is what's defining the height of the entire element
+
+    @media only screen and (max-width: $break-point-small) {
+      font-size: 1.8rem;
+      padding: 1.25rem 2rem;
+    }
   }
   &__stars {
     //flex: 1; when we were trying to give that space in the middle, but with margin auto in much better.
@@ -286,6 +346,10 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
+    @media only screen and (max-width: $break-point-small) {
+      padding: 0 1.5rem;
+    }
   }
   &__rating-average {
     font-size: 2.25rem;
@@ -293,10 +357,18 @@
 
     // It seems like the space between the average and the count in bigger then the margin bottom, so to decrease it we can set a negative margin
     margin-bottom: -3px;
+
+    @media only screen and (max-width: $break-point-small) {
+      font-size: 1.8rem;
+    }
   }
   &__rating-count {
     font-size: 0.8rem;
     text-transform: uppercase;
+
+    @media only screen and (max-width: $break-point-small) {
+      font-size: 0.5rem;
+    }
   }
 }
 
@@ -411,17 +483,24 @@
     margin-right: 0.7rem;
 
     // for older browsers (we can't change the color of the svg when we use them like this with background images)
-    //background-image: url(../img/chevron-thin-right.svg); // Up one level because we are not in the html now.\
-    //background-size: cover;
+    background-image: url(../img/chevron-thin-right.svg); // Up one level because we are not in the html now.\
+    background-size: cover;
 
     // FOR newer browsers we use MASKS - a mask defines an area where we can look through the element and see what is behind it.
-    // First we define the background color.
-    background-color: var(--color-primary);
-    // Now we put the mask on top of this and, only in the positions where the icon is, we will be able to look through. this is similar to clipping
-    -webkit-mask-image: url(../img/chevron-thin-right.svg);
-    -webkit-mask-size: cover;
-    mask-image: url(../img/chevron-thin-right.svg);
-    mask-size: cover;
+    // Here is how we do it already with a feature query for support with older browsers, it is the same as saying if there is support for mask do this, otherwise do what we've set for older browsers. Just the icon in the default color.
+
+    @supports ((-webkit-mask-image: url()) or (mask-image: url())) {
+      // First we define the background color.
+      background-color: var(--color-primary);
+      // Now we put the mask on top of this and, only in the positions where the icon is, we will be able to look through. this is similar to clipping
+      -webkit-mask-image: url(../img/chevron-thin-right.svg);
+      -webkit-mask-size: cover;
+      mask-image: url(../img/chevron-thin-right.svg);
+      mask-size: cover;
+
+      // If you check chrome now, the icon color is gone, because we do support mask but the background image is also active from the code for older browsers. so
+      background-image: none;
+    }
   }
 }
 
@@ -439,7 +518,7 @@
   }
 
   &__friends {
-    display: flex;
+    display: flex; // THIS IS IMPORTANT - because if we want the photos or any other elements to always stay side by side (VERY HANDY on media queries), all we need to do is to set the parent container to flex.
   }
 
   &__photo {
@@ -466,6 +545,11 @@
   box-shadow: var(--shadow-light);
   padding: 3rem; // Same as the left container
   margin-bottom: 3.5rem; // Vertical space between both reviews and the element that comes next.
+
+  @media only screen and (max-width: $break-point-medium) {
+    padding: 2rem;
+    margin-bottom: 3rem;
+  }
 
   // for the pseudo element
   position: relative;
@@ -537,8 +621,11 @@
 
 .cta {
   padding: 3.5rem 0;
-  text-align: center;
+  text-align: center; // centers the h2 and the button
 
+  @media only screen and (max-width: $break-point-medium) {
+    padding: 2.5rem 0;
+  }
   &__book-now {
     font-size: 2rem;
     font-weight: 300;
@@ -559,12 +646,75 @@
     var(--color-primary-light),
     var(--color-primary-dark)
   );
+  cursor: pointer;
 
-  padding: 2rem 6rem;
+  // padding: 2rem 6rem; we cannot give the padding here because it is different for both cases. This happens because the invisible part has more text, so in the initial state it overflows to the visible part.
+  position: relative;
+  overflow: hidden; // To hide the invisible part because the horizontal padding does not solve the problem of overflowing to the h2.
+
+  // transition: all 2s; // REMEMBER that we tried to transition the linear gradient, however transition does NOT work for background images, so it also doesn't work for gradients, so we must adjust the other transitions so it becomes unnoticeable.
+
+  // In order to refactor the code we can do this, select all the child elements of the .btn and apply the common changes for both
+  & > * {
+    height: 100%;
+    width: 100%;
+    display: inline-block;
+    transition: all 0.2s;
+  }
 
   &__visible {
+    // Since it's a span, it is an inline-element, but we want them to be inline-block in order to apply the padding.
+    // display: inline-block; refactored
+    padding: 2rem 7.5rem;
+    // transition: all 2s; // It must be on both
+
+    // We define it also here just to make sure that the sizes are correct for the transition on y (remember that we have to say to move 100% of it's height), but without this it works the same.
+    // height: 100%; Refactored
+    // width: 100%;
   }
 
   &__invisible {
+    // In order to have the same height and width of the parent.
+    // height: 100%; refactored
+    // width: 100%;
+    // We want this element (div) to be outside of the button (on top of it), so that on hover it can move it down.
+    // display: inline-block; refactored
+    position: absolute;
+    // Left 0 so it start's on the same position as the parent from the left and top -100% so that it moves up exactly the size of the element.
+    left: 0;
+    top: -100%;
+    padding: 2rem 0; // With the same padding it overflows, so we set the horizontal to be 0 at the initial state (when it is invisible) and the change on hover.
+    // transition: all 2s; // It must be on both so it was also refactored
+  }
+
+  // Now to implement the functionality, when we hover the button do this to the visible and to the invisible part:
+
+  &:hover &__visible {
+    transform: translateY(
+      100%
+    ); // To go down we don't use top because we didn't positioned the visible part absolutely.
+  }
+  &:hover &__invisible {
+    top: 0; // Since it is absolutely positioned, we just set the top to zero, the transition then makes the animation
+    // background-image: linear-gradient(
+    //   to left,
+    //   var(--color-primary-light),
+    //   var(--color-primary-dark)
+    // ); This cannot be here, otherwise
+  }
+
+  &:hover {
+    background-image: linear-gradient(
+      to left,
+      var(--color-primary-light),
+      var(--color-primary-dark)
+    );
+  }
+
+  // For the focus state we are going to use the same animation that we've created.
+
+  &:focus {
+    outline: none; // We don't want any outline, just the animation, however if we don't specify this nothing changes.
+    animation: pulsate 1s infinite;
   }
 }

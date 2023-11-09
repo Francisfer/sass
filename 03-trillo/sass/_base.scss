@@ -34,6 +34,19 @@ COLORS
   // Boarder
   --line: 1px solid var(--color-grey-light-2);
 }
+// Media queries
+// Remember that we cannot use custom css variables to use in media queries, we need to use sass variables that we cannot define in the root.
+
+$break-point-largest: 75em; // 1200px / 16px(1em), again remember that this has nothing to do with the font-size hack that we do in our html. Here we just removed the margin.
+
+$break-point-large: 68.75em; // 1100px / 16px, Decreased the font-size here in the html (list and photos getting to new lines).
+
+$break-point-medium: 56.25em; // 900px - moved the side bar to the top.
+
+$break-point-small: 37.5em; // 600px
+
+$break-point-smallest: 31.25em; // 500px - used just to change the search bar, it looks better without this query, but there is more about flexbox.
+// This is a use case for the order property in flexbox. First, we want it to be the last element in the container, then we set the container to wrap, so that the elements are allowed to wrap if there is not enough space.
 
 * {
   margin: 0;
@@ -43,6 +56,12 @@ COLORS
 html {
   font-size: 62.5%;
   box-sizing: border-box;
+
+  //////// MEDIA QUERY ////////
+  @media only screen and (max-width: $break-point-large) {
+    // We decrease from 10px to 8px
+    font-size: 50%; // 8/16 = 0.5 - we also need to fix the max-width in the container.
+  }
 }
 
 *,

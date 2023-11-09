@@ -303,7 +303,7 @@
             </h2>
             <!-- Button -->
             <!-- To make this effect work, we first need to design the button and then put two elements (spans) in there with different text. -->
-            <!-- On hover, both of them slide down and the gradient changes direction -->
+            <!-- On hover, both of them slide on the y axis and the gradient changes direction -->
             <button class="btn">
               <span class="btn__visible">Book now</span>
               <span class="btn__invisible">Only 4 rooms left</span>
@@ -508,4 +508,18 @@ line 380
   10. How to use html entities in css. good resource is html entities css tricks glyphs. line 496
 
   11. In order fot the z-index to work we MUST set the position of the element.
+
+  12. Also check all the possible states (hover, active, focus, etc) for both the elements and the buttons.
+
+  13. REMEMBER that we tried to transition the linear gradient, however transition does NOT work for background images, so it also doesn't work for gradients, so we must adjust the other transitions so it becomes unnoticeable.
+
+  14. When we have two or more media queries first we code the one for the largest screen and after for the smallest screen. Because both apply, and if there is something conflicting we want the last to apply.
+
+  15. If you notice, when we focus the search bar the background color changes, so the round edges are possible to see, to fix this we use the focus-within pseudo class.
+  &:focus-within {
+    @media only screen and (max-width: $break-point-smallest) {
+      background-color: var(--color-grey-light-3);
+    }
+
+  16. Caption hover effects
  -->
