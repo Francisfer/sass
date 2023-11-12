@@ -11,6 +11,7 @@
     <!-- .container>.item.item--$*6 
     create a div with the class container and inside create 6 div with the class item and the class item--1, 2, 3 ... the dollar sign is for the count. -->
 
+    <!-- Lectures till challenge -->
     <!-- <div class="container">
       <div class="item item--1">1: Orange</div>
       <div class="item item--2">2: Green</div>
@@ -23,30 +24,53 @@
     <!-- CHALLENGE - my code -->
 
     <!-- <div class="challenge">
-      <div class="grid__item header">Header</div>
-
-      <div class="grid__item">Small box 1</div>
-      <div class="grid__item">Small box 2</div>
-      <div class="grid__item">Small box 3</div>
-      <div class="grid__item sidebar">Sidebar</div>
-      <div class="grid__item main">Main content</div>
-      <div class="grid__item footer">Footer</div>
+      <div class="item header">Header</div>
+      <div class="item small-box">Small box 1</div>
+      <div class="item small-box">Small box 2</div>
+      <div class="item small-box">Small box 3</div>
+      <div class="item sidebar">Sidebar</div>
+      <div class="item main">Main content</div>
+      <div class="item footer">Footer</div>
     </div> -->
 
-    <!-- CHALLENGE - code from lectures.
-      The only thing that was actually different was the classes and the fix sizes.
-    
+    <!-- CHALLENGE - solution 
+    1. He wrote the classes differently because he's using sass in code pen. 
+    2. The order of the html is different.
     -->
 
-    <div class="container1">
-      <div class="itemNow item---1">Modern</div>
-      <div class="itemNow item---2">CSS</div>
-      <div class="itemNow item---3">with</div>
-      <div class="itemNow item---4">Flexbox</div>
-      <div class="itemNow item---5">and</div>
-      <div class="itemNow item---6">Grid</div>
-      <div class="itemNow item---7">is</div>
-      <div class="itemNow item---8">great</div>
+    <!-- <div class="challenge">
+      <div class="header">Header</div>
+      <div class="small-box-1">Small box 1</div>
+      <div class="small-box-2">Small box 2</div>
+      <div class="small-box-3">Small box 3</div>
+      <div class="main-content">Main content</div>
+      <div class="sidebar">Sidebar</div>
+      <div class="footer">Footer</div>
+    </div> -->
+
+    <!-- Second container -->
+    <!-- <div class="container">
+      <div class="item item--1">Modern</div>
+      <div class="item item--2">CSS</div>
+      <div class="item item--3">with</div>
+      <div class="item item--4">Flexbox</div>
+      <div class="item item--5">and</div>
+      <div class="item item--6">Grid</div>
+      <div class="item item--7">is</div>
+      <div class="item item--8">great</div>
+    </div> -->
+
+    <!-- LAST TWO LECTURES -->
+
+    <div class="container">
+      <div class="item item--1">Modern</div>
+      <div class="item item--2">CSS</div>
+      <div class="item item--3">with</div>
+      <div class="item item--4">Flexbox</div>
+      <div class="item item--5">and</div>
+      <div class="item item--6">Grid</div>
+      <div class="item item--7">is</div>
+      <div class="item item--8">great</div>
     </div>
   </body>
 </html>
@@ -56,15 +80,20 @@
   
   1. After defining the display to grid, we need to specify the rows and the columns. 
   
-  2. For the rows, we define the height of each one. The property row-gap defines the gap between the rows.
+  2. For the rows, we define the HEIGHT of each one. The property row-gap defines the gap between the rows.
+  grid-template-rows: repeat(2, 150px);
   
-  3. For the columns, we define the width of each one. The property column-gap defines the gap between the columns.
+  3. For the columns, we define the WIDTH of each one. The property column-gap defines the gap between the columns.
+  grid-template-columns: repeat(3, 150px);
   
-  4. If we want the gap value to be the same on rows and columns we use the gap property. The row and columns are called tracks.
+  4. If we want the gap value to be the same on rows and columns we use the gap property, if different we use grid-row-gap and grid-column-gap. The row and columns are called tracks.
+  grid-column-gap: 20px;
+  grid-row-gap: 30px:
+  gap: 30px;
   
   5. The row lines and column lines are automatically numbered in the inspector.
   
-  <<<<<<<<<<<<<<<<<<<<<< SECOND LESSON (the fr)>>>>>>>>>>>>>>>>>>>>>
+  <<<<<<<<<<<<<<<<<<<<<< SECOND LESSON (the fr unit)>>>>>>>>>>>>>>>>>>>>>
   
   1. When defining the rows and the columns, assuming that we want all of them to have the same dimensions, it is much better to use the repeat function instead of having to specify all of them manually.
   >>>>> grid-template-rows: repeat(2, 150px);
@@ -73,20 +102,37 @@
   If we don't want one of them to have the same dimension we can do: 
   >>>>> grid-template-columns: repeat(2, 150px) 300px;
 
-  If we want it to expand through the rest of the space we use 1fr.
-  >>>>> grid-template-columns: repeat(2, 150px) 300px;
-  The fractional unit represent a fraction of the available space. We can combine fr with px or rem. Keep in mind that using percentages does not have into account the gap.
-  The fr also work with the rows, however we need to have a fixed height for the container in order to have a value to work with. However it is more used in columns because in rows we kind of prefer that the content defines the height.
+  If we want the last column to expand through the rest of the space we use 1fr.
+  >>>>> grid-template-columns: repeat(2, 150px) 1fr;
+
+  If we want them to have the same width:
+  >>>>> grid-template-columns: repeat(3, 1fr);
+
+  One to have the double:
+  >>>>> grid-template-columns: 1fr 2fr 1fr;
+
+  The fractional unit represent a fraction of the available space. We can combine fr with px or rem. Keep in mind that using percentages does NOT have into account the gap.
+  >>>>> grid-template-columns: 50% 2fr 1fr;
+
+  The fr also work with the rows, however we need to have a fixed height for the container in order to have a value to work with. The fr unit is more used in columns because in rows we kind of prefer that the content defines the height.
 
   <<<<<<<<<<<<<<<<<<<<<< THIRD LESSON (positioning items)>>>>>>>>>>>>>>>>>>>>>
 
   1. Positioning the grid items in the grid. The default behavior is to set with the order in which we write the code. But we might want to change the position of an item inside the grid and, to do this without changing the html we use the columns and the row line numbers.
 
+  We can do this in two ways, with grid row and grid column, then specify the coordinates our use the grid area property.
+
+    1.1
   -- grid row start alow us to move the cell from one row to another. We normally also use the grid row end to have a cleaner solution. The shorthand is grid-row: 2 / 3;
 
   -- Same thing for the columns, grid columns start and end. The shorthand is grid-column: 2 / 3
 
-  2. The overall shorthand is:
+  The following moves the cell to the row that starts at 2 and ends at 3. And moves it to the column that starts at 2 and ends at 3.
+  grid-row: 2 / 3;
+  grid-column: 2 / 3;
+
+    1.2
+  The overall shorthand is:
   grid-area: 1 / 3 / 2 / 4;
   First value for row start, second for column start, third for row end and fourth for column end.
   Although this is useful, it makes the code more confusing, it is better to stay with grid row and grid column.
@@ -100,45 +146,134 @@
 
   If we explicitly say where we want the spanned item to be, we can overlap other items, this means that we can have multiple items in one cell. It is handy if we want some content that is related to be spread across one or more cells, also with image galleries. Then we just need to work with the z index.
 
+   grid-column: 1 / 3;
+  Spanning the item-3 element creates a new line (for itself) because we explicitly placed the orange one, So it tries to find a new place. Unless we also specify the row in which it should stay */
+  /* grid-row: 2 / 3; */
+  /* Now the orange is behind in the z index.
+
   ROWS
   The same can be done
 
   SHORTHAND 
+  grid-column: 1 / 3;
   grid-column: 1 / span 2; - span across two cells.
 
   If we want it to go all the way to the end or if we don't know how many columns we have we can use, where the -1 represents the end:
   grid-column: 2 / -1; 
+  This is useful because if we span the element further than the number of columns, implicit columns are also created.
 
   <<<<<<<<<<<<<<<<<<<<<< FIFTH LESSON (naming the lines or the areas)>>>>>>>>>>>>>>>>>>>>>
    
+  1. To name the grid lines all we have to do is to use the [] and write the name of the line.
+
+  The best practice is to describe the content that will be in the track and specify if it is the start or the end. 
+  
+  For the rows, it is the header that will be between lines 1 and 2. 
+  grid-template-rows: [header-start] 100px [header-end] 200px 400px 100px;
+
+  However, the end of the header line is also the start of the boxes line. For this reason we can give two names to one line:
+  grid-template-rows: [header-start] 100px [header-end box-start] 200px [box-end main-start] 400px [main-end footer-start] 100px [footer-end];
+
+  Now, instead of using the number of the lines, we use the names.
+  grid-row: box-start / main-end;
+
+  2. As for the columns, the main difference is that we have a repeat function, so the difficulty only resides there, otherwise it would be the same.
+
+  grid-template-columns: repeat(3, [col-start] 1fr [col-end]) 200px [grid-end];
+
+  What this does is to automatically create a named set of grid lines (for the first column lines are col-start 1 and col-end 1, for the second col-start 2 and col-end 2 ...).
+  The last we just define the end.
+
+  grid-column: col-start 1 / grid-end;
+
+  2. Naming grid areas.
+
+  For this method, we use the grid-template-areas property where we name the grid areas.
+  Is basically a named representation of our grid.
+
+  grid-template-areas:
+    "head head head head"
+    "box box box side"
+    "main main main side"
+    "foot foot foot foot";
+
+  Now we just need to position the items with the grid-area property (the same we used before).
+
+  grid-area: head;
+
   It is much easier, when reviewing this take a look to lesson 99, naming grid areas.
 
-  In order for this to work we need to name exactly all cells, so we think in the layout first. if we want to leave an empty cell, we write a dot, however we need to define the position of the others so that they don't fill that space.
-  However it would be much easier to just use the numbers in order to do this.
-
-  Naming grid areas can be very useful for smaller layouts like this one.
-
-  If we have a layout with 12 or 15 columns and the same number of rows, is much simpler to name the grid lines. 
+  In order for this to work we need to name exactly all cells, so we think in the layout first. 
   
-  <<<<<<<<<<<<<<<<<<<<<< SIXTH LESSON (implicit grids vs explicit grids)>>>>>>>>>>>>>>>>>>>>>
+Another possibility is to leave empty cells, we write a dot in the string of the template areas.
+ 
+grid-template-areas:
+    "head head head ."
+    "box box box side"
+    "main main main side"
+    "foot foot foot foot";
 
-  First we wrote a grid with only 2 columns and two rows (explicit grid), since we have 8 items, two rows were created (implicit grid).
+However, we need to define the position of all the others so that they don't fill that space.
+  
+Naming grid areas can be very useful for smaller layouts like this one.
 
-  If we wanted to style the implicit grid (define their height), we use the grid-auto-rows property.
+If we have a layout with 12 or 15 columns and the same number of rows, is much simpler to name the grid lines. 
+  
+<<<<<<<<<<<<<<<<<<<<<< SIXTH LESSON (implicit grids vs explicit grids)>>>>>>>>>>>>>>>>>>>>>
 
-  --- The items are added as rows because of the grid-auto-flow, which is set to row by default, if we want them to be added as columns we change it to column.
-  Like this, if we now use the grid-auto-columns we specify their width (not their height).
-  This is great to style the implicit grid items when we don't know how many there will be (in a ajax call for ex)
+First we wrote a grid with only 2 columns and two rows (explicit grid), since we have 8 items, two rows were created (implicit grid).
+
+If we wanted to style the implicit grid (define their height), we use the grid-auto-rows property.
+grid-auto-rows: 80px;
+Of course that it would be more useful to give them the same height as the others (150px).
+
+The items are added as rows because of the grid-auto-flow, which is set to row by default, if we want them to be added as columns we change it to column.
+grid-auto-flow: column;
+
+Like this, if we now use the grid-auto-columns we specify their width (not their height).
+grid-auto-columns: 0.5fr; half of the others
+
+This is great to style the implicit grid items when we don't know how many there will be (in a ajax call for ex)
   
 
-   <<<<<<<<<<<<<<<<<<<<<< SEVENTH LESSON (aligning grid items)>>>>>>>>>>>>>>>>>>>>>
+<<<<<<<<<<<<<<<<<<<<<< SEVENTH LESSON (aligning grid items)>>>>>>>>>>>>>>>>>>>>>
 
-   Just like flexbox, we apply these alignments to the container, unless we want some of the cells to have a different one. For that we use align self and justify self.
+Just like flexbox, we apply these alignments to the container, unless we want some of the cells to have a different one. For that we use align self AND justify self.
 
-   align-items: aligns along the columns axis (y), so vertically inside of the cell. The default is set to stretch just like flexbox. center, end, start.
+align-items: aligns along the columns axis (y), so vertically inside of the cell. The default is set to stretch just like flexbox. center, end, start.
 
-   justify-items: we don't have this one in flexbox because it is not a two dimensional system like grid. Align along the row axis (horizontally ->). default stretch.
+justify-items: we don't have this one in flexbox because it is not a two dimensional system like grid. Align along the row axis (horizontally ->). default stretch. center, end, start.
 
-   <<<<<<<<<<<<<<<<<<<<<< EIGHTH LESSON (aligning entire grid tracks)>>>>>>>>>>>>>>>>>>>>>
+<<<<<<<<<<<<<<<<<<<<<< EIGHTH LESSON (aligning entire grid tracks to the grid container)>>>>>>>>>>>>>>>>>>>>>
+
+When we have a container that it's bigger than the grid we can use some properties to align the entire content, here is where we use the justify-content property (x axis or row axis, horizontally). Center, start, end, space between, space-around and space-evenly.
+Same as flexbox.
+
+To align on the y axis (vertically) we use align-content with the same properties.
+
+If we don't want holes in our grid we need to use the DENSE keyword in the auto-flow property.
+
+<<<<<<<<<<<<<<<<<<<<<< NINTH LESSON (min-content, max-content, minmax( ) function)>>>>>>>>>>>>>>>>>>>>>
+
+Up until this point we have only defined real units to create the rows or the columns (fr, percentages, px), but we can use other values too.
+
+With columns, the max and min content is set to occupy the width that is necessary in order to fit the content. 
+
+grid-template-columns: max-content 1fr 1fr 1fr;
+
+This property avoids doing line breaks, so if the content is big, the length of the column is also big. To solve this problem we have the min-content. Now the column takes the largest width that is needed in order to fit the content. 
+
+With the min-max function, we pass two values to define the max and min size that the columns or the tracks should have no matter the size of the content.
+
+It is useful to make sure that a column width has at least some value (150px for ex.) and a max width normally set to min content (so if it occupies less than 150px the columns does not collapse, but if the content is wider then that, it accommodates the content without overflowing). 
+   
+This is more used in rows:
+
+grid-template-row: repeat (2, minmax(1150px, min-content))
+
+When we use minmax the cells don't collapse further than min.
+
+<<<<<<<<<<<<<<<<<<<<<< TENTH LESSON (Responsive layouts with auto-fit and auto-fill)>>>>>>>>>>>>>>>>>>>>>
+
 
  -->
