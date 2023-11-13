@@ -257,23 +257,64 @@ If we don't want holes in our grid we need to use the DENSE keyword in the auto-
 
 Up until this point we have only defined real units to create the rows or the columns (fr, percentages, px), but we can use other values too.
 
-With columns, the max and min content is set to occupy the width that is necessary in order to fit the content. 
+With columns, the max-content is set in order to occupy the width that is necessary in order to fit the content. Because we are speaking of columns, the entire column is now going to be as wide as it has to be in order to fit the largest content.
 
 grid-template-columns: max-content 1fr 1fr 1fr;
 
-This property avoids doing line breaks, so if the content is big, the length of the column is also big. To solve this problem we have the min-content. Now the column takes the largest width that is needed in order to fit the content. 
+This property avoids doing line breaks, so if the content is big, the length of the column is also big. In other words, if we increase the content of a column set with max-content, it will not break the line, it just increases the columns width to accommodate the content.
 
-With the min-max function, we pass two values to define the max and min size that the columns or the tracks should have no matter the size of the content.
+To solve this problem we have the min-content. Now the column takes the minimum width that is necessary in order to fit the content without overflowing on the sides, but breaks the lines. 
+grid-template-columns: max-content 1fr 1fr min-content;
+
+Remember that in our example we wrote a bunch of text in the 8th item in just to use the min-content on the column. At that point, the width of the column was defined by the largest word (awesome), however, although it didn't overflow on the sides, it did on the row.
+That happened because we have ser the height of the row to a fixed value (150px), but we can use the min or max content also on the rows.
+grid-template-rows: repeat(2, min-content);
+
+What happens now is that the first row also gets just the min height in order to fit the content.
+
+Suppose that we didn't wanted that, we wanted  the first row to have 150px of height and not just the min content. In other words, we wanted  the row to always have the minimum height of 150px unless the content overflows. We could hardcode it like this:
+grid-template-rows: 150px min-content;
+but then if we add content to one of the cells of that row it overflows.
+The solution for this is to use the minmax function.
+
+With the min-max function, we pass two values to define the max and min size that the columns or the rows should have no matter the size of the content.
 
 It is useful to make sure that a column width has at least some value (150px for ex.) and a max width normally set to min content (so if it occupies less than 150px the columns does not collapse, but if the content is wider then that, it accommodates the content without overflowing). 
    
 This is more used in rows:
 
-grid-template-row: repeat (2, minmax(1150px, min-content))
+grid-template-row: repeat (2, minmax(150px, min-content))
 
 When we use minmax the cells don't collapse further than min.
 
+Also, a fractional unit occupies one fraction of the remaining space but it is never smaller than the minimum content of a row or a column.
+
 <<<<<<<<<<<<<<<<<<<<<< TENTH LESSON (Responsive layouts with auto-fit and auto-fill)>>>>>>>>>>>>>>>>>>>>>
 
+These keywords allow us to do responsive design without writing one media query.
 
+COLUMNS
+In the columns, our most common method is to write the repeat, some number of columns and their width like this.
+grid-template-columns: repeat(4, 1fr);
+
+But what if we don't want to specify the number of columns? What if we wanted the number of columns to adapt to the number of items that we have? This is where auto-fill comes into place.
+
+grid-template-columns: repeat(auto-fill, 100px);
+
+This is going to create 10 column tracks for us because the container is 1000px and we've specified that we wanted 100px columns.
+So, auto-fill creates as many tracks with the desired width as they can fit in the container.
+
+With auto-fit, the difference is that it still creates the 10 columns but collapses the ones that are empty, giving them a width of 0.
+
+grid-template-columns: repeat(auto-fit, 100px);
+
+If this collapses the empty tracks, this means that there is some available space inside of the container, this becomes useful to use the minmax function.
+
+grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+
+Now the grid occupies the entire container, filling the extra space by expanding the columns into more than 100px.
+
+If the width of our container is a relative unit like 90%, whenever we cant fit 8 cells with 100px, same as saying when the container reaches less than 800px, the cells move to other line.
+
+When we decrease is like we where doing a media query to change to 7 columns.
  -->
