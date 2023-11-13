@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Josefin+Sans:300,400,400i|Nunito:300,300i"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="shortcut icon" type="image/png" href="img/favicon.png" />
+
+    <title>nexter &mdash; your home, your freedom</title>
+  </head>
+  <!-- Notice that the body is the actual container -->
+  <body class="container">
+    <div class="sidebar">Sidebar</div>
+
+    <!-- //////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+    <header class="header">Header</header>
+
+    <!-- //////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+    <div class="realtors">Top 3 realtors</div>
+
+    <!-- //////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+    <section class="features">Features</section>
+
+    <!-- //////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+    <!-- The story (testimonial) is divided in two parts: the photo gallery and the content. In order for these to be different grid items, each of the sides have to be a different element.
+    
+    They belong to the same block (story), but they are different elements. It is not bad practice to have the block and the element without a parent block. By the code we know that they are both part of the story but we want them to be different grid items.
+    -->
+
+    <div class="story__pictures">Story pictures</div>
+
+    <div class="story__content">Story content</div>
+
+    <!-- //////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+    <section class="homes">Homes</section>
+
+    <!-- //////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+    <section class="gallery">Gallery</section>
+
+    <!-- //////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+    <footer class="footer">Footer</footer>
+  </body>
+</html>
+
+<!-- 
+
+1. This time the architecture has one component per part/section of the page layout. There are 8 parts in the layout that are going to be the grid items.
+Must check if this is the best practice, because it will be much more easier this way.
+
+2. After having the markup, giving a background color to each one is very helpful.
+
+3. Now it's time to style the container. This is where the magic happens, we set display to grid and then start by specifying the rows.
+
+    ROWS
+    3.1 - The first row is where the header is going to be, so we want it to have 80% of the viewport height, so 80vh. This means that it is already responsive from the start.
+
+    3.2 - The second row is for the features, it is clear that we have a grid in here too. We want this row to have the necessary height to fit the content. 
+    If we add more content the row will grow with it and, also, this means that if we decrease the width, the content will adapt vertically (just like a media query, adds a row and removes a column).
+    For this we want the min-content (auto is the default and it is the same as min content).
+
+    3.3 - As for the third row (story - where we have two elements), it is not a function of the viewport height but the viewport width.
+    VERY IMPORTANT - Saying that the row is not a function of the viewport height means that if we decrease the viewport width, the size of the boxes also decreases, adapting to the viewport width. 
+    The header for ex only responds to the viewport height. We set this one to be 40% of the viewport width.
+
+    3.4 - The forth, fifth and last rows are similar to the features row. We easily see that we have a grids in there as well and so we want the rows height to adapt to the content. min-content
+
+    COLUMNS
+    3.1 - It is very common in web design to use a design grid with 8, 12 or 16 predefined columns. 
+    This is also what we are going to do here, although it may not really be necessary for this design.
+    grid-template-columns: repeat(8, 1fr);
+
+    3.2 - This produces 8 equally sized columns, with the first row to occupy 80% of the viewport height.
+    This is actually not what we want because these columns constantly adapt their width to the viewport. 
+    Have in mind that these eight columns represent the center of the website and we are making the desktop version, where we usually use something between 1100px and 1200 px (remember trillo with a max-width of 120rem).
+    It still is quite small, but remember that we are going to add more stuff.
+    This time we use 1140px, so divided by 8 is 142px that we round to 14rem.
+    However, now they don't respond in width at all, because, of course this is a fixed width, which means that we have to use the minmax function.
+    We really need to think here, we want these columns to have a width that is between the minimum content and the maximum of 14 rem, not the other way around.
+    We want them to be 14rem but they can be smaller, but not smaller then the minimum content. This would be easier to see if we had content, but keep in mind this reasoning (we want them to be x size but they can either be wider or smaller)
+
+    grid-template-columns: repeat(8, minmax(min-content, 14rem));
+
+    3.3 - Now we add the sidebar, which is also a column with 8rem.
+    grid-template-columns: 8rem repeat(8, minmax(min-content, 14rem));
+
+    3.4 - NOTE - At this point we have the sidebar column with a fixed width and the eight columns with a minmax width.
+    We need two things, to center the 8 columns between the end of the viewport and the sidebar (remember that the content is not centered in the viewport) and to fill the entire viewport (remember that these 8 columns and the sidebar have a "fixed width").
+    The solution for this is to add two more columns, each occupying a fraction of the available space.
+
+    grid-template-columns: 8rem 1fr repeat(8, minmax(min-content, 14rem) 1fr);
+
+    Now we have our sidebar, the stretcher, the 8 columns and the final stretcher.
+
+    Note that, if we didn't have the sidebar, we could just use the margin 0 auto trick to center all of this in the body or use the justify content property.
+
+    stopped 5.57
+
+
+ -->
