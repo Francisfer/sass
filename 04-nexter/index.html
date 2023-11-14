@@ -28,7 +28,15 @@
 
     <!-- //////////////////////////////////////////////////////////////////////////////////////////////// -->
 
-    <section class="features">Features</section>
+    <section class="features">
+      <!-- .feature{feature $}*6 -->
+      <div class="feature">feature 1</div>
+      <div class="feature">feature 2</div>
+      <div class="feature">feature 3</div>
+      <div class="feature">feature 4</div>
+      <div class="feature">feature 5</div>
+      <div class="feature">feature 6</div>
+    </section>
 
     <!-- //////////////////////////////////////////////////////////////////////////////////////////////// -->
 
@@ -60,7 +68,11 @@
 1. This time the architecture has one component per part/section of the page layout. There are 8 parts in the layout that are going to be the grid items.
 Must check if this is the best practice, because it will be much more easier this way.
 
+///////////////////////////////////////////////
+
 2. After having the markup, giving a background color to each one is very helpful.
+
+///////////////////////////////////////////////
 
 3. Now it's time to style the container. This is where the magic happens, we set display to grid and then start by specifying the rows.
 
@@ -106,7 +118,61 @@ Must check if this is the best practice, because it will be much more easier thi
 
     Note that, if we didn't have the sidebar, we could just use the margin 0 auto trick to center all of this in the body or use the justify content property.
 
-    stopped 5.57
+    Another reason why we want to do it like this is because we have full bleed sections like the story or the header. 
 
+    These sections do not only occupy the 8 sections in the middle, they occupy the other two columns
 
+  ///////////////////////////////////////////////
+
+Now, in order to make our lives easier, let's name the column tracks. Naming the columns is always more important, in most cases we don't even want to size the rows, we just want them to assume the size of the content.
+
+Pay attention on how things are done:
+    - The sidebar-end is also the full-bleed start; the full bleed end is the last line.
+
+    - The center start are the 8 columns with the center end at the end and we create a set of named lines for each one of them.
+    8 col-starts and 8 col-end
+
+grid-template-columns:
+    [sidebar-start] 8rem [sidebar-end full-start] 1fr [center-start] repeat(
+      8,
+      [col-start] minmax(min-content, 14rem) [col-end]
+    )
+    [center-end]
+    1fr [full-end];
+
+As for the positioning, only the full bleed section are a bit tricky. 
+
+The header and the realtors occupy the same line, the realtors have the last two of the height columns and the stretcher; and the header has the rest.
+
+HEADER - it could be the col-start 7, but since this is what it marks the end of the header we use the end.
+
+grid-column: full-start / col-end 6;
+
+REALTORS
+grid-column: col-start 7 / full-end;
+Now we use the start because it is where the realtors start
+
+1. Notice that we didn't specify the columns.
+
+2. This lesson ends with the fact that, when we approach the size of the 8 columns, the stretchers almost disappear. 
+This is exactly what we've told them to do because those columns occupy 1fr of the available space, if there is no space, they collapse.
+But we don't want that behavior, we usually want some margin between the content and the margin of the page for when we shrink.
+For this we use the minmax function again in order to maintain a minimum of 6rem (60px)
+REMEMBER that this is done thinking in the center sections (the ones that are aligned to those eight columns) 
+
+///////////////////////////////////////////////
+
+Now we start to build the sections. 
+FEATURES.
+
+1. How and why to create grids inside of grids.
+REMEMBER the possibility of using subgrid instead of creating them manually.
+grid-template-rows: subgrid;
+grid-template-columns: subgrid;
+
+2. How to create a responsive component without media queries.
+
+3. How to build a small component using css grid.
+
+6.06
  -->
