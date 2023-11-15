@@ -30,12 +30,89 @@
 
     <section class="features">
       <!-- .feature{feature $}*6 -->
-      <div class="feature">feature 1</div>
-      <div class="feature">feature 2</div>
-      <div class="feature">feature 3</div>
-      <div class="feature">feature 4</div>
-      <div class="feature">feature 5</div>
-      <div class="feature">feature 6</div>
+      <!-- Notice that this feature block/component is completely independent from the feature class, meaning that, in theory, it would be reusable in another page. -->
+      <!-- However, we place it in the same file (features) because they are closely related and, like this we avoid having to jump around different files  -->
+      <!-- However it would be better to use the 8-1, but doing it like this while we don't get experience is not a bad idea -->
+      <div class="feature">
+        <svg class="feature__icon">
+          <use xlink:href="../img/sprite.svg#icon-global"
+        </svg>
+
+        <!-- Notice that the h4 is not being built as an element of the feature block. It is a component because we are going to use this style across the page. Typography-->
+        <h4 class="heading-4 heading-4--dark">World's best luxury homes</h4>
+
+        <p class="feature__text">
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tenetur
+          distinctio necessitatibus pariatur voluptatibus.
+        </p>
+      </div>
+
+      <div class="feature">
+        <svg class="feature__icon">
+          <use xlink:href="../img/sprite.svg#icon-trophy"
+        </svg>
+
+        <h4 class="heading-4 heading-4--dark">Only the best properties</h4>
+
+        <p class="feature__text">
+          Voluptatum mollitia quae. Vero ipsum sapiente molestias accusamus
+          rerum sed a eligendi aut quia.
+        </p>
+      </div>
+
+      <div class="feature">
+        <svg class="feature__icon">
+          <use xlink:href="../img/sprite.svg#icon-map-pin"
+        </svg>
+
+        <h4 class="heading-4 heading-4--dark">All homes in top locations</h4>
+
+        <p class="feature__text">
+          Tenetur distinctio necessitatibus pariatur voluptatibus quidem
+          consequatur harum.
+        </p>
+      </div>
+
+      <div class="feature">
+        <svg class="feature__icon">
+          <use xlink:href="../img/sprite.svg#icon-key"
+        </svg>
+
+        <!-- Notice that the h4 is not being built as an element of the feature block. It is a component because we are going to use this style across the page. -->
+        <h4 class="heading-4 heading-4--dark">New home in one week</h4>
+
+        <p class="feature__text">
+          Vero ipsum sapiente molestias accusamus rerum. Lorem, ipsum dolor sit
+          amet consectetur adipisicing elit.
+        </p>
+      </div>
+
+      <div class="feature">
+        <svg class="feature__icon">
+          <use xlink:href="../img/sprite.svg#icon-presentation"
+        </svg>
+
+        <!-- Notice that the h4 is not being built as an element of the feature block. It is a component because we are going to use this style across the page. -->
+        <h4 class="heading-4 heading-4--dark">Top 1% realtors</h4>
+
+        <p class="feature__text">
+          Quidem consequatur harum, voluptatum mollitia quae. Tenetur distinctio
+          necessitatibus pariatur voluptatibus.
+        </p>
+      </div>
+
+      <div class="feature">
+        <svg class="feature__icon">
+          <use xlink:href="../img/sprite.svg#icon-lock"
+        </svg>
+
+        <h4 class="heading-4 heading-4--dark">Secure payments on nexter</h4>
+
+        <p class="feature__text">
+          Pariatur voluptatibus quidem consequatur harum, voluptatum mollitia
+          quae.
+        </p>
+      </div>
     </section>
 
     <!-- //////////////////////////////////////////////////////////////////////////////////////////////// -->
@@ -167,12 +244,70 @@ FEATURES.
 
 1. How and why to create grids inside of grids.
 REMEMBER the possibility of using subgrid instead of creating them manually.
-grid-template-rows: subgrid;
 grid-template-columns: subgrid;
 
-2. How to create a responsive component without media queries.
+About the rows, we could define them with auto auto, but this is what is going to happen anyway when out items are placed inside the implicit grid.
 
-3. How to build a small component using css grid.
+After setting the grid to 3 cols and the gap, we fill the content. We have an svg that comes from an icon sprite that is already in the img folder, the heading (h4) and the paragraph. 
+For the headings we use a different font-family than for the normal text.
 
-6.06
+2. After styling the content it's time to place it in the layout. For this of course we use again a grid. So .feature will, at this point become a grid container and not just a grid item.
+One column for the svg, we already know its size but it is always better to set to auto or min-content, if we later change something it is already set to be the minimum size to fit the content.
+Once again we don't define the rows. The content defines the rows.
+There is something important when not defining the rows, when we try to span an element across a row, the -1 does not work, because we did not define the row itself, so that number does not make much sense. This shorthand only works for explicit grids.
+grid-row: 1 / -1;
+Instead we do 
+
+3. Remember the trick when we where setting the icons to expand across the rows so that the height of the second column was defined by the h4 in the first row. lesson 109 min 10.
+It makes sense because the paragraph is below the icon in the second row, we could move it to where we want but, since the icon is still in the first row only, the height of that entire row is defined by it. 
+If we set the icon to occupy all the rows, the text is moved and the height of the first line is now defined by the h4.
+
+4. Seems common for the row gap to be less than the column gap in these components.
+row-gap: 1.5rem;
+column-gap: 2.5rem;
+After doing so, you notice that the space between the h4 and the paragraph is much bigger in the components that have less text.
+This happens because the parent grid, the .features grid, which contains these 6 items makes it so the items fill the entire cells. It is the same as saying that the align-items is set to stretch by default.
+So, in order for the space to be even, we set it to start.
+align-items: start;
+
+6. Now, if we decrease the width of the page, we see that we need to make it responsive in order to, at some point, collapse a column and add a row.
+REVIEW auto-fit and auto-fill.
+For this we need to define some new column tracks with auto-fit (it simply creates as many tracks as can fit based on the width that we define, collapsing the ones that are empty). 
+Collapsing means extra space, so it is perfect for using the minmax function.
+grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr)); 25 rem is established by experimentation.
+
+
+5. To move the icon a bit to the top, we just need to use translate in y.
+transform: translate(-1rem, 5rem); in both y and x
+
+
+
+////////////////////////////////////////////////////////
+
+THINGS TO TAKE
+
+1. He does not use any type of architecture, only one file for each section/part of the page. Although it would be better to use the 7-1 pattern, keep in mind that it is not so confusing to do it like this in the beginning.
+Only after one section is made we can move the code to where it belongs.
+
+2. Placeholder, extend vs mixins. IMPORTANT - to review.
+With the extend, it is like the heading is copied into the %heading selector (this is why we call it placeholder, imagine the .heading-1 replacing the %heading).
+
+%heading {
+  font-family: $font-display;
+  font-weight: 400;
+}
+
+.heading-1 {
+  @extend %heading;
+}
+
+This is actually what happens, look how the css code stays:
+.heading-4, .heading-3, .heading-2, .heading-1 {
+  font-family: "Josefin Sans", sans-serif;
+  font-weight: 400;
+}
+
+With mixins it works the other way around, the code would be pasted into each of these selectors.
+
+3. Where and how to use min-content, max-content, auto-fit, auto-fill, minmax function.
  -->

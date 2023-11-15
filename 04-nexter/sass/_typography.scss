@@ -1,0 +1,30 @@
+// HEADINGS
+// There are some styles that we want on all headings, so this is the perfect use case for a placeholder:
+%heading {
+  font-family: $font-display;
+  font-weight: 400;
+}
+
+.heading-1 {
+  @extend %heading;
+}
+.heading-2 {
+  @extend %heading;
+}
+.heading-3 {
+  @extend %heading;
+}
+
+// Notice the modifier class. We have added it because, although we want to use this h4 around the page, we want the color to be different in some cases.
+.heading-4 {
+  @extend %heading;
+  font-size: 1.9rem;
+
+  //Modifiers
+  &--light {
+    color: $color-grey-light-1;
+  }
+  &--dark {
+    color: $color-grey-dark-1;
+  }
+}
