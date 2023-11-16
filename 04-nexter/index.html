@@ -120,19 +120,253 @@
     <!-- The story (testimonial) is divided in two parts: the photo gallery and the content. In order for these to be different grid items, each of the sides have to be a different element.
     
     They belong to the same block (story), but they are different elements. It is not bad practice to have the block and the element without a parent block. By the code we know that they are both part of the story but we want them to be different grid items.
+
+    Also notice that we only use the name of the block on the elements that are not reusable. For example the h2, the h3 and the button don't have the name of the block in the class because they are independent and used all across the page.
     -->
 
-    <div class="story__pictures">Story pictures</div>
+    <div class="story__pictures">
+      <img
+        src="img/story-1.jpeg"
+        alt="Couple with new house"
+        class="story__img--1"
+      />
+      <img src="img/story-2.jpeg" alt="New house" class="story__img--2" />
+    </div>
 
-    <div class="story__content">Story content</div>
+    <div class="story__content">
+      <h3 class="heading-3 mb-sm">Happy Customers</h3>
+
+      <h2 class="heading-2 heading-2--dark mb-md">
+        &ldquo;The best decision of our lives&rdquo;
+      </h2>
+
+      <p class="story__text">
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tenetur
+        distinctio necessitatibus pariatur voluptatibus. Quidem consequatur
+        harum volupta!
+      </p>
+
+      <button class="btn">Find your home</button>
+    </div>
 
     <!-- //////////////////////////////////////////////////////////////////////////////////////////////// -->
 
-    <section class="homes">Homes</section>
+    <!-- Here we have homes as the main container, and home as each of the cards.
+    As for the card, we have the img, the icon, the name of the house, the characteristics/details and a button.
+    -->
+    <section class="homes">
+      <div class="home">
+        <!-- Img -->
+        <img src="img/house-1.jpeg" alt="House 1" class="home__img" />
+
+        <!-- Icon -->
+        <svg class="home__like">
+          <use xlink:href="../img/sprite.svg#icon-heart-full"
+        </svg>
+
+        <!-- Name of the home - h5 is not reusable so we use the block -->
+        <h5 class="home__name">Beautiful family House</h5>
+
+        <!-- 4 details, each of these is one element (div) because we have an icon and text paragraph.
+        We are not giving the icon and the paragraphs a class this time, we will style them directly from home__location because they are only two elements -->
+        <div class="home__location">
+          <svg><use xlink:href="../img/sprite.svg#icon-map-pin"</svg>
+          <p>USA</p>
+        </div>
+        <div class="home__rooms">
+          <svg><use xlink:href="../img/sprite.svg#icon-profile-male"</svg>
+          <p>5 rooms</p>
+        </div>
+        <div class="home__area">
+          <svg><use xlink:href="../img/sprite.svg#icon-expand"</svg>
+          <p>325 m<sup>2</sup></p>
+        </div>
+        <div class="home__price">
+          <svg><use xlink:href="../img/sprite.svg#icon-key"</svg>
+          <p>1,200,000</p>
+        </div>
+
+        <!-- Button - we reuse the style -->
+        <button class="btn home__btn">Contact realtor</button>
+      </div>
+
+      <div class="home">
+        <!-- Img -->
+        <img src="img/house-2.jpeg" alt="House 2" class="home__img" />
+
+        <!-- Icon -->
+        <svg class="home__like">
+          <use xlink:href="../img/sprite.svg#icon-heart-full"
+        </svg>
+
+        <!-- Name of the home  -->
+        <h5 class="home__name">Modern Glass Villa</h5>
+
+        <!-- 4 details -->
+        <div class="home__location">
+          <svg><use xlink:href="../img/sprite.svg#icon-map-pin"</svg>
+          <p>Canada</p>
+        </div>
+        <div class="home__rooms">
+          <svg><use xlink:href="../img/sprite.svg#icon-profile-male"</svg>
+          <p>6 rooms</p>
+        </div>
+        <div class="home__area">
+          <svg><use xlink:href="../img/sprite.svg#icon-expand"</svg>
+          <p>450 m<sup>2</sup></p>
+        </div>
+        <div class="home__price">
+          <svg><use xlink:href="../img/sprite.svg#icon-key"</svg>
+          <p>2,750,000</p>
+        </div>
+
+        <!-- Button - we reuse the style -->
+        <button class="btn home__btn">Contact realtor</button>
+      </div>
+
+      <div class="home">
+        <!-- Img -->
+        <img src="img/house-3.jpeg" alt="House 3" class="home__img" />
+
+        <!-- Icon -->
+        <svg class="home__like">
+          <use xlink:href="../img/sprite.svg#icon-heart-full"
+        </svg>
+
+        <!-- Name of the home  -->
+        <h5 class="home__name">Cozy Country House</h5>
+
+        <!-- 4 details -->
+        <div class="home__location">
+          <svg><use xlink:href="../img/sprite.svg#icon-map-pin"</svg>
+          <p>UK</p>
+        </div>
+        <div class="home__rooms">
+          <svg><use xlink:href="../img/sprite.svg#icon-profile-male"</svg>
+          <p>4 rooms</p>
+        </div>
+        <div class="home__area">
+          <svg><use xlink:href="../img/sprite.svg#icon-expand"</svg>
+          <p>250 m<sup>2</sup></p>
+        </div>
+        <div class="home__price">
+          <svg><use xlink:href="../img/sprite.svg#icon-key"</svg>
+          <p>850,000</p>
+        </div>
+
+        <!-- Button - we reuse the style -->
+        <button class="btn home__btn">Contact realtor</button>
+      </div>
+
+      <div class="home">
+        <!-- Img -->
+        <img src="img/house-4.jpeg" alt="House 4" class="home__img" />
+
+        <!-- Icon -->
+        <svg class="home__like">
+          <use xlink:href="../img/sprite.svg#icon-heart-full"
+        </svg>
+
+        <!-- Name of the home  -->
+        <h5 class="home__name">Large Rustical Villa</h5>
+
+        <!-- 4 details -->
+        <div class="home__location">
+          <svg><use xlink:href="../img/sprite.svg#icon-map-pin"</svg>
+          <p>Spain</p>
+        </div>
+        <div class="home__rooms">
+          <svg><use xlink:href="../img/sprite.svg#icon-profile-male"</svg>
+          <p>6 rooms</p>
+        </div>
+        <div class="home__area">
+          <svg><use xlink:href="../img/sprite.svg#icon-expand"</svg>
+          <p>480 m<sup>2</sup></p>
+        </div>
+        <div class="home__price">
+          <svg><use xlink:href="../img/sprite.svg#icon-key"</svg>
+          <p>1,950,000</p>
+        </div>
+
+        <!-- Button - we reuse the style -->
+        <button class="btn home__btn">Contact realtor</button>
+      </div>
+
+      <div class="home">
+        <!-- Img -->
+        <img src="img/house-5.jpeg" alt="House 5" class="home__img" />
+
+        <!-- Icon -->
+        <svg class="home__like">
+          <use xlink:href="../img/sprite.svg#icon-heart-full"
+        </svg>
+
+        <!-- Name of the home  -->
+        <h5 class="home__name">Majestic Palace House</h5>
+
+        <!-- 4 details -->
+        <div class="home__location">
+          <svg><use xlink:href="../img/sprite.svg#icon-map-pin"</svg>
+          <p>Germany</p>
+        </div>
+        <div class="home__rooms">
+          <svg><use xlink:href="../img/sprite.svg#icon-profile-male"</svg>
+          <p>18 rooms</p>
+        </div>
+        <div class="home__area">
+          <svg><use xlink:href="../img/sprite.svg#icon-expand"</svg>
+          <p>4230 m<sup>2</sup></p>
+        </div>
+        <div class="home__price">
+          <svg><use xlink:href="../img/sprite.svg#icon-key"</svg>
+          <p>9,500,000</p>
+        </div>
+
+        <!-- Button - we reuse the style -->
+        <button class="btn home__btn">Contact realtor</button>
+      </div>
+
+      <div class="home">
+        <!-- Img -->
+        <img src="img/house-6.jpeg" alt="House 6" class="home__img" />
+
+        <!-- Icon -->
+        <svg class="home__like">
+          <use xlink:href="../img/sprite.svg#icon-heart-full"
+        </svg>
+
+        <!-- Name of the home  -->
+        <h5 class="home__name">Modern Family Apartment</h5>
+
+        <!-- 4 details -->
+        <div class="home__location">
+          <svg><use xlink:href="../img/sprite.svg#icon-map-pin"</svg>
+          <p>Italy</p>
+        </div>
+        <div class="home__rooms">
+          <svg><use xlink:href="../img/sprite.svg#icon-profile-male"</svg>
+          <p>3 rooms</p>
+        </div>
+        <div class="home__area">
+          <svg><use xlink:href="../img/sprite.svg#icon-expand"</svg>
+          <p>180 m<sup>2</sup></p>
+        </div>
+        <div class="home__price">
+          <svg><use xlink:href="../img/sprite.svg#icon-key"</svg>
+          <p>600,000</p>
+        </div>
+
+        <!-- Button - we reuse the style -->
+        <button class="btn home__btn">Contact realtor</button>
+      </div>
+    </section>
 
     <!-- //////////////////////////////////////////////////////////////////////////////////////////////// -->
 
-    <section class="gallery">Gallery</section>
+    <section class="gallery">
+      <img src="img/gal-1.jpeg" alt="Gallery image 1" class="gallery__img" />
+      <img src="img/gal-2.jpeg" alt="Gallery image 2" class="gallery__img" />
+    </section>
 
     <!-- //////////////////////////////////////////////////////////////////////////////////////////////// -->
 
@@ -262,7 +496,10 @@ Instead we do
 It makes sense because the paragraph is below the icon in the second row, we could move it to where we want but, since the icon is still in the first row only, the height of that entire row is defined by it. 
 If we set the icon to occupy all the rows, the text is moved and the height of the first line is now defined by the h4.
 
-4. Seems common for the row gap to be less than the column gap in these components.
+4. To move the icon a bit to the top, we just need to use translate in y.
+transform: translate(-1rem, 5rem); in both y and x
+
+5. Seems common for the row gap to be less than the column gap in these components.
 row-gap: 1.5rem;
 column-gap: 2.5rem;
 After doing so, you notice that the space between the h4 and the paragraph is much bigger in the components that have less text.
@@ -276,9 +513,167 @@ For this we need to define some new column tracks with auto-fit (it simply creat
 Collapsing means extra space, so it is perfect for using the minmax function.
 grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr)); 25 rem is established by experimentation.
 
+////////////////////////////////////////////////////////
+ 
+STORY SECTION
 
-5. To move the icon a bit to the top, we just need to use translate in y.
-transform: translate(-1rem, 5rem); in both y and x
+CONTENT
+In this section we start with the story content. In there we have an h2, an h3, text and a button.
+
+In the code, the layout is both done with grid and flexbox.
+
+PICTURES
+
+The pictures container is a grid with a background image where we place the other two images on top.
+The grid is going to be 6x6 because we have a background image that we also want to see. So the first and last column, the first and last row are to show that background.
+Like this we have now four columns and four rows for the image in the center. 4/6 of the overall container is for the image in the center, and 2/3 (one third) is the remaining space.
+There must many ways to see the number of columns that we need in these cases, but seems to me that what it actually defines them is the background image, that is what set the minimum size of the columns. 
+There must be a better explanation for this, maybe in the gallery is possible to see. Te more accurate our positioning must be, the higher the number of columns we must have. 
+Here we just have 3, so 6 by 6 must be enough.
+grid-template-rows: repeat(6, 1fr);
+grid-template-columns: repeat(6, 1fr);
+Also notice that after we define the tracks, the images are now in different cells and occupy 100% of their width.
+
+&__img--1 {
+    width: 100%;
+    height: 100%;
+    grid-row: 2 / 6;
+    grid-column: 2 / 6;
+  }
+
+After positioning the first image in the lines, we notice that it does not occupy the entire area that we've set. Normally we just set the width of the image so that the height is calculated according with the aspect ratio.
+
+1. Why images are special and behave differently than other grid items.
+Normally, regular grid items (any div) would fill up their entire grid area. Images do not behave like that because they have an intrinsic aspect (dimensions) ratio associated with them.
+The images always try to maintain the aspect ration that is related with their dimensions, even with the align items property set by default to stretch as we know.
+The solution for this is never to mess with the width, otherwise we ruin the aspect ratio, but if we want the image to be vertically aligned we use align items to center in the grid container.
+Like this they occupy the entire width of the area but maintain the aspect ratio.
+
+As for the second image, we know that we need to move it a bit for the right. We could use a simple translate on the x and move it, however the start would be moved away from the center also, the same would happen if we scaled the image. 
+The best solution is to increase the width of the image in order to occupy a bit more than 100% and then set the z-index to something higher.
+
+3. The third image is a background-image, so don't FORGET that it is not in the html, so the path origin is the style.css, meaning that we must go one level from there in order to enter the images folder.
+background-image: url(../img/back.jpg);
+
+After this we just need to apply some overlay because the colors of the image don't actually fit in our style. We need rgba for the alpha.
+background-image: linear-gradient(
+        rgba($color-primary, 0.5),
+        rgba($color-primary, 0.5)
+      ),
+      url(../img/back.jpg);
+
+1. How to deal with overlapping grid items.
+
+
+3. How to decide if flexbox is a better tool in certain situations.
+
+////////////////////////////////////////////////////////
+ 
+HOMES SECTION
+
+
+Here the technique is quite similar to the features component. We want the number of columns auto-fit, as many as they can fit in the container within a min of 25px and a max of 1fr to be responsive.
+
+After the overall container is set and the markup for each card in done, we can notice that the example has a grid with two columns.
+
+As for the rows, we can let css set them automatically. One more time we can see that it is more frequent to just define the columns, if we set them to be responsive, the rows are implicitly created.
+
+1. How to build a complex component using a mix of css grid properties, overlapping and flexbox.
+
+  1.1 - This part refers to the placing of the heart icon to the upper right corner of the image. We start by moving the element into that grid cell.
+    &__like {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    height: 2.5rem;
+    width: 2.5rem;
+    fill: $color-primary;
+  }
+  With this it actually moved correctly, but since we didn't specify the row in the image, it came to the second one. So we need to specify each time that we want one or more elements in one grid cell.
+      &__img {
+    width: 100%;
+    grid-column: 1 / -1;
+    grid-row: 1 / 2;
+  }
+
+  To make sure that the heart will always be on top of the image, we give both a z-index and place the heart to the end of the grid cell horizontally.
+  justify-self: end;
+
+  1.2 - Now for the name of the house, we know it does not occupy 100% of the width of the parent, so we set it to 80%.
+  To to center horizontally we use justify-self. 
+  In order to move it in the column axis (y) we have two options, we can either use translate and move the element -50% in the y, which leaves us half of a row empty OR we can move the element into the first row and overlap the details.
+
+&__name {
+    font-family: $font-display;
+    font-size: 1.6rem;
+    text-align: center;
+    padding: 1.25rem;
+    background-color: $color-secondary;
+    color: $color-white;
+    font-weight: 400;
+    width: 80%;
+    grid-column: 1 / -1;
+    grid-row: 1 / 2;
+    z-index: 3;
+    justify-self: center;
+    align-self: end;
+    transform: translateY(50%);
+  }
+
+  Moving the element to the first line and then translate it is a better solution, because when we add the gap its reference to move in the y axis is the first row. 
+  We always need to find a way around to make the gaps adequate in both cases, but like this is easier.
+  In our case, the solution is to add some margin to the top of the location and the rooms, so that the space stays more even
+     &__location,
+     &__rooms {
+    margin-top: 2.5rem;
+  }
+
+  The location, rooms, area and price should be placed side by side, so we use flex.
+      
+    &__location,
+  &__rooms,
+  &__area,
+  &__price {
+    font-size: 1.5rem;
+    margin-left: 2rem;
+    display: flex;
+    align-items: center;
+
+    svg {
+      height: 2rem;
+      width: 2rem;
+      fill: $color-primary;
+      margin-right: 1rem;
+    }
+
+    // We don't need the paragraph because the font-size get's inherited from the rule above.
+  }
+
+////////////////////////////////////////////////////////
+ 
+GALLERY SECTION
+
+1. How to create a complex grid-looking gallery.
+
+When creating a grid structure like this, how are we going to select the number of row and column tracks? 
+
+  1.1 - The most important thing to consider is the smallest unit that we want to have in our grid. 
+  That cell is what is going to define the width of the columns and the height of the rows.
+
+  Building the layout always comes through experimentation, we may start with 12 columns and 12 rows but then change to something with less tracks.
+
+  THE BUILD PROCESS
+  -- We start with just one image.
+      <section class="gallery">
+      <img src="img/gal-1.jpeg" alt="Gallery image 1" class="gallery__img" />
+    </section>
+
+  -- Then we work on the gallery file. We already know that we have 8 equally columns with 1fr. However, as for the rows. we know that they are 7 but how about their height? 
+  If we decrease the viewport, we can see that the cells maintain the aspect ratio perfectly. This means that the height is tied to the viewport width.
+  After trial and error, 5% of the viewport's width is the perfect size for the height.
+  The main difficulty is to know why this measure is optimal and why we might affect the aspect ratio of the images.
+
+
+2. Using object-fit together with images for grid-items.
 
 
 
@@ -310,4 +705,14 @@ This is actually what happens, look how the css code stays:
 With mixins it works the other way around, the code would be pasted into each of these selectors.
 
 3. Where and how to use min-content, max-content, auto-fit, auto-fill, minmax function.
+
+4. Helper classes so that the values are not hardcoded on the reusable components. Like this we just add them with margins for ex in the html.
+
+5. Padding with vh and vw, remember that when collapsing the screen the story content left and right margin became too big, so we set vw. As for top and bottom, seems to me that it changes with media queries. Would it be plausible to also set vh?
+
+6. <p>325 m<sup>2</sup></p>
+
+7. How to build galleries, meaning how do we know how to set the height of the rows in order to maintain the aspect ratio. Also see images as grid items. Why use figure element, does object fit resolves the problem?
+
+continue at min 10
  -->

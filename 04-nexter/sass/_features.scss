@@ -6,6 +6,7 @@
   display: grid;
   // grid-template-columns: subgrid;
   // grid-template-columns: repeat(3, 1fr);
+  // Responsive columns in this grid
   grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
   gap: 6rem;
 

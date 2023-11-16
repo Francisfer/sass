@@ -8,14 +8,35 @@
 .heading-1 {
   @extend %heading;
 }
+
+// Styled when building the story content, we can set the font style to italic because we've included it in the html.
+// If confused about this, notice that we have a font-family in the body, here we just set the style of that font to italic, which is possible because it is in the html.
 .heading-2 {
   @extend %heading;
+  font-size: 4rem;
+  font-style: italic;
+  line-height: 1;
+  //Modifiers
+  &--light {
+    color: $color-grey-light-1;
+  }
+  &--dark {
+    color: $color-grey-dark-1;
+  }
 }
+
+// Styled when building the story content
 .heading-3 {
   @extend %heading;
+
+  font-size: 1.6rem;
+  color: $color-primary;
+  text-transform: uppercase;
 }
 
 // Notice the modifier class. We have added it because, although we want to use this h4 around the page, we want the color to be different in some cases.
+// Styled when building the features.
+
 .heading-4 {
   @extend %heading;
   font-size: 1.9rem;
@@ -27,4 +48,45 @@
   &--dark {
     color: $color-grey-dark-1;
   }
+}
+
+/////////////////////////////////////////////////////////
+// He also styled the button here, so the typography is being used also as the components and helper files/folders.
+
+.btn {
+  background-color: $color-primary;
+  border: none;
+  border-radius: 0; // There is some by default
+  color: $color-white;
+
+  font-family: $font-display;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  padding: 1.8rem 3rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  align-self: flex-start; // not necessary if we stay with the display set to grid because we just need to justify items to start
+
+  &:hover {
+    background-color: $color-primary-dark;
+  }
+}
+
+/////////////////////////////////////////////////////////
+// HELPER CLASSES
+
+// The first helpers come from the spacing between the elements in the story. This happens because we need spacing in the elements that are going to be reused all over the page as the h3 h2 and the button.
+// Hardcoding these values would not be a good option because we are going to need them in other situation where they don't apply.
+
+.mb-sm {
+  margin-bottom: 2rem;
+}
+.mb-md {
+  margin-bottom: 3rem;
+}
+.mb-lg {
+  margin-bottom: 4rem;
+}
+.mb-hg {
+  margin-bottom: 8rem;
 }
