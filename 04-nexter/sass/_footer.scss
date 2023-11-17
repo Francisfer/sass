@@ -1,5 +1,46 @@
 .footer {
   background-color: $color-secondary;
   grid-column: full-start / full-end;
-  // grid-row: 4 / 5;
+  padding: 8rem;
+}
+
+.nav {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 2rem;
+  align-items: center;
+
+  &__item {
+  }
+
+  &__link:link,
+  &__link:visited {
+    font-size: 1.4rem;
+    color: $color-white;
+    text-decoration: none;
+    font-family: $font-display;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 1.5rem;
+    display: block; // For the padding to apply
+
+    transition: all 0.2s;
+  }
+
+  &__link:hover,
+  &__link:active {
+    background-color: rgba($color-white, 0.05); // Lighter blue
+    transform: translateY(-3px);
+  }
+}
+
+.copyright {
+  font-size: 1.4rem;
+  color: $color-grey-light-2;
+  width: 70%; // Just to make is a bit shorter, but, to align it vertically we must use the old trick.
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 6rem;
+  text-align: center;
 }
