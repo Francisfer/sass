@@ -11,14 +11,26 @@
         rgba($color-primary, 0.5)
       ),
       url(../img/back.jpg);
+    background-size: cover;
+
+    // Query 3 (span through the entire row and add some padding, basically we want these images to go from the start to the end of the grid)
+    @media only screen and (max-width: $bp-medium) {
+      grid-column: full-start / full-end;
+      padding: 3rem; // Unglue from the margin
+    }
   }
 
   &__img--1 {
     width: 100%;
-    // height: 100%; NEVER
     grid-row: 2 / 6;
     grid-column: 2 / 6;
     box-shadow: 0 2rem 5rem rgba(#000, 0.1);
+
+    // Query 3 (Re placing the images)
+    @media only screen and (max-width: $bp-medium) {
+      grid-column: 1 / 5;
+      grid-row: 1 / -1;
+    }
   }
 
   &__img--2 {
@@ -27,6 +39,12 @@
     grid-column: 4 / 7;
     box-shadow: 0 2rem 5rem rgba(#000, 0.2);
     z-index: 1;
+
+    // Query 3 (Re placing the images)
+    @media only screen and (max-width: $bp-medium) {
+      grid-row: 1 / -1;
+      width: 100%;
+    }
   }
 
   &__content {
@@ -46,6 +64,12 @@
     // grid-template-rows: repeat(4, min-content); wasn't necessary
     align-content: center;
     justify-items: start;
+
+    // Query 3 (span through the entire row and move to the row above)
+    @media only screen and (max-width: $bp-medium) {
+      grid-column: full-start / full-end;
+      grid-row: 5 / 6;
+    }
   }
 
   &__text {

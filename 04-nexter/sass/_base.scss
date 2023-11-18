@@ -16,13 +16,23 @@ $color-white: #fff;
 $font-primary: "Nunito", sans-serif;
 $font-display: "Josefin Sans", sans-serif;
 
+// MEDIA QUERIES - RESPONSIVE BREAKPOINTS
+
+$bp-largest: 75em; // 1200px - 1200 / 16
+$bp-large: 62.5em; // 1000px - 1000 / 16
+$bp-medium: 50em; // 800px - 800 / 16
+
 // GLOBAL SETTINGS
 
 // Reset
-
 html {
   box-sizing: border-box;
   font-size: 62.5%; // 16 / 10 -> 1rem === 10px
+
+  // Query 1
+  @media only screen and (max-width: $bp-largest) {
+    font-size: 50%; // 1rem - 8px
+  }
 }
 
 *,
@@ -52,4 +62,25 @@ body {
     [center-start] repeat(8, [col-start] minmax(min-content, 14rem) [col-end])
     [center-end]
     minmax(6rem, 1fr) [full-end];
+
+  // Query 2 - We need to add a new row and remove the first column. Now the layout is going to start at the full-start line.
+  // As for the row, remember that with this query 1rem is 8px, so 6rem is 48px.
+  // Of course we need to place the side bar in the right place
+  @media only screen and (max-width: $bp-large) {
+    grid-template-rows: 6rem 80vh min-content 40vw repeat(3, min-content);
+    grid-template-columns:
+      [full-start] minmax(6rem, 1fr)
+      [center-start] repeat(8, [col-start] minmax(min-content, 14rem) [col-end])
+      [center-end]
+      minmax(6rem, 1fr) [full-end];
+  }
+
+  // Query 3 - add a new row for the realtors and making the header occupy the entire viewport.
+  // Notice that we need to use the calc function to subtract the 6rem of the 6rem of the sidebar(now at the top)
+  @media only screen and (max-width: $bp-medium) {
+    grid-template-rows: 6rem calc(100vh - 6rem) min-content min-content 40vw repeat(
+        3,
+        min-content
+      );
+  }
 }

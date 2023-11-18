@@ -13,10 +13,15 @@
   padding-top: 4rem;
 
   display: grid;
-  grid-template-rows: 1fr min-content 6rem 1fr;
-  grid-template-columns: max-content; // No line breaks
+  grid-template-rows: 1fr min-content minmax(6rem, min-content) 1fr;
+  grid-template-columns: minmax(min-content, max-content); // No line breaks
   row-gap: 1.5rem;
   justify-content: center;
+
+  // Query 3 - for the header to occupy the entire row
+  @media only screen and (max-width: $bp-medium) {
+    grid-column: full-start / full-end;
+  }
 
   &__btn {
     align-self: start;
@@ -28,12 +33,34 @@
   }
 
   &__seenon-text {
+    font-size: 1.6rem;
+    color: $color-grey-light-2;
+    display: grid;
+    grid-template-columns: 1fr max-content 1fr;
+    align-items: center;
+    justify-content: center;
+    column-gap: 1.5rem;
+
+    &::before,
+    &::after {
+      content: "";
+      height: 1px;
+      display: block;
+      background-color: currentColor;
+    }
   }
 
   &__seenon-logos {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 3rem;
+    justify-items: center;
+    align-items: center;
     img {
       // They should all have the same height, because it looks better, they are side by side. if we set the width the different heights would look weird.
-      height: 2.5rem;
+      max-height: 2.5rem;
+      max-width: 100%;
+      filter: brightness(70%);
     }
   }
 }

@@ -39,7 +39,28 @@
 
     <!-- //////////////////////////////////////////////////////////////////////////////////////////////// -->
 
-    <div class="realtors">Top 3 realtors</div>
+    <div class="realtors">
+      <h3 class="heading-3">Top 3 realtors</h3>
+      <div class="realtors__list">
+        <img src="img/realtor-1.jpeg" alt="Realtor 1" class="realtors__img" />
+        <div class="realtors__details">
+          <h4 class="heading-4 heading-4--light">Erik Feinman</h4>
+          <p class="realtors__sold">245 houses sold</p>
+        </div>
+
+        <img src="img/realtor-2.jpeg" alt="Realtor 2" class="realtors__img" />
+        <div class="realtors__details">
+          <h4 class="heading-4 heading-4--light">Kim Brown</h4>
+          <p class="realtors__sold">212 houses sold</p>
+        </div>
+
+        <img src="img/realtor-3.jpeg" alt="Realtor 3" class="realtors__img" />
+        <div class="realtors__details">
+          <h4 class="heading-4 heading-4--light">Toby Ramsey</h4>
+          <p class="realtors__sold">198 houses sold</p>
+        </div>
+      </div>
+    </div>
 
     <!-- //////////////////////////////////////////////////////////////////////////////////////////////// -->
 
@@ -828,18 +849,78 @@ This is a component that can be compared with the stories content, they are both
   As we know, we cannot really style the gaps, so, in order to give some space after some row, we need to increase the row size.
   In the section stories we added margin to solve this problem with the rows set to auto(auto outside of a min-max function is min-content - allows wrapping).
   Now, say that we want to add some space between the 3rd and the 4th row (h1 and the button), we use min-content on the second and add a fixed height on the third instead of a margin.
-    grid-template-rows: 1fr max-content 6rem 1fr;
+    grid-template-rows: 1fr min-content 6rem 1fr;
 
   1.2 - Again we need to use a modifier to the button to justify and align it.
-  &__btn {
+    &__btn {
     align-self: start;
     justify-self: start;
   }
 
+  1.3 - Now for the seen on logos, we are also use a grid to position these icons. It is much easier than use flexbox because we avoid using the margin right in all except the last one.
+  We create 4 equally sized columns and the justify-items to center.
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 3rem;
+    justify-items: center;
+
+  To make the images darker we use a filter:
+  filter: brightness(70%);
+
 
 2. How to use ::before and ::after as grid items.
+As for the seen on text we are also going to use a grid. Although we don't even have grid items, setting the display to grid makes it so that even text can be treated as a grid item, also, pseudo elements can also be treated as grid items.
+
+  2.1 - After we set the before and after pseudo elements we can see that the grid now have more lines (4). By default, CSS always places the it's items in rows, but we want columns of course. In this case we want to size the columns, but don't forget that if we want the grid to add the items in columns instead of rows we use grid-auto-flow: column;
+  We want 1fr max-content 1fr
+  &__seenon-text {
+    font-size: 1.6rem;
+    color: $color-grey-light-2;
+    display: grid;
+    grid-template-columns: 1fr max-content 1fr;
+    align-items: center;
+    justify-content: center;
+    column-gap: 1.5rem;
 
 
+////////////////////////////////////////////////////////
+ 
+REALTORS SECTION
+
+The difference between the realtors and the header is that, in the header, we declared the entire head element as the grid container. In the realtors we will have the grid inside of a container because we don't want the h3 inside of the grid.
+
+The row gap is set to 5% of the viewport height because if we set it to a fixed height it's gonna be bad in huge viewport's. 5% seems to be the rule of thumb.
+
+////////////////////////////////////////////////////////
+ 
+MEDIA QUERIES
+
+1. The first thing that we notice is that, in the header, the content starts overflowing other parts. 
+This happens because we set the height of the images(icons from the companies) to the fixed value of 2.5rem.
+To fix this problem we need to use a responsive unit. We use max-height to say that it is 2.5rem but can be less and we also need to specify the width with the same technique, saying that it can be 100% but it can be less, otherwise it will not scale properly.
+
+This is not enough though, as we know, we set the column of the header to have the width of max-content, so it does not wrap.
+To fix this we need to use the minmax function
+ grid-template-columns: minmax(min-content, max-content);
+Other problems where created, the logos do not have the same size, so one start to shrink before others, we need to align them vertically.
+The other problem is that we've specified a fixed height to the h1 row. Again we use minmax but, now the max is the min content.
+grid-template-rows: 1fr min-content minmax(6rem, min-content) 1fr;
+
+2. There are some problems that can be fixed with this resetting of units in the rows or columns, but others require media queries.
+For this, we are going to use the same technique of decreasing the viewport and make changes at the width that is necessary.
+
+    2.1 - At 1200px everything starts to be a bit crammed, so it's time to decrease the font-size to buy us some more space.
+
+    2.2 - At 1000px, everything looks good, but we start to have less space in the realtors, so we can change the sidebar.
+    This is also where we see the power of grids, to move the sidebar to the top we just need to change the grid definitions.
+
+    2.3 - In the third media query we will place the realtors after the header and also the story one after another.
+    First we create a new row after the header with the calc function.
+    The header just needs to change the columns 1 / -1.
+    The realtors get pushed to the correct line so we also expand it.
+    The tricky part was to make them side by side, as it seems obvious we need more columns if we just want a row. The sizing remains the same, min for the photo and max for the details.
+
+    As for the story,
 
 ////////////////////////////////////////////////////////
 
@@ -868,7 +949,8 @@ This is actually what happens, look how the css code stays:
 
 With mixins it works the other way around, the code would be pasted into each of these selectors.
 
-3. Where and how to use min-content, max-content, auto-fit, auto-fill, minmax function.
+3. Where and how to use min-content, max-content, auto-fit, auto-fill, minmax function. When doing the media queries, some problems can be fixed with the minmax function for sizing the rows and the columns. Remember that we wanted the h1 to be max-content as the max width, but the min should be min-content in order to allow wrapping when decreasing the viewport.
+Also for the rows, when we want some space between a row and another we set a fixed height, but when we decrease the viewport and the content wraps we what it to be min-content.
 
 4. Helper classes so that the values are not hardcoded on the reusable components. Like this we just add them with margins for ex in the html.
 
@@ -892,6 +974,21 @@ With mixins it works the other way around, the code would be pasted into each of
   background-size: cover;
   background-position: center;
 
+11. Filter to make images darker, among other things.
+
+12. 
+Desktop first approach uses max-width because applies changes below the max-width.
+
+If something is not right at a certain width, he does the media query at 100px more. The last point where it still looks good.
+
+Regular breakpoints: 1200px (75em)
+                     1000px (62.5em) not so common
+
+Regular font-size changes: 62.5% - 1rem - 10px
+                           50% - 1rem - 8px
+
+13. The property where we set the beginning of a rotate or a translate. It is when we built a button with pseudo elements somewhere in the course.
 
 
+min 12
  -->

@@ -1,4 +1,50 @@
 .realtors {
   background-color: $color-secondary;
   grid-column: col-start 7 / full-end;
+  padding: 3rem;
+
+  // Everything centered
+  display: grid;
+  align-content: center;
+  justify-content: center;
+  row-gap: 2rem;
+  justify-items: center;
+  align-items: center;
+
+  // Query 3 - It is already in the row because we expanded the header, now we just expand it.
+  @media only screen and (max-width: $bp-medium) {
+    grid-column: full-start / full-end;
+  }
+
+  &__list {
+    display: grid;
+    grid-template-columns: min-content max-content;
+    column-gap: 2rem;
+    row-gap: 5vh; // 5% - Thinking about big viewport's
+    align-items: center;
+    align-content: center;
+
+    // Query 3 - first (defining the columns, notice that we can put more that one track (column) in the repeat function, like this we end up with 6 columns)
+
+    @media only screen and (max-width: $bp-medium) {
+      grid-template-columns: repeat(3, min-content max-content);
+    }
+  }
+
+  &__img {
+    width: 7rem;
+    // height: 7rem;
+    // object-fit: cover;
+    border-radius: 50%;
+    display: block;
+  }
+
+  &__details {
+  }
+
+  &__sold {
+    text-transform: uppercase;
+    color: $color-grey-light-2;
+    margin-top: -3px;
+  }
 }
