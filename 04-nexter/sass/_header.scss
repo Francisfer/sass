@@ -23,6 +23,11 @@
     grid-column: full-start / full-end;
   }
 
+  // Query 4 (removing the padding)
+  @media only screen and (max-width: $bp-small) {
+    padding: 5rem;
+  }
+
   &__btn {
     align-self: start;
     justify-self: start;

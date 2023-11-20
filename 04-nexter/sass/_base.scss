@@ -22,6 +22,9 @@ $bp-largest: 75em; // 1200px - 1200 / 16
 $bp-large: 62.5em; // 1000px - 1000 / 16
 $bp-medium: 50em; // 800px - 800 / 16
 
+$bp-small: 37.5em; // 600px - 600 / 16
+// As for this last query, we only need to style the rows that are defined by us, the rest already responds to min content.
+
 // GLOBAL SETTINGS
 
 // Reset
@@ -77,10 +80,17 @@ body {
 
   // Query 3 - add a new row for the realtors and making the header occupy the entire viewport.
   // Notice that we need to use the calc function to subtract the 6rem of the 6rem of the sidebar(now at the top)
+  // We also changed the story row from vw to min-size, so that the content defines the height. Like this its still responsive and no longes depends of the width of the viewport.
+  // Notice that we have a lot of rows defined with min-content, we don't need that code because the implicit grid adds the rows set to min content.
+  // We are now just sizing the first two rows, the sidebar and the header, the rest is defined implicitly with the content defining the height.
+
+  // @media only screen and (max-width: $bp-medium) {
+  //   grid-template-rows: 6rem calc(100vh - 6rem) min-content min-content min-content repeat(
+  //       3,
+  //       min-content
+  //     );
+  // }
   @media only screen and (max-width: $bp-medium) {
-    grid-template-rows: 6rem calc(100vh - 6rem) min-content min-content 40vw repeat(
-        3,
-        min-content
-      );
+    grid-template-rows: 6rem calc(100vh - 6rem);
   }
 }
